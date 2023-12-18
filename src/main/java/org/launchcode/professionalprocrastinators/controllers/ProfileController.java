@@ -20,3 +20,4 @@ public class ProfileController {
 }
 // TODO: Create a way to fetch user data to use in viewProfile Method
 // TODO: Update Controller
+// TODO: Create a handler for errors
