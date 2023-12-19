@@ -1,11 +1,11 @@
-package main.java.org.launchcode.professionalprocrastinators.controllers;
+package org.launchcode.professionalprocrastinators.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class UserAuthentication {
-    private static Map<String, String> userDatabase = new HashMap<>();
+    private static final Map<String, String> userDatabase = new HashMap<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
