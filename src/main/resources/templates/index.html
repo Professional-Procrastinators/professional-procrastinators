@@ -12,6 +12,10 @@
 
 <div class="container body-content">
     <h2>My Vacations</h2>
+        <div>
+            <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
+            <a th:href="@{'/add-vacation'}">Add Vacations</a>
+        </div>
     <ul>
         <li th:each="vacation: ${vacations}">
             //add link that will populate vacation data of selected vacation on index page?

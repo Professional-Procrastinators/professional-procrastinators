@@ -11,4 +11,9 @@ public class HomeController {
 
     return "index";
     }
+
+    @GetMapping(value= "add-vacation")
+    public String displayAddVacationForm(Model model) {
+        return "add-vacation";
+    }
 }
