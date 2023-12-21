@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vacation</title>
+</head>
+<body>
+
+<h1> Add Vacation </h1>
+
+<form method ="post" style="max-width:600px;">
+    <div class="form-group">
+        <label th:for="city">City</label>
+        <input class="form-control" th:field="${vacation.city}"/>
+        <span th:errors="${vacation.city}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="country">Country</label>
+        <input class="form-control" th:field="${vacation.country}"/>
+        <span th:errors="${vacation.country}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="state">State or Province</label>
+        <input class="form-control" th:field="${vacation.state}"/>
+    </div>
+
+    <input type="submit" value="Add Vacation" />
+</form>
+
+</body>
+</html>
