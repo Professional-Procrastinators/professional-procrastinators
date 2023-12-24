@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Vacations</title>
-</head>
-
+<head th:replace="~{fragments :: head}"></head>
 <body>
 
-<!--TO-DO: Add nav-bar-->
+<nav th:replace="~{fragments :: header}"></nav>
 
 <div class="container body-content">
     <h2>My Vacations</h2>
@@ -20,7 +16,6 @@
                 </thead>
                 <tr th:each="vacation: ${vacations}">
                     <td th:text="${vacation.city}"></td>
-<!--                    add link that will populate vacation data of selected vacation on index page?-->
                 </tr>
             </table>
 
@@ -43,12 +38,8 @@
 
 <!-- TO-DO: Add Spotify API-->
 
-<div>
-
 <!--TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)-->
 
-    <p>We will add our APIs and destination info here!</p>
-</div>
 
 </body>
 </html>

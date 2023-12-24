@@ -29,8 +29,8 @@ public class HomeController {
     }
 
     @PostMapping("add-vacation")
-    public String processAddVacationForm(@RequestParam String vacationName){
-        vacations.add(new Vacation(vacationName));
+    public String processAddVacationForm(@RequestParam String vacationName, String vacationCountry, String vacationState){
+        vacations.add(new Vacation(vacationName, vacationCountry, vacationState));
         return "redirect:";
     }
 }

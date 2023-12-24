@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title>Nomad Nirvana</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div th:fragment="header" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">Nomad Nirvana</a>
+        </div>
+                <ul class="navbar navbar-nav">
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">My Profile</a></li>
+                    <li><a href="/add-vacation">Add Vacation</a></li>
+                </ul>
+            </div>
+</div>
+
+
+</body>
+</html>
