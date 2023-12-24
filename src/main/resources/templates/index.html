@@ -12,15 +12,21 @@
 
 <div class="container body-content">
     <h2>My Vacations</h2>
-        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vacations</th>
+                    </tr>
+                </thead>
+                <tr th:each="vacation: ${vacations}">
+                    <td th:text="${vacation.city}"></td>
+<!--                    add link that will populate vacation data of selected vacation on index page?-->
+                </tr>
+            </table>
+
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
             <a th:href="@{'/add-vacation'}">Add Vacations</a>
-        </div>
-    <ul>
-        <li th:each="vacation: ${vacations}">
-            //add link that will populate vacation data of selected vacation on index page?
-        </li>
-    </ul>
+
 </div>
 
 <!--TO-DO: Add favorite/like functionality-->
@@ -41,7 +47,7 @@
 
 <!--TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)-->
 
-    <p>If you are seeing this, the page is working :)</p>
+    <p>We will add our APIs and destination info here!</p>
 </div>
 
 </body>
