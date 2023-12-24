@@ -3,7 +3,12 @@ package org.launchcode.professionalprocrastinators.models;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
+
 public class Vacation {
+
+    private int id;
+    private static int nextId = 1;
 
     @NotNull
     private String city;
@@ -12,6 +17,26 @@ public class Vacation {
     private String country;
 
     private String state;
+
+    private Date vacationDate;
+
+    @Override
+    public String toString() {
+        return "Vacation{" +
+                "city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", vacationDate=" + vacationDate +
+                '}';
+    }
+
+    public Date getVacationDate() {
+        return vacationDate;
+    }
+
+    public void setVacationDate(Date vacationDate) {
+        this.vacationDate = vacationDate;
+    }
 
     public String getState() {
         return state;
@@ -36,14 +61,16 @@ public class Vacation {
         this.city = city;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Vacation(String city, String country, String state) {
         this.city = city;
         this.country=country;
         this.state= state;
+        this.id = nextId;
+        nextId++;
     }
 
-    @Override
-    public String toString() {
-        return city;
-    }
 }
