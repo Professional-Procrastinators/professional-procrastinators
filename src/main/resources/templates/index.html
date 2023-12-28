@@ -31,9 +31,9 @@
 <!--TO-DO: Add dropdown select for vacations-->
 
 <!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
-<p id="countdownTimer" th:if="${dateInput}"></p>
+<p id="vacationCountdown" th:if="${dateInput}"></p>
 
-<form method="post" style= "container" id="vacationCountdown" th:if="${dateInput == null} and ${vacations.size()}">
+<form method="post" style= "container" id="vacationCountdownForm" th:if="${dateInput == null} and ${vacations.size()}">
     <label for="dateInput">Please enter the date of your vacation: </label>
     <input type="datetime-local" id="dateInput" name="vacationDate">
 

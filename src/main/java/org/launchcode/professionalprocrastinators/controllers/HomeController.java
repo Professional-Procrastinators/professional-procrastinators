@@ -1,6 +1,8 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import org.launchcode.professionalprocrastinators.data.VacationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,33 +10,34 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
 
-    private static List<Vacation> vacations = new ArrayList<>();
+    @Autowired
+    private VacationRepository vacationRepository;
+    //private static List<Vacation> vacations = new ArrayList<>();
 
     @GetMapping(value = "/")
     public String index(Model model) {
-    model.addAttribute("title", "My Vacations");
-    model.addAttribute("vacations", vacations);
-    return "index";
+        model.addAttribute("title", "My Vacations");
+        model.addAttribute("vacations", vacationRepository.findAll());
+        return "index";
     }
 
 
     @PostMapping("/")
     public String processVacationCountdown(@RequestParam LocalDateTime vacationDate,
-                                           @RequestParam Vacation selectedVacation){
-        selectedVacation.setVacationDate(vacationDate);
+                                           @RequestParam Integer selectedVacation) {
+        Vacation vacation= vacationRepository.findById(selectedVacation).orElse(new Vacation());
+        vacation.setVacationDate(vacationDate);
         return "redirect:";
     }
 
-    @GetMapping(value= "add-vacation")
+    @GetMapping(value = "add-vacation")
     public String displayAddVacationForm(Model model) {
         model.addAttribute("title", "Add Vacation");
         return "add-vacation";
@@ -43,9 +46,28 @@ public class HomeController {
     @PostMapping("add-vacation")
     public String processAddVacationForm(@RequestParam String vacationName,
                                          @RequestParam String vacationCountry,
-                                         @RequestParam(required= false) String vacationState){
+                                         @RequestParam(required = false) String vacationState) {
 
-        vacations.add(new Vacation(vacationName, vacationCountry, vacationState));
+        vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState));
         return "redirect:";
     }
+
+    @GetMapping("delete-vacation")
+    public String displayDeleteVacationForm(Model model) {
+        model.addAttribute("title", "Delete Vacation");
+        model.addAttribute("vacations", vacationRepository.findAll());
+        return "/delete-vacation";
+    }
+
+    @PostMapping("delete-vacation")
+    public String processDeleteVacationForm(@RequestParam(required = false) int[] vacationIds) {
+
+        if (vacationIds != null) {
+            for (int id : vacationIds) {
+                vacationRepository.deleteById(id);
+            }
+        }
+        return "redirect:/";
+    }
 }
+

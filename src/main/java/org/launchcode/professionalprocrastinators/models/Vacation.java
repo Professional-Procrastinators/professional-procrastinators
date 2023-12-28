@@ -1,19 +1,22 @@
 package org.launchcode.professionalprocrastinators.models;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 
+@Entity
 public class Vacation {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
-    @NotNull
     private String city;
 
-    @NotNull
     private String country;
 
     private String state;
@@ -69,8 +72,8 @@ public class Vacation {
         this.city = city;
         this.country=country;
         this.state= state;
-        this.id = nextId;
-        nextId++;
     }
+
+    public Vacation() {}
 
 }

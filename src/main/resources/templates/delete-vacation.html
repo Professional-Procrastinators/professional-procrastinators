@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<nav th:replace="~{fragments :: header}"></nav>
+
+<div class="container">
+    <h1> Delete Vacation </h1>
+    <form method="post" style="max-width:600 px">
+        <th:block th:each="vacation : ${vacationRepository}">
+            <div class="form-group">
+                <label>
+                    <span th:text="${vacation.city}"></span>
+                    <input type="checkbox" name="vacationIds" th:value="${vacation.id}" class="form-control">
+                </label>
+            </div>
+        </th:block>
+
+        <input type="submit" value="Delete Selected Vacations" class="btn btn-danger">
+    </form>
+
+</div>
+
+</body>
+</html>
