@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Add Vacation</title>
-</head>
+<head th:replace="~{fragments :: head}"></head>
+
 <body>
+<nav th:replace="~{fragments :: header}"></nav>
 
-<h1> Add Vacation </h1>
+<!-- TO:DO- Edit form once database is set up!-->
 
-<form method ="post" style="max-width:600px;">
-    <div class="form-group">
-        <label th:for="city">City</label>
-        <input class="form-control" th:field="${vacation.city}"/>
-        <span th:errors="${vacation.city}" class="error"></span>
-    </div>
+<div class="container">
+    <h1> Add Vacation </h1>
+<form method="post" style="max-width:600 px">
+    <label for="city">City</label>
+    <input type="text" id="city" name="vacationName"><br>
 
-    <div class="form-group">
-        <label th:for="country">Country</label>
-        <input class="form-control" th:field="${vacation.country}"/>
-        <span th:errors="${vacation.country}" class="error"></span>
-    </div>
+    <label for="country">Country</label>
+    <input type="text" id="country" name="vacationCountry"></br>
 
-    <div class="form-group">
-        <label th:for="state">State or Province</label>
-        <input class="form-control" th:field="${vacation.state}"/>
-    </div>
+    <label for="state">State or Province</label>
+    <input type="text" id="state" name="vacationState"><br><br>
 
-    <input type="submit" value="Add Vacation" />
+<!--    <label for="date">If known, when are you going? </label>-->
+<!--    <input type="date" id="date" name="vacationDate">-->
+<!--    <p>Will this vacation be public or private?</p>-->
+<!--        <input type="radio" id="public" name="public">-->
+<!--        <label for="public">Public</label><br>-->
+<!--        <input type="radio" id="private" name="private">-->
+<!--        <label for="private">Private</label><br>-->
+
+    <input type="submit" value="Add Vacation">
 </form>
+</div>
+
+
+<!--<form method ="post" style="max-width:600px;">-->
+<!--    <div class="form-group">-->
+<!--        <label th:for="city">City</label>-->
+<!--        <input class="form-control" th:field="${vacation.city}"/>-->
+<!--        <span th:errors="${vacation.city}" class="error"></span>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--        <label th:for="country">Country</label>-->
+<!--        <input class="form-control" th:field="${vacation.country}"/>-->
+<!--        <span th:errors="${vacation.country}" class="error"></span>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--        <label th:for="state">State or Province</label>-->
+<!--        <input class="form-control" th:field="${vacation.state}"/>-->
+<!--    </div>-->
+
+<!--    <input type="submit" value="Add Vacation" />-->
+<!--</form>-->
 
 </body>
 </html>
