@@ -14,7 +14,7 @@ public class ProfileController {
     @GetMapping
     public String viewProfile(@ModelAttribute Model model) {
 
-        model.addAttribute("user", user);
+        //model.addAttribute("user", user);
         return "profile";
     }
 }

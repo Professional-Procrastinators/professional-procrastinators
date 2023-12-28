@@ -1,5 +1,6 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +25,13 @@ public class HomeController {
     return "index";
     }
 
-    //Will add a handler for the vacation date once database is set up.
-//    @PostMapping("/")
-//    public String processVacationCountdown(@RequestParam Date dateInput, String selectedVacation){
-//        vacations.indexOf(selectedVacation)
-//    }
+
+    @PostMapping("/")
+    public String processVacationCountdown(@RequestParam("vacationDate") @DateTimeFormat(pattern= "MM-DD-YYYY") Date vacationDate,
+                                           @RequestParam Vacation selectedVacation){
+        selectedVacation.setVacationDate(vacationDate);
+        return "redirect:";
+    }
 
     @GetMapping(value= "add-vacation")
     public String displayAddVacationForm(Model model) {
