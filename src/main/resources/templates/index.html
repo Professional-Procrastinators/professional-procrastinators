@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Vacations</title>
-</head>
-
+<head th:replace="~{fragments :: head}"></head>
 <body>
 
-//TO-DO: Add nav-bar
+<nav th:replace="~{fragments :: header}"></nav>
 
 <div class="container body-content">
     <h2>My Vacations</h2>
-    <ul>
-        <li th:each="vacation: ${vacations}">
-            //add link that will populate vacation data of selected vacation on index page?
-        </li>
-    </ul>
-</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vacations</th>
+                    </tr>
+                </thead>
+                <tr th:each="vacation: ${vacations}">
+                    <td th:text="${vacation.city}"></td>
+                </tr>
+            </table>
 
-//TO-DO: Add favorite/like functionality
+            <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
+            <a th:href="@{'/add-vacation'}">Add Vacations</a>
 
-//TO-DO: Add number of likes
+</div> <br><br>
 
-//TO-DO: Add dropdown select for vacations
+<!--TO-DO: Add favorite/like functionality-->
 
-// TO-DO: Add countdown
+<!--TO-DO: Add number of likes-->
 
-// TO-DO: Add weather API
+<!--TO-DO: Add dropdown select for vacations-->
 
-// TO-DO: Add local time API
+<!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
+<form method="post" style= "container" id="vacationCountdown" th:if="${dateInput == null} and ${vacations.size()}">
+    <label for="dateInput">Please enter the date of your vacation: </label>
+    <input type="date" id="dateInput">
 
-// TO-DO: Add Spotify API
+    <p> Where will you be going? </p>
 
-<div>
+    <div class="form-group">
+        <th:block th:each="vacation : ${vacations}">
+            <input type="radio" name="selectedVacation" th:value="${vacation.city}">
+            <label th:text="${vacation.city}"></label><br>
+        </th:block>
+    </div><br>
+    <button type="submit">Create Vacation Countdown</button>
+</form>
 
-//TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)
-<p>If you are seeing this, the page is working :)</p>
-</div>
+
+<!-- TO-DO: Add weather API-->
+
+<!-- TO-DO: Add local time API-->
+
+<!-- TO-DO: Add Spotify API-->
+
+<!--TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)-->
+
 
 </body>
 </html>
