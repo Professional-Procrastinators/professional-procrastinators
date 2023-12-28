@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class HomeController {
 
 
     @PostMapping("/")
-    public String processVacationCountdown(@RequestParam("vacationDate") @DateTimeFormat(pattern= "MM-DD-YYYY") Date vacationDate,
+    public String processVacationCountdown(@RequestParam LocalDateTime vacationDate,
                                            @RequestParam Vacation selectedVacation){
         selectedVacation.setVacationDate(vacationDate);
         return "redirect:";

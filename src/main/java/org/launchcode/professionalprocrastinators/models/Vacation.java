@@ -3,7 +3,7 @@ package org.launchcode.professionalprocrastinators.models;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Vacation {
 
@@ -18,7 +18,7 @@ public class Vacation {
 
     private String state;
 
-    private Date vacationDate;
+    private LocalDateTime vacationDate;
 
     @Override
     public String toString() {
@@ -30,11 +30,11 @@ public class Vacation {
                 '}';
     }
 
-    public Date getVacationDate() {
+    public LocalDateTime getVacationDate() {
         return vacationDate;
     }
 
-    public void setVacationDate(Date vacationDate) {
+    public void setVacationDate(LocalDateTime vacationDate) {
         this.vacationDate = vacationDate;
     }
 

@@ -35,7 +35,7 @@
 
 <form method="post" style= "container" id="vacationCountdown" th:if="${dateInput == null} and ${vacations.size()}">
     <label for="dateInput">Please enter the date of your vacation: </label>
-    <input type="date" id="dateInput" name="vacationDate">
+    <input type="datetime-local" id="dateInput" name="vacationDate">
 
     <p> Where will you be going? </p>
 
