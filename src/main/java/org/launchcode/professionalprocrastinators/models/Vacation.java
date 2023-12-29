@@ -23,6 +23,16 @@ public class Vacation {
 
     private LocalDateTime vacationDate;
 
+    private String visibility;
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
     @Override
     public String toString() {
         return "Vacation{" +
@@ -68,10 +78,12 @@ public class Vacation {
         return id;
     }
 
-    public Vacation(String city, String country, String state) {
+    public Vacation(String city, String country, String state, LocalDateTime vacationDate, String visibility) {
         this.city = city;
         this.country=country;
         this.state= state;
+        this.vacationDate=vacationDate;
+        this.visibility=visibility;
     }
 
     public Vacation() {}
