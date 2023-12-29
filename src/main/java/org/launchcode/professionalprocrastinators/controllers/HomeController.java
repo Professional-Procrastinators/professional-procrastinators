@@ -1,18 +1,14 @@
 package org.launchcode.professionalprocrastinators.controllers;
-
 import org.launchcode.professionalprocrastinators.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 @Controller
 public class HomeController {
@@ -63,22 +59,6 @@ public class HomeController {
         model.addAttribute("vacations", vacationRepository.findAll());
         return "/edit-vacation";
     }
-
-//    @PostMapping("edit-vacation")
-//    public String processVacationSelectionToEdit(Model model, @RequestParam int selectedVacation) {
-//
-//        model.addAttribute("editedVacation", vacationRepository.findById(selectedVacation));
-//
-//        return ("/edit-input");
-//
-//        }
-
-//        @GetMapping("edit-input")
-//        public String displayNextPageEditVacation(Model model) {
-//            model.addAttribute("title", "Edit Vacation");
-//            //model.addAttribute("editedVacation", editedVacation);
-//            return "redirect:/";
-//        }
 
         @PostMapping("edit-vacation")
         public String processEditVacationForm(@RequestParam int selectedVacation,
