@@ -64,44 +64,51 @@ public class HomeController {
         return "/edit-vacation";
     }
 
-    @PostMapping("edit-vacation")
-    public String processVacationSelectionToEdit(Model model, @RequestParam int selectedVacation) {
+//    @PostMapping("edit-vacation")
+//    public String processVacationSelectionToEdit(Model model, @RequestParam int selectedVacation) {
+//
+//        model.addAttribute("editedVacation", vacationRepository.findById(selectedVacation));
+//
+//        return ("/edit-input");
+//
+//        }
 
-        model.addAttribute("editedVacation", vacationRepository.findById(selectedVacation));
-        return ("/edit-input");
+//        @GetMapping("edit-input")
+//        public String displayNextPageEditVacation(Model model) {
+//            model.addAttribute("title", "Edit Vacation");
+//            //model.addAttribute("editedVacation", editedVacation);
+//            return "redirect:/";
+//        }
 
-        }
-
-        @GetMapping("edit-input")
-        public String displayNextPageEditVacation(Model model) {
-            model.addAttribute("title", "Edit Vacation");
-            model.addAttribute("editedVacation", editedVacation);
-            return "redirect:/";
-        }
-
-        @PostMapping("edit-input")
-        public String processEditVacationForm(@RequestParam (required = false) String vacationName,
+        @PostMapping("edit-vacation")
+        public String processEditVacationForm(@RequestParam int selectedVacation,
+                                              @RequestParam (required = false) String vacationName,
                                               @RequestParam (required = false) String vacationCountry,
                                               @RequestParam (required = false) String vacationState,
                                               @RequestParam (required = false) LocalDateTime vacationDate,
                                               @RequestParam String visibility) {
+
+            Vacation editedVacation= vacationRepository.findById(selectedVacation).orElse(new Vacation());
+
             if (vacationName != null){
-                selectedVacation.setCity(vacationName);
+                editedVacation.setCity(vacationName);
             }
 
             if (vacationCountry != null){
-                selectedVacation.setCountry(vacationCountry);
+                editedVacation.setCountry(vacationCountry);
             }
 
             if (vacationState != null){
-                selectedVacation.setState(vacationState);
+                editedVacation.setState(vacationState);
             }
 
             if (vacationDate != null) {
-                selectedVacation.setVacationDate(vacationDate);
+                editedVacation.setVacationDate(vacationDate);
             }
 
-            selectedVacation.setVisibility(visibility);
+            editedVacation.setVisibility(visibility);
+
+            vacationRepository.save(editedVacation);
 
             return "redirect:/";
         }
