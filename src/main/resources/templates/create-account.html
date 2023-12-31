@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Nomad Nirvana</title>
@@ -7,8 +7,9 @@
 <body>
     <div>
         <h1>Login:</h1>
-        <label>Email or Username:<input type="text" name="username"/></label>
+        <label>Email or Username:<input type="text" name="userNameOrEmail"/></label>
         <label>Password:<input type="password" name="userPassword"/></label>
+        <label>Confirm Password:<input type="password" name="userConfirmPassword"/></label>
         <input type="submit">
     </div>
 </body>
