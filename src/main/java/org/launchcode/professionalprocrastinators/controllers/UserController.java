@@ -19,9 +19,10 @@ public class UserController {
         return ":redirect";
     }
 
-    @GetMapping(value = "/login/create_account")
+    @GetMapping(value = "/create_account")
     public String createAccountProcessFrom(Model model) {
         return "create-account";
     }
+
 
 }
