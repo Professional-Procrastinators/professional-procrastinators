@@ -1,5 +1,8 @@
 package org.launchcode.professionalprocrastinators.models;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Profile {
 }
 
