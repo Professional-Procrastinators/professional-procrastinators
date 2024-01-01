@@ -4,6 +4,8 @@ package org.launchcode.professionalprocrastinators.controllers;
 import ch.qos.logback.core.model.Model;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.Vacation;
+import org.launchcode.professionalprocrastinators.models.data.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
-
+    @Autowired
+    private UserRepository userRepository;
     private static List<User> user = new ArrayList<>();
     @GetMapping
     public String viewProfile(@ModelAttribute Model model) {
