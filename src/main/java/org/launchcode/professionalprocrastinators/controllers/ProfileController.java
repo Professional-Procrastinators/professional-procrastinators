@@ -25,7 +25,7 @@ public class ProfileController {
     @CrossOrigin(origins = "http://localhost:3000")
     public String viewProfile(@ModelAttribute Model model) {
 
-        model.addAttribute("user", user);
+        //model.addAttribute("user", user);
         return "profile";
     }
 }
