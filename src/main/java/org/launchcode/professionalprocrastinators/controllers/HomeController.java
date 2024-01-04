@@ -4,6 +4,7 @@ import org.launchcode.professionalprocrastinators.models.data.VacationRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ public class HomeController {
     private static List<Vacation> vacations = new ArrayList<>();
 
     @GetMapping(value = "/")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String index(Model model) {
     model.addAttribute("title", "My Vacations");
     model.addAttribute("vacations", vacations);
@@ -33,12 +35,14 @@ public class HomeController {
 //    }
 
     @GetMapping(value= "add-vacation")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String displayAddVacationForm(Model model) {
         model.addAttribute("title", "Add Vacation");
         return "add-vacation";
     }
 
     @PostMapping("add-vacation")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String processAddVacationForm(@RequestParam String vacationName,
                                          @RequestParam String vacationCountry,
                                          @RequestParam(required= false) String vacationState){
@@ -47,3 +51,5 @@ public class HomeController {
         return "redirect:";
     }
 }
+//TODO: Create Like button
+//TODO: Link Weather API and write code to use it
