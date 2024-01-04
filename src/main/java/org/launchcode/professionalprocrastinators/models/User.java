@@ -14,3 +14,6 @@ public class User {
 
 }
 
+//TODO: Set up user information variables, with getters and setters
+//TODO: How to connect SQL URL with React URL @CrossOrigin?
+
