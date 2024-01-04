@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Vacation {
@@ -15,16 +15,23 @@ public class Vacation {
     @GeneratedValue
     private int id;
 
-
-    @NotNull
     private String city;
 
-    @NotNull
     private String country;
 
     private String state;
 
-    private Date vacationDate;
+    private LocalDateTime vacationDate;
+
+    private String visibility;
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
 
     @Override
     public String toString() {
@@ -36,11 +43,11 @@ public class Vacation {
                 '}';
     }
 
-    public Date getVacationDate() {
+    public LocalDateTime getVacationDate() {
         return vacationDate;
     }
 
-    public void setVacationDate(Date vacationDate) {
+    public void setVacationDate(LocalDateTime vacationDate) {
         this.vacationDate = vacationDate;
     }
 
@@ -71,12 +78,14 @@ public class Vacation {
         return id;
     }
 
-    public Vacation(String city, String country, String state) {
+    public Vacation(String city, String country, String state, LocalDateTime vacationDate, String visibility) {
         this.city = city;
         this.country=country;
         this.state= state;
-        this.id = id;
-
+        this.vacationDate=vacationDate;
+        this.visibility=visibility;
     }
+
+    public Vacation() {}
 
 }
