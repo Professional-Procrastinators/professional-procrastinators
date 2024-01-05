@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-    @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @GetMapping
+//    @CrossOrigin(origins = "http://localhost:3000")
 }
