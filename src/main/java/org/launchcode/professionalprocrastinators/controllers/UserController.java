@@ -1,10 +1,12 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
 import ch.qos.logback.core.model.Model;
+import org.launchcode.professionalprocrastinators.models.data.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
 public class UserController {
@@ -25,4 +27,8 @@ public class UserController {
     }
 
 
+    @Autowired
+    private UserRepository userRepository;
+    @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
 }

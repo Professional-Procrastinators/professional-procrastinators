@@ -20,7 +20,9 @@
             </table>
 
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
-            <a th:href="@{'/add-vacation'}">Add Vacations</a>
+            <a th:href="@{'/add-vacation'}">Add Vacation</a>
+            <a th:href="@{'/delete-vacation'}">Delete Vacation</a>
+            <a th:href="@{'/edit-vacation'}">Edit Vacation</a>
 
 </div> <br><br>
 
@@ -31,21 +33,9 @@
 <!--TO-DO: Add dropdown select for vacations-->
 
 <!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
-<form method="post" style= "container" id="vacationCountdown" th:if="${dateInput == null} and ${vacations.size()}">
-    <label for="dateInput">Please enter the date of your vacation: </label>
-    <input type="date" id="dateInput">
+<p id="vacationCountdown" th:if="${dateInput}"></p>
 
-    <p> Where will you be going? </p>
-
-    <div class="form-group">
-        <th:block th:each="vacation : ${vacations}">
-            <input type="radio" name="selectedVacation" th:value="${vacation.city}">
-            <label th:text="${vacation.city}"></label><br>
-        </th:block>
-    </div><br>
-    <button type="submit">Create Vacation Countdown</button>
-</form>
-
+<!--<button type= "submit" th:if="${dateInput == null} and ${vacationRepository.size()}"> Add Your Vacation Date! </button>-->
 
 <!-- TO-DO: Add weather API-->
 
