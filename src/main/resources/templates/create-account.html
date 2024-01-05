@@ -6,19 +6,19 @@
 
 <nav th:replace="~{fragments :: header}"></nav>
 
+<!-- TO:DO- Edit form once database is set up!-->
+
 <head>
     <meta charset="UTF-8">
     <title>Nomad Nirvana</title>
 </head>
 <body>
     <div>
-        <h1>Login:</h1>
-        <label>Email or Username:<input type="text" name="username"/></label>
+        <h1>Create Account</h1>
+        <label>Email or Username:<input type="text" name="userNameOrEmail"/></label>
         <label>Password:<input type="password" name="userPassword"/></label>
-        <input type="submit" value="Login">
-    </div>
-    <div>
-        <a href="/create_account">Create Account</a>
+        <label>Confirm Password:<input type="password" name="userConfirmPassword"/></label>
+        <input type="submit" value="Create Account"/>
     </div>
 </body>
 </html>

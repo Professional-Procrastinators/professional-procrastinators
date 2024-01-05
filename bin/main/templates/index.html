@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Vacations</title>
-</head>
-
+<head th:replace="~{fragments :: head}"></head>
 <body>
 
-//TO-DO: Add nav-bar
+<nav th:replace="~{fragments :: header}"></nav>
 
-//TO-DO: Add favorite/like functionality
+<div class="container body-content">
+    <h2>My Vacations</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vacations</th>
+                    </tr>
+                </thead>
+                <tr th:each="vacation: ${vacations}">
+                    <td th:text="${vacation.city}"></td>
+                </tr>
+            </table>
 
-//TO-DO: Add number of likes
+            <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
+            <a th:href="@{'/add-vacation'}">Add Vacation</a>
+            <a th:href="@{'/delete-vacation'}">Delete Vacation</a>
+            <a th:href="@{'/edit-vacation'}">Edit Vacation</a>
 
-//TO-DO: Add dropdown select for vacations
+</div> <br><br>
 
-// TO-DO: Add countdown
+<!--TO-DO: Add favorite/like functionality-->
 
-// TO-DO: Add weather API
+<!--TO-DO: Add number of likes-->
 
-// TO-DO: Add local time API
+<!--TO-DO: Add dropdown select for vacations-->
 
-// TO-DO: Add Spotify API
+<!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
+<p id="vacationCountdown" th:if="${dateInput}"></p>
 
-<div>
+<!--<button type= "submit" th:if="${dateInput == null} and ${vacationRepository.size()}"> Add Your Vacation Date! </button>-->
 
-//TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)
-<p>If you are seeing this, the page is working :)</p>
-</div>
+<!-- TO-DO: Add weather API-->
+
+<!-- TO-DO: Add local time API-->
+
+<!-- TO-DO: Add Spotify API-->
+
+<!--TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)-->
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 package org.launchcode.professionalprocrastinators.controllers;
-import org.launchcode.professionalprocrastinators.data.VacationRepository;
+import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
