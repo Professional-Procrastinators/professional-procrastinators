@@ -20,12 +20,18 @@ import java.util.List;
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-    private static List<User> user = new ArrayList<>();
+    
     @GetMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public String viewProfile(@ModelAttribute Model model) {
-
-        //model.addAttribute("user", user);
+    public String viewProfile(Model model) {
+        Optional<User> optionalUser = userRepository.findById();
+        
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("errorMessage", "User not found");
+        }
         return "profile";
     }
 }
