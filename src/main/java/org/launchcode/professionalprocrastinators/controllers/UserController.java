@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class UserController {
 
     @GetMapping(value = "/login")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String loginProcessForm(Model model) {
         return "login";
     }
@@ -22,6 +23,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/create_account")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String createAccountProcessFrom(Model model) {
         return "create-account";
     }

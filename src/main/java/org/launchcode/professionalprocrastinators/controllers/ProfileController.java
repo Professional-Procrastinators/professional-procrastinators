@@ -25,15 +25,16 @@ public class ProfileController {
     @GetMapping
     @CrossOrigin(origins = "http://localhost:3000")
     public String viewProfile(Model model) {
-        Optional<User> optionalUser = userRepository.findById();
-        
-        if(optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            model.addAttribute("user", user);
-        } else {
-            model.addAttribute("errorMessage", "User not found");
-        }
+//        Optional<User> optionalUser = userRepository.findById();
+//
+//        if(optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            model.addAttribute("user", user);
+//        } else {
+//            model.addAttribute("errorMessage", "User not found");
+//        }
         //not sure if I need to addAttribute? Also do I need to change the name due to already having user?
+//       Need to connect to UserAuthentication, commented out due to warnings
         return "profile";
     }
 }
@@ -41,4 +42,3 @@ public class ProfileController {
 // TODO: Update Controller
 // TODO: Create a handler for errors
 //TODO: Create Conditionals
-//TODO: Create one-to-one, one-to-many, or many-to-many relationships
