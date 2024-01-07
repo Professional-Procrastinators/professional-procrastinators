@@ -13,7 +13,6 @@ public class User {
     private int id;
 
     @NotNull
-    @Size
        private String username;
         private String password;
        private String name;
