@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/profile")
@@ -32,6 +33,7 @@ public class ProfileController {
         } else {
             model.addAttribute("errorMessage", "User not found");
         }
+        //not sure if I need to addAttribute? Also do I need to change the name due to already having user?
         return "profile";
     }
 }
