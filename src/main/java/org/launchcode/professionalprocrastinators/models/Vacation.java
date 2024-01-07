@@ -1,12 +1,14 @@
 package org.launchcode.professionalprocrastinators.models;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.jetbrains.annotations.NotNull;
+import jakarta.persistence.OneToMany;
 
+import java.sql.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Vacation {
@@ -14,6 +16,9 @@ public class Vacation {
     @Id
     @GeneratedValue
     private int id;
+
+    @OneToMany
+    private List<Activity> activites = new ArrayList<>();
 
     private String city;
 
@@ -41,6 +46,14 @@ public class Vacation {
                 ", state='" + state + '\'' +
                 ", vacationDate=" + vacationDate +
                 '}';
+    }
+
+    public List<Activity> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(List<Activity> activites) {
+        this.activites = activites;
     }
 
     public LocalDateTime getVacationDate() {

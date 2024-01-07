@@ -14,21 +14,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-    private static List<User> user = new ArrayList<>();
+    
     @GetMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public String viewProfile(@ModelAttribute Model model) {
-
-        //model.addAttribute("user", user);
+    public String viewProfile(Model model) {
+//        Optional<User> optionalUser = userRepository.findById();
+//
+//        if(optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            model.addAttribute("user", user);
+//        } else {
+//            model.addAttribute("errorMessage", "User not found");
+//        }
+        //not sure if I need to addAttribute? Also do I need to change the name due to already having user?
+//       Need to connect to UserAuthentication, commented out due to warnings
         return "profile";
     }
 }
 // TODO: Create a way to fetch user data to use in viewProfile Method
 // TODO: Update Controller
 // TODO: Create a handler for errors
+//TODO: Create Conditionals

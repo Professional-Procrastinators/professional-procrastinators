@@ -1,5 +1,5 @@
 package org.launchcode.professionalprocrastinators.controllers;
-import org.launchcode.professionalprocrastinators.data.VacationRepository;
+import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +17,7 @@ public class HomeController {
     private VacationRepository vacationRepository;
 
     @GetMapping(value = "/")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
@@ -24,6 +25,7 @@ public class HomeController {
     }
 
     @GetMapping(value = "add-vacation")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String displayAddVacationForm(Model model) {
         model.addAttribute("title", "Add Vacation");
         return "add-vacation";
@@ -41,6 +43,7 @@ public class HomeController {
     }
 
     @GetMapping("delete-vacation")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String displayDeleteVacationForm(Model model) {
         model.addAttribute("title", "Delete Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
@@ -54,6 +57,7 @@ public class HomeController {
         }
 
     @GetMapping("edit-vacation")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String displayEditVacationForm(Model model) {
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
