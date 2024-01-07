@@ -1,4 +1,5 @@
 //Will path in index file once I know path
+//<!--    Look up Thymeleaf hooks or perhaps API-->
 
 document.getElementById("vacationCountdown").addEventListener("submit", function(event){
         event.preventDefault();
