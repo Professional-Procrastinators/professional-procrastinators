@@ -14,13 +14,23 @@
         <label for="url">Paste the embed link: </label>
         <input type="text" id="url" name="url"><br>
 
+        <div class="form-group">
+            <p> What type of video is this? </p>
+                <input type="radio" id="youtube" name="contentSource" value="youtube">
+                <label for="youtube">YouTube</label><br>
+                <input type="radio" id="tiktok" name="contentSource" value="tiktok">
+                <label for="tiktok">TikTok</label><br>
+                <input type="radio" id="instagram" name="contentSource" value="instagram">
+                <label for="instagram">Instagram</label><br>
+        </div>
+
         <label for="notes">Enter any notes here: </label>
         <input type="text" id="notes" name="notes"></br>
 
         <div class="form-group">
             <p> Which vacation is this inspiration for? </p>
             <th:block th:each="vacation : ${vacations}">
-                <input type="radio" name="vacation" th:value="${vacation.id}">
+                <input type="radio" name="vacationId" th:value="${vacation.id}">
                 <label th:text="${vacation.city}"></label><br>
             </th:block>
         </div>

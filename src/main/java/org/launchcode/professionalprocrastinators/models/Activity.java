@@ -15,16 +15,26 @@ public class Activity {
     private String url;
 
     @ManyToOne
-    private Vacation vacation;
+    private Vacation linkedVacation;
 
     private String notes;
 
-    public Vacation getLinkedVacation() {
-        return vacation;
+    private String contentSource;
+
+    public String getContentSource() {
+        return contentSource;
     }
 
-    public void setLinkedVacation(Vacation vacation) {
-        this.vacation = vacation;
+    public void setContentSource(String contentSource) {
+        this.contentSource = contentSource;
+    }
+
+    public Vacation getLinkedVacation() {
+        return linkedVacation;
+    }
+
+    public void setLinkedVacation(Vacation linkedVacation) {
+        this.linkedVacation = linkedVacation;
     }
 
     public String getNotes() {
@@ -51,15 +61,17 @@ public class Activity {
     public String toString() {
         return "Activity{" +
                 "url='" + url + '\'' +
-                ", vacation=" + vacation +
+                ", linkedVacation=" + linkedVacation +
                 ", notes='" + notes + '\'' +
+                ", contentSource='" + contentSource + '\'' +
                 '}';
     }
 
-    public Activity(String url, Vacation vacation, String notes) {
+    public Activity(String url, Vacation linkedVacation, String notes, String contentSource) {
         this.url = url;
-        this.vacation = vacation;
+        this.linkedVacation = linkedVacation;
         this.notes = notes;
+        this.contentSource = contentSource;
     }
 
     public Activity() {}
