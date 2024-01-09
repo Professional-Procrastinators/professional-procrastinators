@@ -46,11 +46,7 @@
 
     <div th:each="activity: ${activities}">
         <a th:href="${activity.url}">Trip Inspiration</a>
-        <iframe width="560" height="315" src=activity.url frameborder="0" allowfullscreen></iframe>
-<!--        Added filler data to iFrame to make sure it works-->
-<!--        <iframe src="${activity.url}">-->
-<!--            <iframe width="560" height="315" src="https://www.youtube.com/embed/CR37nDA2liM?si=DJ6iIASdZVbF4oUu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
-<!--        </iframe>-->
+        <iframe width="560" height="315" src="${activity.embedUrl}" allowfullscreen></iframe>
 
     </div>
 

@@ -27,6 +27,7 @@ public class HomeController {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("activities", activityRepository.findAll());
+
         return "index";
     }
 
@@ -103,7 +104,13 @@ public class HomeController {
 
         Vacation linkedVacation = vacationRepository.findById(vacationId).orElse(new Vacation());
 
-        activityRepository.save(new Activity(url, linkedVacation, notes, contentSource));
+        Activity addedActivity = new Activity(url, linkedVacation, notes, contentSource);
+
+        String embedUrl= addedActivity.embedUrl(url);
+
+        addedActivity.setEmbedUrl(embedUrl);
+
+        activityRepository.save(addedActivity);
 
         return "redirect:/";
     }

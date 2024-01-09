@@ -18,6 +18,8 @@ public class Activity {
 
     private String contentSource;
 
+    private String embedUrl;
+
     public String getContentSource() {
         return contentSource;
     }
@@ -64,10 +66,19 @@ public class Activity {
                 '}';
     }
 
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+    public void setEmbedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
+    }
+
     public String embedUrl(String url) {
         String[] splitUrl = url.split("=", 0);
+        String embedCode = splitUrl[1];
 
-        String embedUrl= "https://www.youtube.com/embed/" + splitUrl;
+        embedUrl= "https://www.youtube.com/embed/" + embedCode;
         return embedUrl;
     }
 
