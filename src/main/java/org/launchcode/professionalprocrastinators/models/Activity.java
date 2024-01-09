@@ -1,9 +1,6 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Activity {
@@ -65,6 +62,13 @@ public class Activity {
                 ", notes='" + notes + '\'' +
                 ", contentSource='" + contentSource + '\'' +
                 '}';
+    }
+
+    public String embedUrl(String url) {
+        String[] splitUrl = url.split("=", 0);
+
+        String embedUrl= "https://www.youtube.com/embed/" + splitUrl;
+        return embedUrl;
     }
 
     public Activity(String url, Vacation linkedVacation, String notes, String contentSource) {

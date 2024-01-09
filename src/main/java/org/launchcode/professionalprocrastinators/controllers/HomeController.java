@@ -10,6 +10,7 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Controller
@@ -25,6 +26,7 @@ public class HomeController {
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("activities", activityRepository.findAll());
         return "index";
     }
 
@@ -67,33 +69,21 @@ public class HomeController {
 
     @PostMapping("edit-vacation")
     public String processEditVacationForm(@RequestParam int selectedVacation,
-                                          @RequestParam(required = false) String vacationName,
-                                          @RequestParam(required = false) String vacationCountry,
-                                          @RequestParam(required = false) String vacationState,
-                                          @RequestParam(required = false) LocalDateTime vacationDate,
+                                          @RequestParam String vacationName,
+                                          @RequestParam String vacationCountry,
+                                          @RequestParam (required =false) String vacationState,
+                                          @RequestParam LocalDateTime vacationDate,
                                           @RequestParam String visibility) {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
 
-        if (vacationName != null) {
+
             editedVacation.setCity(vacationName);
-        }
-
-        if (vacationCountry != null) {
             editedVacation.setCountry(vacationCountry);
-        }
-
-        if (vacationState != null) {
             editedVacation.setState(vacationState);
-        }
-
-        if (vacationDate != null) {
             editedVacation.setVacationDate(vacationDate);
-        }
-
-        editedVacation.setVisibility(visibility);
-
-        vacationRepository.save(editedVacation);
+            editedVacation.setVisibility(visibility);
+            vacationRepository.save(editedVacation);
 
         return "redirect:/";
     }
