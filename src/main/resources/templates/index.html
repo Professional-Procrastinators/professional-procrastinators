@@ -33,7 +33,53 @@
 
 <!--TO-DO: Add dropdown select for vacations-->
 
-<!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
+<form id="countdownForm">
+    <label for="countdownDate">Enter Countdown Date:</label>
+    <input type="datetime-local" id="countdownDate" required>
+    <button type="button" onclick="startCountdown()">Start Countdown</button>
+</form>
+
+<div id="countdownContainer" style="display: none;">
+    <a data-type="countdown"
+       data-name="Time for vacation in:"
+       data-bg_color="#97B8FF"
+       data-name_color="#008922"
+       data-border_color="#888888"
+       data-dt=""
+       data-timezone="America/Chicago"
+       style="display:block; left:0; width:80%; height:100px; position:relative; padding-bottom:0; margin:0 auto;"
+       class="tickcounter"
+       href="//www.tickcounter.com"
+    >Countdown</a>
+</div>
+
+<script>
+    function startCountdown() {
+
+        userInputDate = document.getElementById('countdownDate').value;
+
+        document.getElementById('countdownForm').style.display = 'none';
+
+        document.querySelector('.tickcounter').setAttribute('data-dt', userInputDate);
+
+        document.getElementById('countdownContainer').style.display = 'block';
+
+        loadTickCounterScript();
+    }
+
+    function loadTickCounterScript() {
+
+        (function(d, s, id) {
+            var js, pjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//www.tickcounter.com/static/js/loader.js";
+            pjs.parentNode.insertBefore(js, pjs);
+        }(document, "script", "tickcounter-sdk"));
+    }
+</script>
+
 
 <!-- TO-DO: Add weather API-->
 

@@ -31,6 +31,15 @@ public class HomeController {
         return "index";
     }
 
+    @PostMapping(value= "/")
+        public String processVacationCountdown(@RequestParam LocalDateTime countdownDate, Model model){
+
+        model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("activities", activityRepository.findAll());
+
+        return "index";
+    }
+
     @GetMapping(value = "add-vacation")
     public String displayAddVacationForm(Model model) {
         model.addAttribute("title", "Add Vacation");
