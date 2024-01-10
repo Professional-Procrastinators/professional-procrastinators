@@ -3,7 +3,10 @@ package org.launchcode.professionalprocrastinators.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 @Entity
@@ -11,6 +14,9 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
+
+    @OneToMany(mappedBy = "user")
+    private List<Likes> likes;
 
     @NotNull
        private String username;

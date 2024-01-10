@@ -7,25 +7,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.time.LocalDateTime;
 
 
-@Controller
+@RestController
 public class HomeController {
 
     @Autowired
     private VacationRepository vacationRepository;
 
+    private final WeatherController weatherController;
+    private final LikeButtonController likeButtonController;
+    public HomeController(WeatherController weatherController,LikeButtonController likeButtonController){
+        this.weatherController=weatherController;
+        this.likeButtonController=likeButtonController;
+    }
     @GetMapping(value = "/")
-    @CrossOrigin(origins = "http://localhost:3000")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
+        WeatherController.weatherData(model);
+        LikeButtonController.buttonData(model);
         return "index";
     }
 
     @GetMapping(value = "add-vacation")
-    @CrossOrigin(origins = "http://localhost:3000")
     public String displayAddVacationForm(Model model) {
         model.addAttribute("title", "Add Vacation");
         return "add-vacation";
@@ -43,7 +51,6 @@ public class HomeController {
     }
 
     @GetMapping("delete-vacation")
-    @CrossOrigin(origins = "http://localhost:3000")
     public String displayDeleteVacationForm(Model model) {
         model.addAttribute("title", "Delete Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
@@ -57,7 +64,6 @@ public class HomeController {
         }
 
     @GetMapping("edit-vacation")
-    @CrossOrigin(origins = "http://localhost:3000")
     public String displayEditVacationForm(Model model) {
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
