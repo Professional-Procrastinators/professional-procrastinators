@@ -18,13 +18,18 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
+
     @NotNull
        private String username;
+    @NotNull
         private String password;
+    @NotNull
        private String name;
+    @NotNull
         private String email;
+    @NotNull
         private String location;
-        private String numOfVacations;
+        private int numOfVacations;
 
     public int getId() {
         return id;
@@ -74,11 +79,11 @@ public class User {
         this.location = location;
     }
 
-    public String getNumOfVacations() {
+    public int getNumOfVacations() {
         return numOfVacations;
     }
 
-    public void setNumOfVacations(String numOfVacations) {
+    public void setNumOfVacations(int numOfVacations) {
         this.numOfVacations = numOfVacations;
     }
     @Override
@@ -87,6 +92,5 @@ public class User {
     }
 }
 
-//TODO: Set up user information variables, with getters and setters
-//TODO: How to connect SQL URL with React URL @CrossOrigin?
+
 

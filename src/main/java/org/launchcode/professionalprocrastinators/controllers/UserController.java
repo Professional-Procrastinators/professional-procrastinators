@@ -30,6 +30,5 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-//    @GetMapping
-//    @CrossOrigin(origins = "http://localhost:3000")
+
 }

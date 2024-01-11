@@ -1,9 +1,7 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
-
-import ch.qos.logback.core.model.Model;
+import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
-import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,19 +16,23 @@ import java.util.Optional;
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-    
-    @GetMapping
-    public String viewProfile(Model model) {
-        Optional<User> optionalUser = userRepository.findById();
 
-        if(optionalUser.isPresent()) {
+    @GetMapping
+    public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
+        if (username == null) {
+            return "redirect: /error";
+        }
+
+        Optional<User> optionalUser;
+        optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             model.addAttribute("user", user);
         } else {
             model.addAttribute("errorMessage", "User not found");
         }
-//        not sure if I need to addAttribute? Also do I need to change the name due to already having user?
-//       Need to connect to UserAuthentication, commented out due to warnings
+//       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }
 }

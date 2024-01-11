@@ -18,18 +18,10 @@ public class HomeController {
     @Autowired
     private VacationRepository vacationRepository;
 
-    private final WeatherController weatherController;
-    private final LikeButtonController likeButtonController;
-    public HomeController(WeatherController weatherController,LikeButtonController likeButtonController){
-        this.weatherController=weatherController;
-        this.likeButtonController=likeButtonController;
-    }
-    @GetMapping(value = "/")
+    @GetMapping(value = "index")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
-        WeatherController.weatherData(model);
-        LikeButtonController.buttonData(model);
         return "index";
     }
 
