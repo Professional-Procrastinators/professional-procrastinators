@@ -21,10 +21,10 @@
             </table>
 
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
-            <a th:href="@{'/add-vacation'}">Add Vacation</a>
-            <a th:href="@{'/delete-vacation'}">Delete Vacation</a>
-            <a th:href="@{'/edit-vacation'}">Edit Vacation</a>
-            <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>
+            <a th:href="@{'/add-vacation'}">Add Vacation</a>&nbsp;
+            <a th:href="@{'/delete-vacation'}">Delete Vacation</a>&nbsp;
+            <a th:href="@{'/edit-vacation'}">Edit Vacation</a>&nbsp;
+            <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>&nbsp;
 
 </div> <br><br>
 
@@ -97,6 +97,8 @@
     <div th:each="activity: ${activities}">
 
         <iframe width="560" height="315" th:src="${activity.embedUrl}" allowfullscreen></iframe>
+
+        <p value="${activity.notes}"></p>
 
     </div>
 
