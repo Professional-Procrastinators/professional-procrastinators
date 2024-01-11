@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head}">
+    <script src="professional-procrastinators\nomad-nirvana-ui\src\LikeButton.js"></script>
+</head>
 <body>
-
 <nav th:replace="~{fragments :: header}"></nav>
 
 <div class="container body-content">
@@ -23,19 +24,67 @@
             <a th:href="@{'/add-vacation'}">Add Vacation</a>
             <a th:href="@{'/delete-vacation'}">Delete Vacation</a>
             <a th:href="@{'/edit-vacation'}">Edit Vacation</a>
+            <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>
 
 </div> <br><br>
 
 <!--TO-DO: Add favorite/like functionality-->
-
+<!--<div>-->
+<!--    <script>-->
+<!--    LikeButton()-->
+<!--    </script>-->
+<!--</div>-->
 <!--TO-DO: Add number of likes-->
 
 <!--TO-DO: Add dropdown select for vacations-->
 
-<!-- TO-DO: Add countdown. Started with form, will add js for countdown-->
-<p id="vacationCountdown" th:if="${dateInput}"></p>
+<form id="countdownForm">
+    <label for="countdownDate">Enter Countdown Date:</label>
+    <input type="datetime-local" id="countdownDate" required>
+    <button type="button" onclick="startCountdown()">Start Countdown</button>
+</form>
 
-<!--<button type= "submit" th:if="${dateInput == null} and ${vacationRepository.size()}"> Add Your Vacation Date! </button>-->
+<div id="countdownContainer" style="display: none;">
+    <a data-type="countdown"
+       data-name="Time for vacation in:"
+       data-bg_color="#97B8FF"
+       data-name_color="#008922"
+       data-border_color="#888888"
+       data-dt=""
+       data-timezone="America/Chicago"
+       style="display:block; left:0; width:80%; height:100px; position:relative; padding-bottom:0; margin:0 auto;"
+       class="tickcounter"
+       href="//www.tickcounter.com"
+    >Countdown</a>
+</div>
+
+<script>
+    function startCountdown() {
+
+        userInputDate = document.getElementById('countdownDate').value;
+
+        document.getElementById('countdownForm').style.display = 'none';
+
+        document.querySelector('.tickcounter').setAttribute('data-dt', userInputDate);
+
+        document.getElementById('countdownContainer').style.display = 'block';
+
+        loadTickCounterScript();
+    }
+
+    function loadTickCounterScript() {
+
+        (function(d, s, id) {
+            var js, pjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//www.tickcounter.com/static/js/loader.js";
+            pjs.parentNode.insertBefore(js, pjs);
+        }(document, "script", "tickcounter-sdk"));
+    }
+</script><br><br>
+
 
 <!-- TO-DO: Add weather API-->
 
@@ -43,8 +92,15 @@
 
 <!-- TO-DO: Add Spotify API-->
 
-<!--TO-DO: Add destinations. Could embed videos (Tik-Tok, YouTube, or ask user for photo and caption)-->
+<section class="video-container" th:if="${activities.size()}">
 
+    <div th:each="activity: ${activities}">
+
+        <iframe width="560" height="315" th:src="${activity.embedUrl}" allowfullscreen></iframe>
+
+    </div>
+
+</section>
 
 </body>
 </html>
