@@ -91,8 +91,8 @@
 <section class="video-container" th:if="${activities.size()}">
 
     <div th:each="activity: ${activities}">
-        <a th:href="${activity.url}">Trip Inspiration</a>
-        <iframe width="560" height="315" src="${activity.embedUrl}" allowfullscreen></iframe>
+
+        <iframe width="560" height="315" th:src="${activity.embedUrl}" allowfullscreen></iframe>
 
     </div>
 

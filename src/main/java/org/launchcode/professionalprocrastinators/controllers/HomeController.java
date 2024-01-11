@@ -108,12 +108,11 @@ public class HomeController {
     @PostMapping("add-activity")
     public String processAddActivityForm(@RequestParam String url,
                                          @RequestParam int vacationId,
-                                         @RequestParam(required = false) String notes,
-                                         @RequestParam String contentSource) {
+                                         @RequestParam(required = false) String notes) {
 
         Vacation linkedVacation = vacationRepository.findById(vacationId).orElse(new Vacation());
 
-        Activity addedActivity = new Activity(url, linkedVacation, notes, contentSource);
+        Activity addedActivity = new Activity(url, linkedVacation, notes);
 
         String embedUrl= addedActivity.embedUrl(url);
 

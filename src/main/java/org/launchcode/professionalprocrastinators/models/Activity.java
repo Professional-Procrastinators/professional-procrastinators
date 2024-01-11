@@ -16,17 +16,7 @@ public class Activity {
 
     private String notes;
 
-    private String contentSource;
-
     private String embedUrl;
-
-    public String getContentSource() {
-        return contentSource;
-    }
-
-    public void setContentSource(String contentSource) {
-        this.contentSource = contentSource;
-    }
 
     public Vacation getLinkedVacation() {
         return linkedVacation;
@@ -62,7 +52,7 @@ public class Activity {
                 "url='" + url + '\'' +
                 ", linkedVacation=" + linkedVacation +
                 ", notes='" + notes + '\'' +
-                ", contentSource='" + contentSource + '\'' +
+                ", embedUrl='" + embedUrl + '\'' +
                 '}';
     }
 
@@ -82,11 +72,10 @@ public class Activity {
         return embedUrl;
     }
 
-    public Activity(String url, Vacation linkedVacation, String notes, String contentSource) {
+    public Activity(String url, Vacation linkedVacation, String notes) {
         this.url = url;
         this.linkedVacation = linkedVacation;
         this.notes = notes;
-        this.contentSource = contentSource;
     }
 
     public Activity() {}
