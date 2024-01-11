@@ -1,7 +1,8 @@
 package org.launchcode.professionalprocrastinators.controllers;
+import org.launchcode.professionalprocrastinators.models.Activity;
+import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.launchcode.professionalprocrastinators.models.Vacation;
@@ -18,10 +19,25 @@ public class HomeController {
     @Autowired
     private VacationRepository vacationRepository;
 
+    @Autowired
+    private ActivityRepository activityRepository;
+
+
     @GetMapping(value = "index")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("activities", activityRepository.findAll());
+
+        return "index";
+    }
+
+    @PostMapping(value= "/")
+        public String processVacationCountdown(@RequestParam LocalDateTime countdownDate, Model model){
+
+        model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("activities", activityRepository.findAll());
+
         return "index";
     }
 
@@ -35,7 +51,7 @@ public class HomeController {
     public String processAddVacationForm(@RequestParam String vacationName,
                                          @RequestParam String vacationCountry,
                                          @RequestParam(required = false) String vacationState,
-                                         @RequestParam (required=false) LocalDateTime vacationDate,
+                                         @RequestParam(required = false) LocalDateTime vacationDate,
                                          @RequestParam String visibility) {
 
         vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState, vacationDate, visibility));
@@ -53,7 +69,7 @@ public class HomeController {
     public String processDeleteVacationForm(@RequestParam(required = false) int deletedVacation) {
         vacationRepository.deleteById(deletedVacation);
         return "redirect:/";
-        }
+    }
 
     @GetMapping("edit-vacation")
     public String displayEditVacationForm(Model model) {
@@ -62,37 +78,50 @@ public class HomeController {
         return "/edit-vacation";
     }
 
-        @PostMapping("edit-vacation")
-        public String processEditVacationForm(@RequestParam int selectedVacation,
-                                              @RequestParam (required = false) String vacationName,
-                                              @RequestParam (required = false) String vacationCountry,
-                                              @RequestParam (required = false) String vacationState,
-                                              @RequestParam (required = false) LocalDateTime vacationDate,
-                                              @RequestParam String visibility) {
+    @PostMapping("edit-vacation")
+    public String processEditVacationForm(@RequestParam int selectedVacation,
+                                          @RequestParam String vacationName,
+                                          @RequestParam String vacationCountry,
+                                          @RequestParam (required =false) String vacationState,
+                                          @RequestParam LocalDateTime vacationDate,
+                                          @RequestParam String visibility) {
 
-            Vacation editedVacation= vacationRepository.findById(selectedVacation).orElse(new Vacation());
+        Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
 
-            if (vacationName != null){
-                editedVacation.setCity(vacationName);
-            }
 
-            if (vacationCountry != null){
-                editedVacation.setCountry(vacationCountry);
-            }
-
-            if (vacationState != null){
-                editedVacation.setState(vacationState);
-            }
-
-            if (vacationDate != null) {
-                editedVacation.setVacationDate(vacationDate);
-            }
-
+            editedVacation.setCity(vacationName);
+            editedVacation.setCountry(vacationCountry);
+            editedVacation.setState(vacationState);
+            editedVacation.setVacationDate(vacationDate);
             editedVacation.setVisibility(visibility);
-
             vacationRepository.save(editedVacation);
 
-            return "redirect:/";
-        }
+        return "redirect:/";
+    }
+
+    @GetMapping("add-activity")
+    public String displayAddActivityForm(Model model) {
+        model.addAttribute("title", "Add Trip Inspiration");
+        model.addAttribute("vacations", vacationRepository.findAll());
+        return "/add-activity";
+    }
+
+    @PostMapping("add-activity")
+    public String processAddActivityForm(@RequestParam String url,
+                                         @RequestParam int vacationId,
+                                         @RequestParam(required = false) String notes) {
+
+        Vacation linkedVacation = vacationRepository.findById(vacationId).orElse(new Vacation());
+
+        Activity addedActivity = new Activity(url, linkedVacation, notes);
+
+        String embedUrl= addedActivity.embedUrl(url);
+
+        addedActivity.setEmbedUrl(embedUrl);
+
+        activityRepository.save(addedActivity);
+
+        return "redirect:/";
+    }
 }
 

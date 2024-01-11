@@ -1,9 +1,6 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Activity {
@@ -15,16 +12,18 @@ public class Activity {
     private String url;
 
     @ManyToOne
-    private Vacation vacation;
+    private Vacation linkedVacation;
 
     private String notes;
 
+    private String embedUrl;
+
     public Vacation getLinkedVacation() {
-        return vacation;
+        return linkedVacation;
     }
 
-    public void setLinkedVacation(Vacation vacation) {
-        this.vacation = vacation;
+    public void setLinkedVacation(Vacation linkedVacation) {
+        this.linkedVacation = linkedVacation;
     }
 
     public String getNotes() {
@@ -51,14 +50,31 @@ public class Activity {
     public String toString() {
         return "Activity{" +
                 "url='" + url + '\'' +
-                ", vacation=" + vacation +
+                ", linkedVacation=" + linkedVacation +
                 ", notes='" + notes + '\'' +
+                ", embedUrl='" + embedUrl + '\'' +
                 '}';
     }
 
-    public Activity(String url, Vacation vacation, String notes) {
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+    public void setEmbedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
+    }
+
+    public String embedUrl(String url) {
+        String[] splitUrl = url.split("=", 0);
+        String embedCode = splitUrl[1];
+
+        embedUrl= "https://www.youtube.com/embed/" + embedCode;
+        return embedUrl;
+    }
+
+    public Activity(String url, Vacation linkedVacation, String notes) {
         this.url = url;
-        this.vacation = vacation;
+        this.linkedVacation = linkedVacation;
         this.notes = notes;
     }
 
