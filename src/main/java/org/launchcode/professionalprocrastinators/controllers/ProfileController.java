@@ -1,31 +1,38 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
-
-import ch.qos.logback.core.model.Model;
+import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
-import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-    private static List<User> user = new ArrayList<>();
-    @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
-    public String viewProfile(@ModelAttribute Model model) {
 
-        //model.addAttribute("user", user);
+    @GetMapping
+    public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
+        if (username == null) {
+            return "redirect: /error";
+        }
+
+        Optional<User> optionalUser;
+        optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("errorMessage", "User not found");
+        }
+//       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }
 }
@@ -33,4 +40,3 @@ public class ProfileController {
 // TODO: Update Controller
 // TODO: Create a handler for errors
 //TODO: Create Conditionals
-//TODO: Create one-to-one, one-to-many, or many-to-many relationships

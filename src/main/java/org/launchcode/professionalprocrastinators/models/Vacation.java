@@ -17,6 +17,8 @@ public class Vacation {
     @GeneratedValue
     private int id;
 
+    @OneToMany(mappedBy = "vacation")
+    private List<Likes> likes;
     @OneToMany
     private List<Activity> activites = new ArrayList<>();
 

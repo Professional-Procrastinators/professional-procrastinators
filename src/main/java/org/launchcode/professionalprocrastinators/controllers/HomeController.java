@@ -22,6 +22,7 @@ public class HomeController {
     @Autowired
     private ActivityRepository activityRepository;
 
+
     @GetMapping(value = "index")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
