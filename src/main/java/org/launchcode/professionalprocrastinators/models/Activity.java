@@ -15,17 +15,6 @@ public class Activity {
         return title;
     }
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", linkedVacation=" + linkedVacation +
-                ", notes='" + notes + '\'' +
-                ", embedUrl='" + embedUrl + '\'' +
-                '}';
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -73,6 +62,17 @@ public class Activity {
 
     public void setEmbedUrl(String embedUrl) {
         this.embedUrl = embedUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", linkedVacation=" + linkedVacation +
+                ", notes='" + notes + '\'' +
+                ", embedUrl='" + embedUrl + '\'' +
+                '}';
     }
 
     public String embedUrl(String url) {
