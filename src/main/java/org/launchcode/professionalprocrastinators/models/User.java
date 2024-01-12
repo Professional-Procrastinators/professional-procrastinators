@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -21,11 +25,17 @@ public class User {
 
     @NotNull
        private String username;
+
+    @NotBlank
+    @NotEmpty
     @NotNull
+
+    @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
         private String password;
     @NotNull
        private String name;
     @NotNull
+    @Email(message = "Email must be valid.")
         private String email;
     @NotNull
         private String location;

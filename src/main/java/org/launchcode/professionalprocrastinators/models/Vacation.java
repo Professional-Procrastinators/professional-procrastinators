@@ -21,7 +21,10 @@ public class Vacation {
     @OneToMany
     private List<Activity> activites = new ArrayList<>();
 
-    private List<String> spotifyLinks;
+
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private String spotifyLink;
 
     private String city;
 
@@ -50,27 +53,6 @@ public class Vacation {
                 ", vacationDate=" + vacationDate +
                 '}';
     }
-
-    public static String spotifyLinkMaker(String playlistLink) {
-        //pattern compiles data into a compressed state which it can use Matcher to assess the data quicker than un-compiled
-        Pattern pattern = Pattern.compile("/playlist/(\\w+)");
-        Matcher matcher = pattern.matcher(playlistLink);
-        //if a match is found,
-        if (matcher.find()) {
-            return "https://open.spotify.com/embed/playlist/" + matcher.group(1) + "?utm_source=generator";
-        } else {
-            return "Playlist not Found";
-        }
-    }
-
-    public List<String> getSpotifyLinks() {
-        return spotifyLinks;
-    }
-
-    public void setSpotifyLinks(String spotifyLinks) {
-        this.spotifyLinks.add(spotifyLinkMaker(spotifyLinks));
-    }
-
 
     public List<Activity> getActivites() {
         return activites;
