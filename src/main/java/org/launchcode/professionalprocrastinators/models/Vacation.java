@@ -1,14 +1,13 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Vacation {
@@ -21,6 +20,8 @@ public class Vacation {
     private List<Likes> likes;
     @OneToMany
     private List<Activity> activites = new ArrayList<>();
+
+    private List<String> spotifyLinks;
 
     private String city;
 
@@ -49,6 +50,27 @@ public class Vacation {
                 ", vacationDate=" + vacationDate +
                 '}';
     }
+
+    public static String spotifyLinkMaker(String playlistLink) {
+        //pattern compiles data into a compressed state which it can use Matcher to assess the data quicker than un-compiled
+        Pattern pattern = Pattern.compile("/playlist/(\\w+)");
+        Matcher matcher = pattern.matcher(playlistLink);
+        //if a match is found,
+        if (matcher.find()) {
+            return "https://open.spotify.com/embed/playlist/" + matcher.group(1) + "?utm_source=generator";
+        } else {
+            return "Playlist not Found";
+        }
+    }
+
+    public List<String> getSpotifyLinks() {
+        return spotifyLinks;
+    }
+
+    public void setSpotifyLinks(String spotifyLinks) {
+        this.spotifyLinks.add(spotifyLinkMaker(spotifyLinks));
+    }
+
 
     public List<Activity> getActivites() {
         return activites;
