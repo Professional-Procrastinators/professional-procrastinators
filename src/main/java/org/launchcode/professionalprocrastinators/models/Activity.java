@@ -9,6 +9,27 @@ public class Activity {
     @GeneratedValue
     private int id;
 
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", linkedVacation=" + linkedVacation +
+                ", notes='" + notes + '\'' +
+                ", embedUrl='" + embedUrl + '\'' +
+                '}';
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private String url;
 
     @ManyToOne
@@ -46,16 +67,6 @@ public class Activity {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "url='" + url + '\'' +
-                ", linkedVacation=" + linkedVacation +
-                ", notes='" + notes + '\'' +
-                ", embedUrl='" + embedUrl + '\'' +
-                '}';
-    }
-
     public String getEmbedUrl() {
         return embedUrl;
     }
@@ -72,7 +83,8 @@ public class Activity {
         return embedUrl;
     }
 
-    public Activity(String url, Vacation linkedVacation, String notes) {
+    public Activity(String title, String url, Vacation linkedVacation, String notes) {
+        this.title = title;
         this.url = url;
         this.linkedVacation = linkedVacation;
         this.notes = notes;

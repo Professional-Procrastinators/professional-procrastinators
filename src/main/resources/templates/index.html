@@ -4,29 +4,34 @@
 <head th:replace="~{fragments :: head}">
     <script src="professional-procrastinators\nomad-nirvana-ui\src\LikeButton.js"></script>
 </head>
-<body>
+
 <nav th:replace="~{fragments :: header}"></nav>
 
-<div class="container body-content">
-    <h2>My Vacations</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Vacations</th>
-                    </tr>
-                </thead>
-                <tr th:each="vacation: ${vacations}">
-                    <td th:text="${vacation.city}"></td>
-                </tr>
-            </table>
+<body>
 
+<div class="container body-content">
+
+    <section class="vacationInfo">
+
+        <h2 class="indexHeader">My Vacations</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vacations</th>
+                        </tr>
+                    </thead>
+                    <tr th:each="vacation: ${vacations}">
+                        <td th:text="${vacation.city}"></td>
+                    </tr>
+                </table>
+
+        <div class="indexNav">
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
             <a th:href="@{'/add-vacation'}">Add Vacation</a>&nbsp;
             <a th:href="@{'/delete-vacation'}">Delete Vacation</a>&nbsp;
             <a th:href="@{'/edit-vacation'}">Edit Vacation</a>&nbsp;
-            <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>&nbsp;
-
-</div> <br><br>
+        </div>
+</section>
 
 <!--TO-DO: Add favorite/like functionality-->
 <!--<div>-->
@@ -37,54 +42,54 @@
 <!--TO-DO: Add number of likes-->
 
 <!--TO-DO: Add dropdown select for vacations-->
+<section class="countdownSection">
+    <form id="countdownForm">
+        <label for="countdownDate">Enter Countdown Date:</label>
+        <input type="datetime-local" id="countdownDate" required>
+        <button type="button" onclick="startCountdown()">Start Countdown</button>
+    </form>
 
-<form id="countdownForm">
-    <label for="countdownDate">Enter Countdown Date:</label>
-    <input type="datetime-local" id="countdownDate" required>
-    <button type="button" onclick="startCountdown()">Start Countdown</button>
-</form>
+    <div id="countdownContainer" style="display: none;">
+        <a data-type="countdown"
+           data-name="Time for vacation in:"
+           data-bg_color="#97B8FF"
+           data-name_color="#008922"
+           data-border_color="#888888"
+           data-dt=""
+           data-timezone="America/Chicago"
+           style="display:block; left:0; width:80%; height:100px; position:relative; padding-bottom:0; margin:0 auto;"
+           class="tickcounter"
+           href="//www.tickcounter.com"
+        >Countdown</a>
+    </div>
 
-<div id="countdownContainer" style="display: none;">
-    <a data-type="countdown"
-       data-name="Time for vacation in:"
-       data-bg_color="#97B8FF"
-       data-name_color="#008922"
-       data-border_color="#888888"
-       data-dt=""
-       data-timezone="America/Chicago"
-       style="display:block; left:0; width:80%; height:100px; position:relative; padding-bottom:0; margin:0 auto;"
-       class="tickcounter"
-       href="//www.tickcounter.com"
-    >Countdown</a>
-</div>
+    <script>
+        function startCountdown() {
 
-<script>
-    function startCountdown() {
+            userInputDate = document.getElementById('countdownDate').value;
 
-        userInputDate = document.getElementById('countdownDate').value;
+            document.getElementById('countdownForm').style.display = 'none';
 
-        document.getElementById('countdownForm').style.display = 'none';
+            document.querySelector('.tickcounter').setAttribute('data-dt', userInputDate);
 
-        document.querySelector('.tickcounter').setAttribute('data-dt', userInputDate);
+            document.getElementById('countdownContainer').style.display = 'block';
 
-        document.getElementById('countdownContainer').style.display = 'block';
+            loadTickCounterScript();
+        }
 
-        loadTickCounterScript();
-    }
+        function loadTickCounterScript() {
 
-    function loadTickCounterScript() {
-
-        (function(d, s, id) {
-            var js, pjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//www.tickcounter.com/static/js/loader.js";
-            pjs.parentNode.insertBefore(js, pjs);
-        }(document, "script", "tickcounter-sdk"));
-    }
-</script><br><br>
-
+            (function(d, s, id) {
+                var js, pjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//www.tickcounter.com/static/js/loader.js";
+                pjs.parentNode.insertBefore(js, pjs);
+            }(document, "script", "tickcounter-sdk"));
+        }
+    </script>
+</section>
 
 <!-- TO-DO: Add weather API-->
 
@@ -103,6 +108,13 @@
     </div>
 
 </section>
+
+    <div class="activityNav">
+        <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>&nbsp;
+        <a th:href="@{'/delete-activity'}">Delete Trip Inspiration</a>&nbsp;
+    </div>
+
+</div>
 
 </body>
 </html>
