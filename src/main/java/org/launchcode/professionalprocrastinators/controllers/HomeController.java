@@ -108,13 +108,14 @@ public class HomeController {
     }
 
     @PostMapping("add-activity")
-    public String processAddActivityForm(@RequestParam String url,
+    public String processAddActivityForm(@RequestParam String title,
+                                         @RequestParam String url,
                                          @RequestParam int vacationId,
                                          @RequestParam(required = false) String notes) {
 
         Vacation linkedVacation = vacationRepository.findById(vacationId).orElse(new Vacation());
 
-        Activity addedActivity = new Activity(url, linkedVacation, notes);
+        Activity addedActivity = new Activity(title, url, linkedVacation, notes);
 
         String embedUrl= addedActivity.embedUrl(url);
 
@@ -124,5 +125,19 @@ public class HomeController {
 
         return "redirect:/";
     }
+
+    @GetMapping("delete-activity")
+    public String displayDeleteActivityForm(Model model) {
+        model.addAttribute("title", "Delete Activity");
+        model.addAttribute("activities", activityRepository.findAll());
+        return "/delete-activity";
+    }
+
+    @PostMapping("delete-activity")
+    public String processDeleteActivityForm(@RequestParam(required = false) int deletedActivity) {
+        activityRepository.deleteById(deletedActivity);
+        return "redirect:/";
+    }
+
 }
 
