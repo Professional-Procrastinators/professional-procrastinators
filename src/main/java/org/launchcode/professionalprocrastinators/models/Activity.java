@@ -11,14 +11,6 @@ public class Activity {
 
     private String title;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     private String url;
 
     @ManyToOne
@@ -27,6 +19,14 @@ public class Activity {
     private String notes;
 
     private String embedUrl;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Vacation getLinkedVacation() {
         return linkedVacation;
