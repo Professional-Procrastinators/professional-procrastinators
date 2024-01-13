@@ -18,6 +18,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
+    @OneToMany(mappedBy = "user")
+    private List<Vacation> vacations;
+
 
     @NotNull
        private String username;

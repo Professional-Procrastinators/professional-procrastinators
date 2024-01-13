@@ -3,17 +3,18 @@ import org.launchcode.professionalprocrastinators.models.Activity;
 import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import java.time.LocalDateTime;
 
 
-@RestController
+@Controller
 public class HomeController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class HomeController {
     private ActivityRepository activityRepository;
 
 
-    @GetMapping(value = "index")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());

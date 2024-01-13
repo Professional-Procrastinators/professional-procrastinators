@@ -1,9 +1,6 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.sql.Array;
 import java.time.LocalDateTime;
@@ -21,6 +18,9 @@ public class Vacation {
     private List<Likes> likes;
     @OneToMany
     private List<Activity> activites = new ArrayList<>();
+
+    @ManyToOne
+    private List<Vacation> vacations;
 
     private String city;
 

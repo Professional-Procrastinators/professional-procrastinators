@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
@@ -20,7 +20,7 @@ public class ProfileController {
     @GetMapping
     public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
         if (username == null) {
-            return "redirect: /error";
+            return "redirect:/error";
         }
 
         Optional<User> optionalUser;
@@ -36,7 +36,5 @@ public class ProfileController {
         return "profile";
     }
 }
-// TODO: Create a way to fetch user data to use in viewProfile Method
-// TODO: Update Controller
-// TODO: Create a handler for errors
-//TODO: Create Conditionals
+//TODO: Create a way to update number of vacations created and set to numOfVacations, relationships set up, now just do the math for how many vacations
+
