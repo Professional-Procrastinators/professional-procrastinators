@@ -16,4 +16,6 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "vacation_id")
     private Vacation vacation;
+
+    private int likes;
 }

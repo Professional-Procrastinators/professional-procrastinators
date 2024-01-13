@@ -15,7 +15,7 @@ repositories {
 	mavenCentral()
 }
 
-//run these if .gradle is missing or you are getting dependancy errors
+//run these if .gradle is missing or you are getting dependency errors
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

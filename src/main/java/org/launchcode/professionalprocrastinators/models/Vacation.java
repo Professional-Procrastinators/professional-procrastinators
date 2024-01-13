@@ -20,7 +20,8 @@ public class Vacation {
     private List<Activity> activites = new ArrayList<>();
 
     @ManyToOne
-    private List<Vacation> vacations;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String city;
 

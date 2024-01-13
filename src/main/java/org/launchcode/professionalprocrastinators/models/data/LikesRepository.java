@@ -11,4 +11,5 @@ import java.util.List;
 public interface LikesRepository extends CrudRepository<Likes, Integer> {
 
     List<Likes> findByLikes(int likes);
+
 }
