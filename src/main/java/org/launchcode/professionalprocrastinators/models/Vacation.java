@@ -2,7 +2,6 @@ package org.launchcode.professionalprocrastinators.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
