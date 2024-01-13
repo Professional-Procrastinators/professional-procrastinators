@@ -1,5 +1,8 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.launchcode.professionalprocrastinators.models.Vacation;
+import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
@@ -15,27 +18,24 @@ import java.util.Optional;
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    VacationRepository vacationRepository;
 
-    @GetMapping
-    public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
-        if (username == null) {
-            return "redirect: /error";
-        }
-
-        Optional<User> optionalUser;
-        optionalUser = userRepository.findByUsername(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            model.addAttribute("user", user);
+    @GetMapping("/profile")
+    public String viewProfile(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getUsername();
+            User user = userRepository.findByUsername(username);
+            if (user != null) {
+                List<Vacation> userVacations = vacationRepository.findByUser(user);
+                int numOfVacations = userVacations.size();
+                model.addAttribute("username", username);
+                model.addAttribute("numOfVacations", numOfVacations);
+                return "profile";
+            }
         } else {
-            model.addAttribute("errorMessage", "User not found");
+            return "redirect:/error";
         }
-//       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
-        return "profile";
+        return "redirect:/login";
     }
 }
-// TODO: Create a way to fetch user data to use in viewProfile Method
-// TODO: Update Controller
-// TODO: Create a handler for errors
-//TODO: Create Conditionals
