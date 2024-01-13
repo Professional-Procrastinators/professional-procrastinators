@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Controller
@@ -122,6 +123,8 @@ public class HomeController {
         addedActivity.setEmbedUrl(embedUrl);
 
         activityRepository.save(addedActivity);
+
+        linkedVacation.getActivities().add(addedActivity);
 
         return "redirect:/";
     }
