@@ -1,20 +1,6 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.launchcode.professionalprocrastinators.models.Nomies;
-import org.launchcode.professionalprocrastinators.models.Vacation;
-import org.launchcode.professionalprocrastinators.models.data.NomiesRepository;
-import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
-import org.springframework.ui.Model;
-import org.launchcode.professionalprocrastinators.models.User;
-import org.launchcode.professionalprocrastinators.models.data.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 //@RequestMapping("/profile")
 //public class ProfileController {

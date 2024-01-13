@@ -12,10 +12,10 @@
     </header>
     <h2>Personal Information</h2>
     <p><strong>Vacations Created: </strong>${user.numOfVacations}</p>
-    <h2>Nomies</h2>
+    <h2>Likes</h2>
     <ul>
-        <li th:each="Nomies : ${followers}">
-            <span th:text="${follower.username}"></span>
+        <li th:each="Likes : ${likes}">
+            <span th:text="${likes.vacation}"></span>
         </li>
     </ul>
 </body>

@@ -3,8 +3,6 @@ package org.launchcode.professionalprocrastinators.models;
 import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -19,11 +17,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Vacation> vacations;
-//    @ManyToMany(mappedBy = "followers")
-//    private List<Nomies> nomiesFollowing = new ArrayList<>();
-//
-//    @ManyToMany(mappedBy = "following")
-//    private List<Nomies> nomiesFollowers = new ArrayList<>();
 
     @NotNull
        private String username;
@@ -45,19 +38,19 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
+    public @NotNull String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(@NotNull String username) {
         this.username = username;
     }
 
-    public String getPassword() {
+    public @NotNull String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(@NotNull String password) {
         this.password = password;
     }
 

@@ -1,5 +1,6 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import org.launchcode.professionalprocrastinators.models.Activity;
 import org.launchcode.professionalprocrastinators.models.Likes;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.Vacation;
@@ -11,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -30,9 +28,23 @@ public class LikeButtonController {
     @Autowired
     private VacationRepository vacationRepository;
 
-//    @PostMapping("/likes")
-//    public
+    @GetMapping("/likes")
+    public String displayLikesForm(Model model) {
+        model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("likes", new Likes());
+        return "likes";
+    }
 
-
+    @PostMapping("/likes")
+    public String processLikesForm(@ModelAttribute Likes likes, @RequestParam("userId") int userId, @RequestParam("vacationID") int vacationId, Model model)
+    { User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        Vacation vacation = vacationRepository.findById(vacationId).orElseThrow(() -> new IllegalArgumentException("Invalid vacation ID"));
+        likes.setUser(user);
+        likes.setVacation(vacation);
+        likes.setLikes(1);
+        likesRepository.save(likes);
+        model.addAttribute("successMessage", "Liked Successful!");
+        return "redirect:/";
+    }
 
 }

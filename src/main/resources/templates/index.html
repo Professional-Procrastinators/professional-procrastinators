@@ -36,7 +36,7 @@
 <!--TO-DO: Add favorite/like functionality-->
     <div class="container">
         <h1> Like your favorite vacations!</h1>
-        <form id="likeForm" style="max-width: 600 px" th:action="@{likes}">
+        <form id="likeForm" method="post" style="max-width: 600 px" th:action="@{/likes}">
             <select name="vacationID" id="vacationID">
                 <option th:each="vacation : ${vacations}" th:value="${vacation.id}" th:text="${vacation.city}"></option>
             </select>
@@ -44,6 +44,9 @@
             <input id="username" name="userId" required type="text">
             <button type="submit">Like</button>
         </form>
+    </div>
+    <div th:if="${successMessage}">
+        <p th:text="${successMessage}" class="success-message"></p>
     </div>
 
 <!--TO-DO: Add dropdown select for vacations-->
