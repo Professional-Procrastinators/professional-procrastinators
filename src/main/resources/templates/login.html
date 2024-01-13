@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head th:replace="~{fragments :: head}"></head>
@@ -7,17 +8,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nomad Nirvana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
+
 <body>
+
 <div>
     <h1>Login:</h1>
-    <label>Email or Username:<input type="text" name="username"/></label>
-    <label>Password:<input type="password" name="userPassword"/></label>
-    <input type="submit" value="Login">
+
+    <form action="/login" method="post">
+        <label>Email or Username:</label>
+        <input type="text" name="email" />
+
+        <label>Password:</label>
+        <input type="password" name="password" />
+
+        <input type="submit" value="Login">
+    </form>
+
 </div>
 <div>
     <a href="/create_account">Create Account</a>
 </div>
+
 </body>
 </html>
