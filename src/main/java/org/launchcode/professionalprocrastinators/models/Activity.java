@@ -1,9 +1,6 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Activity {
@@ -12,19 +9,31 @@ public class Activity {
     @GeneratedValue
     private int id;
 
+    private String title;
+
     private String url;
 
     @ManyToOne
-    private Vacation vacation;
+    private Vacation linkedVacation;
 
     private String notes;
 
-    public Vacation getLinkedVacation() {
-        return vacation;
+    private String embedUrl;
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setLinkedVacation(Vacation vacation) {
-        this.vacation = vacation;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Vacation getLinkedVacation() {
+        return linkedVacation;
+    }
+
+    public void setLinkedVacation(Vacation linkedVacation) {
+        this.linkedVacation = linkedVacation;
     }
 
     public String getNotes() {
@@ -47,18 +56,37 @@ public class Activity {
         return id;
     }
 
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+    public void setEmbedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
+    }
+
     @Override
     public String toString() {
         return "Activity{" +
-                "url='" + url + '\'' +
-                ", vacation=" + vacation +
+                "title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", linkedVacation=" + linkedVacation +
                 ", notes='" + notes + '\'' +
+                ", embedUrl='" + embedUrl + '\'' +
                 '}';
     }
 
-    public Activity(String url, Vacation vacation, String notes) {
+    public String embedUrl(String url) {
+        String[] splitUrl = url.split("=", 0);
+        String embedCode = splitUrl[1];
+
+        embedUrl= "https://www.youtube.com/embed/" + embedCode;
+        return embedUrl;
+    }
+
+    public Activity(String title, String url, Vacation linkedVacation, String notes) {
+        this.title = title;
         this.url = url;
-        this.vacation = vacation;
+        this.linkedVacation = linkedVacation;
         this.notes = notes;
     }
 
