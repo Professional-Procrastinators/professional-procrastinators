@@ -20,7 +20,7 @@ public class UserAuthentication {
     }
 
     @PostMapping("/register")
-    public String processRegistration(User user) {
+    public String processRegistration(@ModelAttribute User user) {
         userRepository.save(user);
         return "redirect:/login";
     }
