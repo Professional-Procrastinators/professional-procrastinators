@@ -1,15 +1,45 @@
 package main.java.org.launchcode.professionalprocrastinators.controllers;
 
+import org.launchcode.professionalprocrastinators.models.*;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 @RestController
 public class UserAuthentication {
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String processRegistration(User user) {
+        userRepository.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(User user) {
+        Optional<User> optionalUser = userRepository.findByEmailOrName(user.getEmail(), user.getName());
+        // Add login logic using optionalUser
+        return "redirect:/dashboard";
+    }
+}
+
+/*public class UserAuthentication {
     @Autowired
     private UserRepository userRepository;
     private static Map<String, String> userDatabase = new HashMap<>();
@@ -76,3 +106,5 @@ public class UserAuthentication {
         }
     }
 }
+
+ */
