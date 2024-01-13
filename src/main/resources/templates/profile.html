@@ -8,11 +8,16 @@
 </head>
 <body>
     <header>
-    <h1>User Profile</h1>
+    <h1>User Profile: ${user.username}</h1>
     </header>
     <h2>Personal Information</h2>
-    <p><strong>Username: </strong>${username}</p>
-    <p><strong>Vacations Created: </strong>${numOfVacations}</p>
+    <p><strong>Vacations Created: </strong>${user.numOfVacations}</p>
+    <h2>Nomies</h2>
+    <ul>
+        <li th:each="Nomies : ${followers}">
+            <span th:text="${follower.username}"></span>
+        </li>
+    </ul>
 </body>
 </html>
 

@@ -17,5 +17,6 @@ public interface UserRepository extends CrudRepository<User,Integer> {
 
     List<User> findByNumOfVacationsGreaterThan(int numOfVacations);
 
+    List<User> findAll();
 
 }

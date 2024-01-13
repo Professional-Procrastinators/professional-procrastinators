@@ -24,4 +24,5 @@ public interface VacationRepository extends CrudRepository<Vacation,Integer> {
 
     List<Vacation> findByCityAndCountry(String city, String country);
 
+    List<Vacation> findAll();
 }

@@ -1,11 +1,10 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -20,7 +19,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Vacation> vacations;
-
+//    @ManyToMany(mappedBy = "followers")
+//    private List<Nomies> nomiesFollowing = new ArrayList<>();
+//
+//    @ManyToMany(mappedBy = "following")
+//    private List<Nomies> nomiesFollowers = new ArrayList<>();
 
     @NotNull
        private String username;
@@ -93,7 +96,9 @@ public class User {
     public String toString() {
         return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
     }
-}
+
+    }
+
 
 
 

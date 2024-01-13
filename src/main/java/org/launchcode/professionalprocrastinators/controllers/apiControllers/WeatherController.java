@@ -1,4 +1,4 @@
-package org.launchcode.professionalprocrastinators.controllers;
+package org.launchcode.professionalprocrastinators.controllers.apiControllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 //    }
 //
 //
-//    return "index::weatherSection";
+//
 //
 //}

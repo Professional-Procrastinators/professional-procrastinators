@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+
+<body>
+<nav th:replace="~{fragments :: header}"></nav>
+
+<div class="container">
+    <h1> Nomies </h1>
+    <p> Nomies are the friends you want to travel with, your fellow nomads. </p>
+
+    <form method="post" style="max-width:600 px" th:action="@{nomies/follow}">
+    <select name="followingID">
+        <option th:each="nomie : ${nomies}" th:value="{nomie.id}" th:text="${nomie.username}"></option>
+    </select>
+        <label for="username">Enter your Username:</label>
+        <input id="username" name="userId" required type="text">
+        <button type="submit">Follow</button>
+    </form>
+</div>
+
+</body>
+</html>

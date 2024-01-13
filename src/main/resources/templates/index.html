@@ -2,7 +2,6 @@
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments :: head}">
-    <script src="professional-procrastinators\nomad-nirvana-ui\src\LikeButton.js"></script>
 </head>
 
 <nav th:replace="~{fragments :: header}"></nav>
@@ -30,19 +29,26 @@
             <a th:href="@{'/add-vacation'}">Add Vacation</a>&nbsp;
             <a th:href="@{'/delete-vacation'}">Delete Vacation</a>&nbsp;
             <a th:href="@{'/edit-vacation'}">Edit Vacation</a>&nbsp;
+
         </div>
 </section>
 
 <!--TO-DO: Add favorite/like functionality-->
-<!--<div>-->
-<!--    <script>-->
-<!--    LikeButton()-->
-<!--    </script>-->
-<!--</div>-->
-<!--TO-DO: Add number of likes-->
+    <div class="container">
+        <h1> Like your favorite vacations!</h1>
+        <form id="likeForm" style="max-width: 600 px" th:action="@{likes}">
+            <select name="vacationID" id="vacationID">
+                <option th:each="vacation : ${vacations}" th:value="${vacation.id}" th:text="${vacation.city}"></option>
+            </select>
+            <label for="username">Enter your Username:</label>
+            <input id="username" name="userId" required type="text">
+            <button type="submit">Like</button>
+        </form>
+    </div>
 
 <!--TO-DO: Add dropdown select for vacations-->
 <section class="countdownSection">
+    <h1>Countdown Banner</h1>
     <form id="countdownForm">
         <label for="countdownDate">Enter Countdown Date:</label>
         <input type="datetime-local" id="countdownDate" required>
@@ -92,7 +98,23 @@
 </section>
 
 <!-- TO-DO: Add weather API-->
+    <div class="container">
+        <h1> Weather </h1>
+        <p> Get the current weather for your destination!</p>
 
+        <form method="post" style="max-width: 600 px">
+            <label for="VacationCity">Enter Vacation City:</label>
+            <input id="vacationCity" name="vacationID" required type="text">
+            <button type="submit">Get Weather</button>
+        </form>
+        <th:block th:if="${dailyForecast != null}">
+            <h2>Weather Information</h2>
+            <pre th:text="${dailyForecast}"></pre>
+        </th:block>
+        <th:block th:if="${error != null}">
+            <p th:text="${error}"></p>
+        </th:block>
+    </div>
 <!-- TO-DO: Add local time API-->
 
 <!-- TO-DO: Add Spotify API-->
