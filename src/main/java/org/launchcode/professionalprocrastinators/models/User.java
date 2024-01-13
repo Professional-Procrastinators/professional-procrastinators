@@ -26,11 +26,11 @@ public class User {
        private String username;
     @NotNull
         private String password;
-    @NotNull
+
        private String name;
-    @NotNull
+
         private String email;
-    @NotNull
+
         private String location;
         private int numOfVacations;
 

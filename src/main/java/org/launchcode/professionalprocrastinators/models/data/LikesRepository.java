@@ -5,6 +5,10 @@ import org.launchcode.professionalprocrastinators.models.Likes;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LikesRepository extends CrudRepository<Likes, Integer> {
+
+    List<Likes> findByLikes(int likes);
 }
