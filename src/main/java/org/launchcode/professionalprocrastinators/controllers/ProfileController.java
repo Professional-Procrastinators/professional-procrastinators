@@ -24,15 +24,15 @@ public class ProfileController {
         }
 
 
-       /* Optional<User> optionalUser;
-        optionalUser = userRepository.findByUsername(username);
+        Optional<User> optionalUser;
+        optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             model.addAttribute("user", user);
         } else {
             model.addAttribute("errorMessage", "User not found");
-        }*/
+        }
 //       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }

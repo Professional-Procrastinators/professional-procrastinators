@@ -17,9 +17,21 @@ public class ContactController {
 
     @PostMapping("/contact")
     public String submitContactForm(Contact contact) {
-        // Process the contact form submission (e.g., send an email)
-        // You can add your logic here
+        // Process the contact form submission
+
 
         return "redirect:/contact?success"; // Redirect to the contact form with a success message
     }
+
+    /* information for where email is to be sent
+    private void sendEmail(Contact contact) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("your-email@example.com");
+        message.setSubject("New Contact Form Submission");
+        message.setText("Name: " + contact.getName() + "\nEmail: " + contact.getEmail() + "\nMessage: " + contact.getMessage());
+
+        javaMailSender.send(message);
+    }
+
+     */
 }
