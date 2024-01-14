@@ -29,9 +29,9 @@
 
         <div class="indexNav">
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
-            <a th:href="@{'/add-vacation'}">Add Vacation</a>&nbsp;
-            <a th:href="@{'/delete-vacation'}">Delete Vacation</a>&nbsp;
-            <a th:href="@{'/edit-vacation'}">Edit Vacation</a>&nbsp;
+            <a th:href="@{'/add-vacation'}" class="btn btn-info" role="button">Add Vacation</a>&nbsp;
+            <a th:href="@{'/edit-vacation'}" class="btn btn-info" role="button">Edit Vacation</a>
+            <a th:href="@{'/delete-vacation'}" class="btn btn-danger" role="button">Delete Vacation</a>&nbsp;&nbsp;
         </div>
 </section>
 
@@ -58,8 +58,8 @@
 </section>
 
     <div class="activityNav">
-        <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>&nbsp;
-        <a th:href="@{'/delete-activity'}">Delete Trip Inspiration</a>&nbsp;
+        <a th:href="@{'/add-activity'}" class="btn btn-info" role="button">Add Trip Inspiration</a>&nbsp;
+        <a th:href="@{'/delete-activity'}" class="btn btn-danger" role="button">Delete Trip Inspiration</a>&nbsp;
     </div>
 
 </div>
