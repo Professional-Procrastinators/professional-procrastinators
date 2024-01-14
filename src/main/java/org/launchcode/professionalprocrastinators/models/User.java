@@ -17,6 +17,8 @@ import java.util.List;
 
 @Entity
 public class User {
+
+
     @Id
     @GeneratedValue
     private int id;
@@ -29,10 +31,7 @@ public class User {
        private String username;
 
     @NotBlank
-    private String firstName;
-
-    @NotBlank
-    private String lastName;
+    private String name;
 
     @NotBlank
     @Email(message = "Email must be valid.")
@@ -50,10 +49,9 @@ public class User {
     public User(){
     }
 
-    public User(@NotNull String username, @NotNull String firstName, @NotNull String lastName, @NotNull String email, @NotNull String password) {
+    public User(@NotNull String username, @NotNull String name, @NotNull String email, @NotNull String password) {
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.pwHash = encoder.encode(password);
     }
@@ -73,11 +71,11 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return pwHash;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.pwHash = password;
     }
 
     public String getName() {
@@ -111,9 +109,13 @@ public class User {
     public void setNumOfVacations(int numOfVacations) {
         this.numOfVacations = numOfVacations;
     }
+
+    public int getId() {
+        return id;
+    }
     @Override
     public String toString() {
-        return "Username: '" + username + "', Name: '" + firstName + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
+        return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
     }
 }
 

@@ -16,12 +16,8 @@ public class LoginFormDTO {
     private String username;
 
     @NotEmpty(message = "Can not be empty")
-    @NotBlank(message = "First name is required")
-    private String firstName;
-
-    @NotEmpty(message = "Can not be empty")
-    @NotBlank(message = "Last name is required")
-    private String lastName;
+    @NotBlank(message = "Name is required")
+    private String name;
 
     @NotEmpty(message = "Can not be empty")
     @NotBlank(message = "Username is required")
@@ -49,20 +45,12 @@ public class LoginFormDTO {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
