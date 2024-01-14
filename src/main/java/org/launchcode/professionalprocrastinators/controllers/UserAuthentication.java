@@ -6,13 +6,14 @@ import org.launchcode.professionalprocrastinators.models.*;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.launchcode.professionalprocrastinators.models.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController
+@Controller
 public class UserAuthentication {
     @Autowired
     private UserRepository userRepository;
