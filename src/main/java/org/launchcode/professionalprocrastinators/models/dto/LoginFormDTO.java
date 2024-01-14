@@ -4,13 +4,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import org.jetbrains.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginFormDTO {
 
-    @NotEmpty(message = "Can not be empty")
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 16, message = "Username must be 3-16 characters long")
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 20, message = "Invalid username. Must be between 3 and 20 characters.")
     private String username;
 
     @NotEmpty(message = "Can not be empty")
@@ -26,9 +28,9 @@ public class LoginFormDTO {
     @Email(message = "Must be a valid email")
     private String email;
 
-    @NotEmpty(message = "Can not be empty")
-    @NotBlank(message= "Password is required")
-    @Size(min = 8, max = 30, message = "Password must be 8-30 characters long")
+    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 30, message = "Invalid password. Must be between 5 and 30 characters.")
     private String password;
 
     public String getUsername() {
@@ -72,4 +74,3 @@ public class LoginFormDTO {
     }
 
 }
-

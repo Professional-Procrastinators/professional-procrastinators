@@ -30,6 +30,9 @@ dependencies {
 	implementation 'se.michaelthelin.spotify:spotify-web-api-java:8.3.4'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation("org.springframework.security:spring-security-crypto:5.5.8")
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
