@@ -1,6 +1,9 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.professionalprocrastinators.models.dto.RegistrationFormDTO;
 import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
@@ -16,35 +19,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-
-    @GetMapping(value = "/login")
-    public String loginProcessForm(Model model) {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String processLoginForm(Model model) {
-        return "redirect:/";
-    }
-
-    @GetMapping(value = "/create_account")
-    public String createAccountProcessFrom(Model model) {
-        model.addAttribute(new User());
-        return "create-account";
-    }
-
-    @PostMapping("/create_account")
-    public String processCreateAccountForm(@ModelAttribute @Valid User user, Errors errors) {
-        if (errors.hasErrors()) {
-
-            return "create-account";
-        } else {
-            userRepository.save(user);
-            return "redirect:/login";
-
-        }
-
-    }
-
 
 }

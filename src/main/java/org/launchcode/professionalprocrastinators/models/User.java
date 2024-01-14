@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class User {
 
     @NotBlank
     @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
-    private String password;
+    private String pwHash;
 
     private String location;
 
@@ -53,8 +54,15 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.pwHash = encoder.encode(password);
     }
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public Boolean isMatchingPassword(String password){
+        return encoder.matches(password, pwHash);
+    }
+
     public String getUsername() {
         return username;
     }
@@ -85,14 +93,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getId() {

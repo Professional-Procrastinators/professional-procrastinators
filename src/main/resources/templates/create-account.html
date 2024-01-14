@@ -15,17 +15,18 @@
 <body>
     <form method="post">
         <h1>Create Account</h1>
-        <label>Username:<input th:field="${user.username}"/></label>
-        <p class="error" th:errors="${user.username}"></p>
-        <label>First Name:<input th:field="${user.firstName}"/></label>
-        <p class="error" th:errors="${user.firstName}"></p>
-        <label>Last Name:<input th:field="${user.lastName}"/></label>
-        <p class="error" th:errors="${user.lastName}"></p>
-        <label>Email:<input th:field="${user.email}"/></label>
-        <p class="error" th:errors="${user.email}"></p>
-        <label>Password:<input th:field="${user.password}" type="password"/></label>
-        <p class="error" th:errors="${user.password}"></p>
-        <label>Confirm Password:<input name="confirmUserPassword" type="password" /></label>
+        <label>Username:<input th:field="${registrationFormDTO.username}"/></label>
+        <p class="error" th:errors="${registrationFormDTO.username}"></p>
+        <label>First Name:<input th:field="${registrationFormDTO.firstName}"/></label>
+        <p class="error" th:errors="${registrationFormDTO.firstName}"></p>
+        <label>Last Name:<input th:field="${registrationFormDTO.lastName}"/></label>
+        <p class="error" th:errors="${registrationFormDTO.lastName}"></p>
+        <label>Email:<input th:field="${registrationFormDTO.email}"/></label>
+        <p class="error" th:errors="${registrationFormDTO.email}"></p>
+        <label>Password:<input th:field="${registrationFormDTO.password}" type="password"/></label>
+        <p class="error" th:errors="${registrationFormDTO.password}"></p>
+        <label>Confirm Password:<input th:field="${registrationFormDTO.verifyPassword}" type="password" /></label>
+        <p class="error" th:errors="${registrationFormDTO.verifyPassword}"></p>
         <button type="submit">Create Account</button>
     </form>
 </body>
