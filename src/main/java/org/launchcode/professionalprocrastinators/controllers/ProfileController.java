@@ -18,9 +18,9 @@ public class ProfileController {
 
     @GetMapping
     public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
-        if (username == null) {
-            return "redirect: /error";
-        }
+//        if (username == null) {
+//            return "redirect: /error";
+//        }
 
         Optional<User> optionalUser;
         optionalUser = userRepository.findByUsername(username);
