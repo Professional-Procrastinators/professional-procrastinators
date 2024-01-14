@@ -13,12 +13,15 @@
     <title>Nomad Nirvana</title>
 </head>
 <body>
-    <div>
+    <form method="post">
         <h1>Create Account</h1>
-        <label>Email or Username:<input type="text" name="userNameOrEmail"/></label>
-        <label>Password:<input type="password" name="userPassword"/></label>
-        <label>Confirm Password:<input type="password" name="userConfirmPassword"/></label>
-        <input type="submit" value="Create Account"/>
-    </div>
+        <label>Username:<input type="text" name="username" th:value="${username}"/></label>
+        <label>First Name:<input type="text" name="firstName" th:value="${firstName}"/></label>
+        <label>Last Name:<input type="text" name="lastName" th:value="${lastName}"/></label>
+        <label>Email:<input type="text" name="email" th:value="${email}"/></label>
+        <label>Password:<input type="password" name="userPassword" th:value="${userPassword}"/></label>
+        <label>Confirm Password:<input type="password" name="confirmUserPassword"/></label>
+        <button type="submit">Create Account</button>
+    </form>
 </body>
 </html>

@@ -22,39 +22,68 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
-
     @NotNull
        private String username;
+
+    @NotNull
+    private String firstName;
+
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String lastName;
+
+    @NotNull
+    @Email(message = "Email must be valid.")
+    private String email;
 
     @NotBlank
     @NotEmpty
     @NotNull
-
     @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
         private String password;
-    @NotNull
-       private String name;
-    @NotNull
-    @Email(message = "Email must be valid.")
-        private String email;
-    @NotNull
+
         private String location;
+
         private int numOfVacations;
 
-    public int getId() {
-        return id;
+    public User(@NotNull String username, @NotNull String firstName, @NotNull String lastName, @NotNull String email, @NotNull String password) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -65,20 +94,12 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLocation() {
@@ -98,7 +119,7 @@ public class User {
     }
     @Override
     public String toString() {
-        return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
+        return "Username: '" + username + "', Name: '" + firstName + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
     }
 }
 
