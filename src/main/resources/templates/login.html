@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
 <head th:replace="~{fragments :: head}"></head>
-
-
 <nav th:replace="~{fragments :: header}"></nav>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<body class="container">
 
-<body>
 
-<div>
-    <h1>Login:</h1>
 
-    <form action="/login" method="post">
-        <label>Email or Username:</label>
-        <input type="text" name="email" />
+<form method="post">
+    <div class="form-group">
+        <label th:for="username">Username
+            <input class="form-control" th:field="${loginFormDTO.username}">
+        </label>
+        <p class="error" th:errors="${loginFormDTO.username}"></p>
+    </div>
+    <div class="form-group">
+        <label>Password
+            <input class="form-control" th:field="${loginFormDTO.password}" type="password">
+        </label>
+        <p class="error" th:errors="${loginFormDTO.password}"></p>
+    </div>
 
-        <label>Password:</label>
-        <input type="password" name="password" />
+    <input type="submit" class="btn btn-primary" value="Log In" />
+</form>
 
-        <input type="submit" value="Login">
-    </form>
-
-</div>
-<div>
-    <a href="/create_account">Create Account</a>
-</div>
+<p>Don't have an account? <a href="/register">Register for one.</a></p>
 
 </body>
 </html>
