@@ -1,8 +1,17 @@
 package org.launchcode.professionalprocrastinators.models;
 
+import jakarta.validation.constraints.*;
+
 public class Contact {
+
+    @NotEmpty(message = "Name is required")
     private String name;
+
+    @NotEmpty(message = "Email is required")
+    @Email(message = "Invalid email address")
     private String email;
+
+    @NotEmpty(message = "Message is required")
     private String message;
 
     // Getters and setters
