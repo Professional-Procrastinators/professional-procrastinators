@@ -16,7 +16,7 @@ public class Playlist {
     @GeneratedValue
     private int id;
 
-    @OneToMany(mappedBy = "Vacation")
+//    @OneToMany(mappedBy = "Vacation")
     private String spotifyLink;
 
 

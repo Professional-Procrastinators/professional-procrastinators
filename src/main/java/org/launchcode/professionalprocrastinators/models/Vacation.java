@@ -22,8 +22,8 @@ public class Vacation {
     private List<Activity> activites = new ArrayList<>();
 
 
-    @ManyToOne
-    @JoinColumn(name = "playlist_id")
+//    @ManyToOne
+//    @JoinColumn(name = "playlist_id")
     private String spotifyLink;
 
     private String city;
