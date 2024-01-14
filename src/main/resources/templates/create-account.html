@@ -13,7 +13,7 @@
     <title>Nomad Nirvana</title>
 </head>
 <body>
-    <form method="post">
+    <form th:action="@{url}" method="post">
         <h1>Create Account</h1>
         <label>Username:<input th:field="${registrationFormDTO.username}"/></label>
         <p class="error" th:errors="${registrationFormDTO.username}"></p>
