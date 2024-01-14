@@ -1,10 +1,17 @@
 package main.java.org.launchcode.professionalprocrastinators.controllers;
 
+import org.launchcode.professionalprocrastinators.models.data.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+@RestController
 public class UserAuthentication {
+    @Autowired
+    private UserRepository userRepository;
     private static Map<String, String> userDatabase = new HashMap<>();
 
     public static void main(String[] args) {
