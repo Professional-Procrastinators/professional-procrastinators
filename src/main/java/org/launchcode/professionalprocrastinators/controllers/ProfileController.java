@@ -18,14 +18,14 @@ public class ProfileController {
 
     @GetMapping
     public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
-//        if (username == null) {
-//            return "redirect: /error";
-//        }
+        if (username == null || username.isEmpty()) {
+            return "redirect: /error";
+        }
 
-        Optional<User> optionalUser;
+        User optionalUser;
         optionalUser = userRepository.findByUsername(username);
 
-        if (optionalUser.isPresent()) {
+        if (optionalUser.) {
             User user = optionalUser.get();
             model.addAttribute("user", user);
         } else {
