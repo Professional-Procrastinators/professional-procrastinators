@@ -22,30 +22,31 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 16)
        private String username;
 
-    @NotNull
+    @NotBlank
     private String firstName;
 
-    @NotNull
-    @NotEmpty
     @NotBlank
     private String lastName;
 
-    @NotNull
+    @NotBlank
     @Email(message = "Email must be valid.")
     private String email;
 
     @NotBlank
-    @NotEmpty
-    @NotNull
     @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
-        private String password;
+    private String password;
 
-        private String location;
+    private String location;
 
-        private int numOfVacations;
+    private int numOfVacations;
+
+    //No Args constructor for validation
+    public User(){
+    }
 
     public User(@NotNull String username, @NotNull String firstName, @NotNull String lastName, @NotNull String email, @NotNull String password) {
         this.username = username;

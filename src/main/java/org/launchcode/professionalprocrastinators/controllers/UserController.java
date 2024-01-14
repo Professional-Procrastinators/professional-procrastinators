@@ -29,20 +29,17 @@ public class UserController {
 
     @GetMapping(value = "/create_account")
     public String createAccountProcessFrom(Model model) {
+        model.addAttribute(new User());
         return "create-account";
     }
 
     @PostMapping("/create_account")
-    public String processCreateAccountForm(@RequestParam String username, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String userPassword, @RequestParam String confirmUserPassword, Model model, @ModelAttribute @Valid User user, Errors errors) {
+    public String processCreateAccountForm(@ModelAttribute @Valid User user, Errors errors) {
         if (errors.hasErrors()) {
-            model.addAttribute("username", username);
-            model.addAttribute("firstName", firstName);
-            model.addAttribute("lastName", lastName);
-            model.addAttribute("email", email);
-            model.addAttribute("userPassword", userPassword);
+
             return "create-account";
         } else {
-            userRepository.save(new User(username, firstName, lastName, email, userPassword));
+            userRepository.save(user);
             return "redirect:/login";
 
         }

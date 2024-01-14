@@ -15,12 +15,17 @@
 <body>
     <form method="post">
         <h1>Create Account</h1>
-        <label>Username:<input type="text" name="username" th:value="${username}"/></label>
-        <label>First Name:<input type="text" name="firstName" th:value="${firstName}"/></label>
-        <label>Last Name:<input type="text" name="lastName" th:value="${lastName}"/></label>
-        <label>Email:<input type="text" name="email" th:value="${email}"/></label>
-        <label>Password:<input type="password" name="userPassword" th:value="${userPassword}"/></label>
-        <label>Confirm Password:<input type="password" name="confirmUserPassword"/></label>
+        <label>Username:<input th:field="${user.username}"/></label>
+        <p class="error" th:errors="${user.username}"></p>
+        <label>First Name:<input th:field="${user.firstName}"/></label>
+        <p class="error" th:errors="${user.firstName}"></p>
+        <label>Last Name:<input th:field="${user.lastName}"/></label>
+        <p class="error" th:errors="${user.lastName}"></p>
+        <label>Email:<input th:field="${user.email}"/></label>
+        <p class="error" th:errors="${user.email}"></p>
+        <label>Password:<input th:field="${user.password}" type="password"/></label>
+        <p class="error" th:errors="${user.password}"></p>
+        <label>Confirm Password:<input name="confirmUserPassword" type="password" /></label>
         <button type="submit">Create Account</button>
     </form>
 </body>
