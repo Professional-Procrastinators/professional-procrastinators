@@ -5,22 +5,39 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.crypto.bcrypt.*;
 
 import java.util.List;
 
 
 @Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private int id;
+public class User extends AbstractEntity{
+    @NotNull
+    private String username;
+    @NotNull
+    private String passwordHash;
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public User(){}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.passwordHash = encoder.encode(password);
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, passwordHash);
+    }
+
+    // new code above
+
+
+
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
 
-    @NotNull
-       private String username;
     @NotNull
         private String password;
 
@@ -31,13 +48,7 @@ public class User {
         private String location;
         private int numOfVacations;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

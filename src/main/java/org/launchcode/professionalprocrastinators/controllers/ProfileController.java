@@ -6,6 +6,7 @@ import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+//import org.launchcode.professionalprocrastinators.models.data.dto.LoginFormDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,8 @@ public class ProfileController {
             return "redirect: /error";
         }
 
-        Optional<User> optionalUser;
+
+       /* Optional<User> optionalUser;
         optionalUser = userRepository.findByUsername(username);
 
         if (optionalUser.isPresent()) {
@@ -30,7 +32,7 @@ public class ProfileController {
             model.addAttribute("user", user);
         } else {
             model.addAttribute("errorMessage", "User not found");
-        }
+        }*/
 //       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }
