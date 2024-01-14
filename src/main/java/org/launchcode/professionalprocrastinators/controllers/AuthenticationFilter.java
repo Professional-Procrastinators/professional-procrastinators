@@ -17,7 +17,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     @Autowired
     UserAuthentication userAuthentication;
     private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css", "/add-activity", "/add-vacation", "/delete-activity", "/delete-vacation",
-            "/edit-vacation", "/error", "/fragments", "/index", "/profile");
+            "/edit-vacation", "/error", "/fragments", "/index", "/profile", "/contact");
 
     @Override
     public boolean preHandle(HttpServletRequest request,
