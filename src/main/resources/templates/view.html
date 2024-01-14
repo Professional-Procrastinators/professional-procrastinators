@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}">
+    <script src="professional-procrastinators\nomad-nirvana-ui\src\LikeButton.js"></script>
+</head>
+
+<nav th:replace="~{fragments :: header}"></nav>
+
+<body>
+
+<div class="container body-content">
+
+    <section class="vacationInfo">
+
+        <h2 class="viewHeader" th:text="${'View: ' + vacation.city + ', ' + vacation.country}">View Vacation</h2>
+        <ul>
+            <li th:if="${vacation.state != ''}" th:text="${vacation.state}"></li>
+            <li th:text="${#temporals.format(vacation.vacationDate, 'MM-dd-yyyy')}"></li>
+
+        </ul>
+    </section>
+
+    <section class="countdownSection">
+
+        <div id="countdownContainer" style="display: none;">
+            <a data-type="countdown"
+               data-name="Time for vacation in:"
+               data-bg_color="#97B8FF"
+               data-name_color="#008922"
+               data-border_color="#888888"
+               data-dt=""
+               data-timezone="America/Chicago"
+               style="display:block; left:0; width:80%; height:100px; position:relative; padding-bottom:0; margin:0 auto;"
+               class="tickcounter"
+               href="//www.tickcounter.com"
+            >Countdown</a>
+        </div>
+
+        <script th:inline="javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                // Assuming vacation is a Thymeleaf variable
+                var vacationDate = /*[[${vacation.vacationDate}]]*/ 'default_value';
+
+                startCountdown(vacationDate);
+            });
+
+            function startCountdown(vacationDate) {
+                document.querySelector('.tickcounter').setAttribute('data-dt', vacationDate);
+
+                document.getElementById('countdownContainer').style.display = 'block';
+
+                loadTickCounterScript();
+            }
+
+            function loadTickCounterScript() {
+                (function(d, s, id) {
+                    var js, pjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//www.tickcounter.com/static/js/loader.js";
+                    pjs.parentNode.insertBefore(js, pjs);
+                }(document, "script", "tickcounter-sdk"));
+            }
+        </script>
+
+    </section>
+
+    <!-- TO-DO: Add weather API-->
+
+    <!-- TO-DO: Add local time API-->
+
+    <!-- TO-DO: Add Spotify API-->
+
+
+        <section class="video-container">
+
+            <div th:each="activity: ${activities}">
+
+                <iframe width="560" height="315" th:src="${activity.embedUrl}" allowfullscreen></iframe>
+
+            </div>
+        </section>
+
+    <div class="activityNav">
+        <a th:href="@{'/add-activity'}">Add Trip Inspiration</a>&nbsp;
+        <a th:href="@{'/delete-activity'}">Delete Trip Inspiration</a>&nbsp;
+    </div>
+
+
+</div>
+
+</body>
+</html>
