@@ -88,7 +88,6 @@ public class HomeController {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
 
-
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);
             editedVacation.setState(vacationState);
