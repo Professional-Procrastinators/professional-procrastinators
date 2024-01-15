@@ -10,7 +10,6 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -53,10 +52,10 @@ public class HomeController {
                                          @RequestParam String vacationCountry,
                                          @RequestParam(required = false) String vacationState,
                                          @RequestParam(required = false) LocalDateTime vacationDate,
-                                         @RequestParam String visibility){
+                                         @RequestParam String visibility) {
 
-        vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState, vacationDate, visibility));
-        return "redirect:";
+            vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState, vacationDate, visibility));
+            return "redirect:";
     }
 
     @GetMapping("delete-vacation")
