@@ -1,38 +1,43 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import org.springframework.ui.Model;
+import org.launchcode.professionalprocrastinators.models.User;
+import org.launchcode.professionalprocrastinators.models.data.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+//import org.launchcode.professionalprocrastinators.models.data.dto.LoginFormDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@RequestMapping("/profile")
+public class ProfileController {
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping
+    public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
+        if (username == null) {
+            return "redirect: /error";
+        }
 
 
-//@RequestMapping("/profile")
-//public class ProfileController {
-//    @Autowired
-//    private UserRepository userRepository;
-//    @Autowired
-//    VacationRepository vacationRepository;
-//
+        Optional<User> optionalUser;
+        optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
 
-
-//    @GetMapping("/profile")
-//    public String viewProfile(Model model, Authentication authentication) {
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            String username = authentication.getUsername();
-//            User user = userRepository.findByUsername(username);
-//            if (user != null) {
-//                List<Vacation> userVacations = vacationRepository.findByUser(user);
-//                int numOfVacations = userVacations.size();
-
-//                model.addAttribute("username", username);
-//                model.addAttribute("numOfVacations", numOfVacations);
-//                return "profile";
-//            }
-//        } else {
-//            return "redirect:/error";
-//        }
-//        return "redirect:/login";
-//    }
-//}
-
-
-
-//TODO: Add VacationsLiked and update html, Index?
-//TODO: Add Top number of likes for the vacations the user created
-//TODO: find by Usernameignorecase crud
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("errorMessage", "User not found");
+        }
+//       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
+        return "profile";
+    }
+}
+// TODO: Create a way to fetch user data to use in viewProfile Method
+// TODO: Update Controller
+// TODO: Create a handler for errors
+//TODO: Create Conditionals
