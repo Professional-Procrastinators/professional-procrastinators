@@ -50,7 +50,7 @@ public class UserAuthentication {
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
                                           Errors errors, HttpServletRequest request,
                                           Model model) {
-
+        System.out.println(errors);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "register";

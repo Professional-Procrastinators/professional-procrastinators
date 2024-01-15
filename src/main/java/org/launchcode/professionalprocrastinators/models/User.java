@@ -16,12 +16,8 @@ import java.util.List;
 
 
 @Entity
-public class User {
+public class User extends AbstractEntity{
 
-
-    @Id
-    @GeneratedValue
-    private int id;
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
@@ -38,8 +34,7 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
-    private String pwHash;
+    private String passwordHash;
 
     private String location;
 
@@ -53,13 +48,13 @@ public class User {
         this.username = username;
         this.name = name;
         this.email = email;
-        this.pwHash = encoder.encode(password);
+        this.passwordHash = encoder.encode(password);
     }
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Boolean isMatchingPassword(String password){
-        return encoder.matches(password, pwHash);
+        return encoder.matches(password, passwordHash);
     }
 
     public String getUsername() {
@@ -70,12 +65,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return pwHash;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.pwHash = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getName() {
@@ -110,9 +105,6 @@ public class User {
         this.numOfVacations = numOfVacations;
     }
 
-    public int getId() {
-        return id;
-    }
     @Override
     public String toString() {
         return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
