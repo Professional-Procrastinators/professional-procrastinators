@@ -1,6 +1,6 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
-import org.launchcode.professionalprocrastinators.models.Nomies;
+
 
 //@RequestMapping("/profile")
 //public class ProfileController {
@@ -9,8 +9,7 @@ import org.launchcode.professionalprocrastinators.models.Nomies;
 //    @Autowired
 //    VacationRepository vacationRepository;
 //
-//    @Autowired
-//    NomiesRepository nomiesRepository;
+
 
 //    @GetMapping("/profile")
 //    public String viewProfile(Model model, Authentication authentication) {
@@ -33,6 +32,7 @@ import org.launchcode.professionalprocrastinators.models.Nomies;
 //}
 
 
-//TODO: Add a followers, and update html
+
 //TODO: Add VacationsLiked and update html, Index?
 //TODO: Add Top number of likes for the vacations the user created
+//TODO: find by Usernameignorecase crud

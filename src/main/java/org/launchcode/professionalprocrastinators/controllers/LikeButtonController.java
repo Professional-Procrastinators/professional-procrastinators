@@ -30,7 +30,7 @@ public class LikeButtonController {
 
     @GetMapping("/likes")
     public String displayLikesForm(Model model) {
-        model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("vacations", vacationRepository.findByVisibility("Public"));
         model.addAttribute("likes", new Likes());
         return "likes";
     }
@@ -41,7 +41,7 @@ public class LikeButtonController {
         Vacation vacation = vacationRepository.findById(vacationId).orElseThrow(() -> new IllegalArgumentException("Invalid vacation ID"));
         likes.setUser(user);
         likes.setVacation(vacation);
-        likes.setLikes(1);
+        likes.setLikes(likes.getLikes()+ 1);
         likesRepository.save(likes);
         model.addAttribute("successMessage", "Liked Successful!");
         return "redirect:/";
