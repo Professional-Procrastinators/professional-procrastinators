@@ -1,14 +1,13 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Vacation {
@@ -21,6 +20,11 @@ public class Vacation {
     private List<Likes> likes;
     @OneToMany
     private List<Activity> activites = new ArrayList<>();
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "playlist_id")
+    private String spotifyLink;
 
     private String city;
 
