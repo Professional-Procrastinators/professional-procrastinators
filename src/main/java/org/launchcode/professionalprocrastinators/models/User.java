@@ -1,7 +1,15 @@
 package org.launchcode.professionalprocrastinators.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.*;
 
 import java.util.List;
@@ -9,60 +17,60 @@ import java.util.List;
 
 @Entity
 public class User extends AbstractEntity{
-    @NotNull
-    private String username;
-    @NotNull
-    private String passwordHash;
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    public User(){}
-
-    public User(String username, String password) {
-        this.username = username;
-        this.passwordHash = encoder.encode(password);
-    }
-
-    public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, passwordHash);
-    }
-
-    // new code above
-
-
 
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
-    @OneToMany(mappedBy = "user")
-    private List<Vacation> vacations;
+    @NotBlank
+    @Size(min = 3, max = 16)
+       private String username;
 
-    @NotNull
-        private String password;
+    @NotBlank
+    private String name;
 
-       private String name;
+    @NotBlank
+    @Email(message = "Email must be valid.")
+    private String email;
 
-        private String email;
+    @NotBlank
+    private String passwordHash;
 
-        private String location;
-        private int numOfVacations;
+    private String location;
 
+    private int numOfVacations;
 
+    //No Args constructor for validation
+    public User(){
+    }
 
-    public @NotNull String getUsername() {
+    public User(@NotNull String username, @NotNull String name, @NotNull String email, @NotNull String password) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.passwordHash = encoder.encode(password);
+    }
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public Boolean isMatchingPassword(String password){
+        return encoder.matches(password, passwordHash);
+    }
+
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(@NotNull String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public @NotNull String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(@NotNull String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getName() {
@@ -96,13 +104,12 @@ public class User extends AbstractEntity{
     public void setNumOfVacations(int numOfVacations) {
         this.numOfVacations = numOfVacations;
     }
+
     @Override
     public String toString() {
         return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
     }
-
-    }
-
+}
 
 
 
