@@ -94,7 +94,18 @@ public class UserAuthentication {
             return "login";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User theUser;
+
+        if (loginFormDTO.getUsername().contains("@")) {
+
+            theUser = userRepository.findByEmail(loginFormDTO.getUsername());
+
+            if (loginFormDTO.getUsername().equals(theUser.getEmail())) {
+                errors.rejectValue("email", "email.invalid", "The given email does not exist");
+                model.addAttribute("title", "Log In");
+                return "login";
+            }
+        } else { theUser = userRepository.findByUsername(loginFormDTO.getUsername()); }
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
