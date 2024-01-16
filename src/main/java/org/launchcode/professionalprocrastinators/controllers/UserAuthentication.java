@@ -100,7 +100,7 @@ public class UserAuthentication {
 
             theUser = userRepository.findByEmail(loginFormDTO.getUsername());
 
-            if (loginFormDTO.getUsername().equals(theUser.getEmail())) {
+            if (!loginFormDTO.getUsername().equals(theUser.getEmail())) {
                 errors.rejectValue("email", "email.invalid", "The given email does not exist");
                 model.addAttribute("title", "Log In");
                 return "login";
