@@ -2,7 +2,6 @@ package org.launchcode.professionalprocrastinators.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Vacation {
     @OneToMany(mappedBy = "vacation")
     private List<Likes> likes;
     @OneToMany
-    private List<Activity> activites = new ArrayList<>();
+    private List<Activity> activities = new ArrayList<>();
 
 
 //    @ManyToOne
@@ -54,12 +53,12 @@ public class Vacation {
                 '}';
     }
 
-    public List<Activity> getActivites() {
-        return activites;
+    public List<Activity> getActivities() {
+        return activities;
     }
 
-    public void setActivites(List<Activity> activites) {
-        this.activites = activites;
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
     public LocalDateTime getVacationDate() {
