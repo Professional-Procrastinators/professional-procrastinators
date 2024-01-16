@@ -6,6 +6,7 @@ import org.launchcode.professionalprocrastinators.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+//import org.launchcode.professionalprocrastinators.models.data.dto.LoginFormDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,9 @@ public class ProfileController {
             return "redirect: /error";
         }
 
+
         Optional<User> optionalUser;
-        optionalUser = userRepository.findByUsername(username);
+        optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();

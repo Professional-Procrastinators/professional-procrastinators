@@ -4,39 +4,57 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.*;
 
 import java.util.List;
 
 
 @Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private int id;
+public class User extends AbstractEntity{
+
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
 
-
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 16)
        private String username;
-    @NotNull
-        private String password;
-    @NotNull
-       private String name;
-    @NotNull
-        private String email;
-    @NotNull
-        private String location;
-        private int numOfVacations;
 
-    public int getId() {
-        return id;
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    @Email(message = "Email must be valid.")
+    private String email;
+
+    @NotBlank
+    private String passwordHash;
+
+    private String location;
+
+    private int numOfVacations;
+
+    //No Args constructor for validation
+    public User(){
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public User(@NotNull String username, @NotNull String name, @NotNull String email, @NotNull String password) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.passwordHash = encoder.encode(password);
+    }
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public Boolean isMatchingPassword(String password){
+        return encoder.matches(password, passwordHash);
     }
 
     public String getUsername() {
@@ -47,12 +65,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getName() {
@@ -86,6 +104,7 @@ public class User {
     public void setNumOfVacations(int numOfVacations) {
         this.numOfVacations = numOfVacations;
     }
+
     @Override
     public String toString() {
         return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;

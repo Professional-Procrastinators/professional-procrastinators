@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Vacation {
@@ -17,6 +19,11 @@ public class Vacation {
     private List<Likes> likes;
     @OneToMany
     private List<Activity> activities = new ArrayList<>();
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "playlist_id")
+    private String spotifyLink;
 
     private String city;
 
