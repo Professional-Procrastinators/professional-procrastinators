@@ -5,13 +5,12 @@ import org.launchcode.professionalprocrastinators.models.data.VacationRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.launchcode.professionalprocrastinators.models.Vacation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
 
 
 @Controller
@@ -55,8 +54,8 @@ public class HomeController {
                                          @RequestParam(required = false) LocalDateTime vacationDate,
                                          @RequestParam String visibility) {
 
-        vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState, vacationDate, visibility));
-        return "redirect:";
+            vacationRepository.save(new Vacation(vacationName, vacationCountry, vacationState, vacationDate, visibility));
+            return "redirect:";
     }
 
     @GetMapping("delete-vacation")
@@ -88,7 +87,6 @@ public class HomeController {
                                           @RequestParam String visibility) {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
-
 
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);
@@ -123,6 +121,8 @@ public class HomeController {
 
         activityRepository.save(addedActivity);
 
+        linkedVacation.getActivities().add(addedActivity);
+
         return "redirect:/";
     }
 
@@ -139,5 +139,31 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/view/{vacationId}")
+    public String displayViewVacation(Model model, @PathVariable int vacationId) {
+
+        Optional<Vacation> optVacation = vacationRepository.findById(vacationId);
+        ArrayList<Activity> filteredActivities = new ArrayList<>();
+
+        if (optVacation.isPresent()) {
+            Vacation vacation = (Vacation) optVacation.get();
+            model.addAttribute("vacation", vacation);
+
+            for (Activity activity: activityRepository.findAll()){
+                 Vacation currentVacation = activity.getLinkedVacation();
+                 int currentId = currentVacation.getId();
+
+                        if (currentId == vacationId) {
+                            filteredActivities.add(activity);
+                        }
+            }
+            model.addAttribute("activities", filteredActivities);
+
+            return "view"; }
+        else {
+            return "redirect:../";
+        }
+
+    }
 }
 
