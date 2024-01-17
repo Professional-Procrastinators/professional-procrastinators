@@ -1,5 +1,6 @@
 package org.launchcode.professionalprocrastinators.controllers;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.professionalprocrastinators.models.Activity;
@@ -29,21 +30,17 @@ public class HomeController {
     @Autowired
     UserAuthentication userAuthentication;
 
-//    TODO:put html banner hyperscripts like logout, my account, and basically everything that you can only access in a <div> field in the index html,
-//     then add java logic to check if the user is signed in, if not then make the <div> hidden which should make hte banner look good
 
     @GetMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("activities", activityRepository.findAll());
-
         return "index";
     }
 
     @PostMapping(value= "/")
         public String processVacationCountdown(@RequestParam LocalDateTime countdownDate, Model model){
-
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("activities", activityRepository.findAll());
 

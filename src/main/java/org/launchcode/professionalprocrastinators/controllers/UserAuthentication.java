@@ -82,6 +82,8 @@ public class UserAuthentication {
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
+        Boolean notLoggedIn = true;
+        model.addAttribute("notLoggedIn", notLoggedIn);
         return "login";
     }
     @PostMapping("/login")
