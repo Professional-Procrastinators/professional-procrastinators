@@ -32,7 +32,7 @@ public class PackingListController {
     public String displayPackingListForm(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
-        System.out.println(user);
+//        System.out.println(user);
         model.addAttribute("user", user);
 
 //        user.setLocation("This worked");
