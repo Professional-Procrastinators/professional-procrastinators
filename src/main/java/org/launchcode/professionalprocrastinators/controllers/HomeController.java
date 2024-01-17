@@ -175,12 +175,6 @@ public class HomeController {
 
     }
 
-    @GetMapping("/packing_list")
-    public String displayPackingListForm(@ModelAttribute @Valid Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = userAuthentication.getUserFromSession(session);
-        model.addAttribute("user", user);
-        return "packing-list";
-    }
+
 }
 
