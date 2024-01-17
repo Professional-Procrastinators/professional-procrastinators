@@ -1,5 +1,10 @@
 package org.launchcode.professionalprocrastinators.controllers;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.launchcode.professionalprocrastinators.models.Activity;
+import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +27,20 @@ public class HomeController {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    UserAuthentication userAuthentication;
+
 
     @GetMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("title", "My Vacations");
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("activities", activityRepository.findAll());
-
         return "index";
     }
 
     @PostMapping(value= "/")
         public String processVacationCountdown(@RequestParam LocalDateTime countdownDate, Model model){
-
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("activities", activityRepository.findAll());
 
@@ -165,5 +171,7 @@ public class HomeController {
         }
 
     }
+
+
 }
 
