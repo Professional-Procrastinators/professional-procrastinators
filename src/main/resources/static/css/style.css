@@ -14,6 +14,10 @@
     height: auto;
 }
 
+#end-item {
+    text-align: right;
+}
+
 .countdownForm {
     margin: auto;
 }
@@ -33,4 +37,8 @@
 
 .countdownSection{
     margin-bottom: 50px;
+}
+
+.viewHeader{
+    margin-top: 50px;
 }

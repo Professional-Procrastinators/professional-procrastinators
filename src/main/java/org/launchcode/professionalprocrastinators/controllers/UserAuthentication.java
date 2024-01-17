@@ -50,13 +50,13 @@ public class UserAuthentication {
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
                                           Errors errors, HttpServletRequest request,
                                           Model model) {
-
+        System.out.println(errors);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "register";
         }
 
-        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
+        User existingUser = userRepository.findByUsername(registerFormDTO.getUsernameOrEmail());
 
         if (existingUser != null) {
             errors.rejectValue("username", "username.already exists", "A user with that username already exists");
@@ -72,16 +72,18 @@ public class UserAuthentication {
             return "register";
         }
 
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        User newUser = new User(registerFormDTO.getUsernameOrEmail(), registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "redirect:/";
     }
     @GetMapping("/login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
+        Boolean notLoggedIn = true;
+        model.addAttribute("notLoggedIn", notLoggedIn);
         return "login";
     }
     @PostMapping("/login")
@@ -94,7 +96,18 @@ public class UserAuthentication {
             return "login";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User theUser;
+
+        if (loginFormDTO.getUsernameOrEmail().contains("@")) {
+
+            theUser = userRepository.findByEmail(loginFormDTO.getUsernameOrEmail());
+
+            if (!loginFormDTO.getUsernameOrEmail().equals(theUser.getEmail())) {
+                errors.rejectValue("email", "email.invalid", "The given email does not exist");
+                model.addAttribute("title", "Log In");
+                return "login";
+            }
+        } else { theUser = userRepository.findByUsername(loginFormDTO.getUsernameOrEmail()); }
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
