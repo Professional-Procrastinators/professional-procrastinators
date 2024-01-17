@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nomad Nirvana</title>
+</head>
+<body>
+<nav th:replace="~{fragments :: header}"></nav>
+    <div class="container">
+        <h1> Weather </h1>
+        <p> This is the current weather for your destination!</p>
+        <th:block>
+            <h2>Weather Information</h2>
+            <h3><strong>Temperature:</strong></h3>
+            <p>Minimum: ${weatherInformation.temperature.minimum.value} ${weatherInformation.temperature.minimum.unit}</p>
+            <p>Maximum: ${weatherInformation.temperature.maximum.value} ${weatherInformation.temperature.maximum.unit}</p>
+
+            <h3><strong>Day Information:</strong></h3>
+            <p>Icon: ${weatherInformation.day.icon}</p>
+            <p>Icon Phrase: ${weatherInformation.day.iconPhrase}</p>
+            <p>Has Precipitation: ${weatherInformation.day.hasPrecipitation}</p>
+            <p>Precipitation Type: ${weatherInformation.day.precipitationType}</p>
+            <p>Precipitation Probability: ${weatherInformation.day.precipitationProbability}</p>
+        </th:block>
+
+        <th:block th:if="${error != null}">
+            <p th:text="${error}"></p>
+        </th:block>
+    </div>
+
+</body>
+</html>

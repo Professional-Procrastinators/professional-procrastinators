@@ -21,13 +21,6 @@ public class WeatherServiceImpl implements WeatherService {
     @Autowired
     private RestTemplate restTemplate;
 
-//    private String pickBestKey(LocationInformation locationInformation) {
-//        if (locationInformation.getLocalizedName().equalsIgnoreCase(vacation.getCity()) &&
-//                locationInformation.getRegion().getEnglishName().equalsIgnoreCase(vacation.getCountry())) {
-//            return locationInformation.getKey();
-//        }
-//        return null;
-//    }
 
     private String buildWeatherUrl(LocationInformation locationInformation){
         String accuWeatherForecastUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/";
@@ -38,8 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     public WeatherInformation getWeatherInfo(LocationInformation locationInformation) {
         try {
-//            String bestKey = pickBestKey(locationInformation);
-//            if (bestKey != null) {
+
                 String apiUrl = buildWeatherUrl(locationInformation);
                 ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
                 if (responseEntity.getStatusCode() == HttpStatus.OK) {
@@ -48,7 +40,7 @@ public class WeatherServiceImpl implements WeatherService {
                 } else {
                     System.out.println("Error calling the weather API. Status code: " + responseEntity.getStatusCode());
                 }
-//            }
+
         } catch (IOException e) {
             // Log or handle the exception more gracefully
             throw new RuntimeException(e);

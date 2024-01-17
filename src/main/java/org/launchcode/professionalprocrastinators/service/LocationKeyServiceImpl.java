@@ -13,6 +13,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LocationKeyServiceImpl implements LocationKeyService{
@@ -20,34 +22,35 @@ public class LocationKeyServiceImpl implements LocationKeyService{
     @Value("${weather.api.key}")
     private static String apikey;
     private static RestTemplate restTemplate;
+    public static String location;
+    @Autowired
+    static VacationRepository vacationRepository;
 
-
-    public LocationKeyServiceImpl(RestTemplate restTemplate, LocationInfoParser locationInfoParser) {
-        LocationKeyServiceImpl.restTemplate = restTemplate;
-    }
-
-    private static String buildLocUrl(String location){
+    private String buildLocUrl(String location) {
         String accuWeatherLocationUrl = "http://dataservice.accuweather.com/locations/v1/cities/search";
-        return accuWeatherLocationUrl + "?q=" + location + "apikey=" + apikey;
+        return accuWeatherLocationUrl + "?q=" + location + "&apikey=" + apikey;
     }
-    public static LocationInformation getLocationInfo(String location){
-        try{
-            String apiUrl = buildLocUrl(location);
-            ResponseEntity<String>responseEntity = restTemplate.getForEntity(apiUrl, String.class);
-            if(responseEntity.getStatusCode() == HttpStatus.OK){
+
+
+    public LocationInformation getLocationInfo(String vacationName) {
+
+        try {
+            String apiUrl = buildLocUrl(vacationName);
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String locationJsonString = responseEntity.getBody();
                 return LocationInfoParser.parseLocationJson(locationJsonString);
-
-            } else{
+            } else {
                 System.out.println("Error calling the location API. Status code: " + responseEntity.getStatusCode());
                 return null;
-
             }
-        } catch (RestClientException | IOException e){
+        } catch (RestClientException | IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    }
 
-}
+

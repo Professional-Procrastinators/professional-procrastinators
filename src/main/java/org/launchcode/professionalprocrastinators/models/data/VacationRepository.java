@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface VacationRepository extends CrudRepository<Vacation,Integer> {
+
+
     List<Vacation> findByUser(User user);
 
     List<Vacation> findByCity(String city);
@@ -23,6 +25,5 @@ public interface VacationRepository extends CrudRepository<Vacation,Integer> {
     List<Vacation> findByVisibility(String visibility);
 
     List<Vacation> findByCityAndCountry(String city, String country);
-
     List<Vacation> findAll();
 }
