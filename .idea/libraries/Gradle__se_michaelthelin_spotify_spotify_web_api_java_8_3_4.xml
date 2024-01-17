@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/se.michaelthelin.spotify/spotify-web-api-java/8.3.4/3ccf40e0e62f1ba68deac367c7602287c23643ad/spotify-web-api-java-8.3.4.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/se.michaelthelin.spotify/spotify-web-api-java/8.3.4/77a9cd9bc8f44cc30fc7f0248347f922b9e70253/spotify-web-api-java-8.3.4-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
