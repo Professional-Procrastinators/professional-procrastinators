@@ -1,5 +1,6 @@
 package org.launchcode.professionalprocrastinators.models.data;
 
+import org.jetbrains.annotations.NotNull;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.Vacation;
 import org.springframework.data.repository.CrudRepository;
@@ -25,5 +26,5 @@ public interface VacationRepository extends CrudRepository<Vacation,Integer> {
     List<Vacation> findByVisibility(String visibility);
 
     List<Vacation> findByCityAndCountry(String city, String country);
-    List<Vacation> findAll();
+     @NotNull List<Vacation> findAll();
 }
