@@ -15,6 +15,24 @@ public class LocationInformation {
     public void setKey(String key) {
         this.key = key;
     }
+
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
     @JsonProperty("LocalizedName")
     public String getLocalizedName() {
         return localizedName;
@@ -27,12 +45,12 @@ public class LocationInformation {
     public static class Region{
         private String englishName;
         @JsonProperty("EnglishName")
-        public String getEnglishName() {
+        public  String getEnglishName() {
             return englishName;
         }
 
         public void setEnglishName(String englishName) {
-            this.englishName = englishName;
+            englishName = englishName;
         }
     }
     public static class TimeZone{

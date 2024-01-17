@@ -37,7 +37,4 @@ public class ProfileController {
         return "profile";
     }
 }
-// TODO: Create a way to fetch user data to use in viewProfile Method
-// TODO: Update Controller
-// TODO: Create a handler for errors
-//TODO: Create Conditionals
+// TODO: Update to fetch USer name, check out my previous code form before the merge
