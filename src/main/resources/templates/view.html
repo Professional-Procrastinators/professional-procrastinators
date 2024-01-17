@@ -89,7 +89,7 @@
     <section class="notes">
         <h2>Notes</h2>
         <ul th:each="activity:${activities}">
-            <li class="videoCaption" th:text="${activity.title}+ ': ' + ${activity.notes}"></li>
+            <li th:unless="${activity.notes.isEmpty()}" class="videoCaption" th:text="${activity.title}+ ': ' + ${activity.notes}"></li>
         </ul>
 
     </section>
