@@ -1,5 +1,9 @@
 package org.launchcode.professionalprocrastinators.controllers;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.launchcode.professionalprocrastinators.models.Activity;
+import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,11 @@ public class HomeController {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    UserAuthentication userAuthentication;
+
+//    TODO:put html banner hyperscripts like logout, my account, and basically everything that you can only access in a <div> field in the index html,
+//     then add java logic to check if the user is signed in, if not then make the <div> hidden which should make hte banner look good
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -164,6 +173,14 @@ public class HomeController {
             return "redirect:../";
         }
 
+    }
+
+    @GetMapping("/packing_list")
+    public String displayPackingListForm(@ModelAttribute @Valid Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = userAuthentication.getUserFromSession(session);
+        model.addAttribute("user", user);
+        return "packing-list";
     }
 }
 
