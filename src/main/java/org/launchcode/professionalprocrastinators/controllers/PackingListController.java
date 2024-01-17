@@ -40,6 +40,9 @@ public class PackingListController {
         return "packing-list";
     }
 
+    //    TODO:create an ArrayList in the Post for packinglist, then think of a way to have the javascript add strings to that array (you might have to make the array in JS) when the button to add the item is clicked.
+//    you might have to figure out a way that on click it wipes the input and so that on the save click it pushes it to the post controller.
+
     @PostMapping("/packing_list")
     public String processPackingListForm(@RequestParam PackingList packingList, Model model, HttpServletRequest request) {
 
