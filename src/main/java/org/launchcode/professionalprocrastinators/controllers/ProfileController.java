@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/profile")
+
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
@@ -22,19 +22,17 @@ public class ProfileController {
     @Autowired
     UserAuthentication userAuthentication;
 
-    @GetMapping
+    @GetMapping("/profile")
     public String viewProfile(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
 
-        if (user == null) {
-            return "login";
-        }
         model.addAttribute("username", user.getUsername());
         model.addAttribute("name", user.getName());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("passwordHash", user.getPasswordHash());
+//        model.addAttribute("user", user);
         return "profile";
     }
 }
