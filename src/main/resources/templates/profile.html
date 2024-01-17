@@ -8,16 +8,13 @@
 </head>
 <body>
     <header>
-    <h1>User Profile: ${user.username}</h1>
+    <h1>User Profile</h1>
     </header>
     <h2>Personal Information</h2>
-    <p><strong>Vacations Created: </strong>${user.numOfVacations}</p>
-    <h2>Likes</h2>
-    <ul>
-        <li th:each="Likes : ${likes}">
-            <span th:text="${likes.vacation}"></span>
-        </li>
-    </ul>
+    <p><strong>Username: </strong></p><p th:field="${user.username}"></p>
+    <p><strong>Name: </strong></p> <p th:field="${user.name}"></p>
+    <p><strong>Location: </strong>${user.location}</p> <p th:field="${user.email}"></p>
+    <p><strong>Vacations Taken: </strong>${user.numOfVacations}</p> <p th:field="${user.passwordHash}"></p>
 </body>
 </html>
 

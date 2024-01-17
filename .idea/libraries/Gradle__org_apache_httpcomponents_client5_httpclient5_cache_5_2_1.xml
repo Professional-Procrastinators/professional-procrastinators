@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.client5/httpclient5-cache/5.2.1/979f627e7c69b015425aa43ca2fd43f2d90c769b/httpclient5-cache-5.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.client5/httpclient5-cache/5.2.1/81232afd4c319c2b0ace413d1155379d4348bad2/httpclient5-cache-5.2.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
