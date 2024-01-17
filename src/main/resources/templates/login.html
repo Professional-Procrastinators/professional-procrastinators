@@ -10,10 +10,10 @@
 
 <form method="post">
     <div class="form-group">
-        <label th:for="username">Username or Email
-            <input class="form-control" th:field="${loginFormDTO.username}">
+        <label th:for="usernameOrEmail">Username or Email
+            <input class="form-control" th:field="${loginFormDTO.usernameOrEmail}">
         </label>
-        <p class="error" th:errors="${loginFormDTO.username}"></p>
+        <p class="error" th:errors="${loginFormDTO.usernameOrEmail}"></p>
     </div>
     <div class="form-group">
         <label>Password
