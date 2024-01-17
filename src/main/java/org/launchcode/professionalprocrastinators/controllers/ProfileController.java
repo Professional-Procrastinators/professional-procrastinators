@@ -1,5 +1,7 @@
 package org.launchcode.professionalprocrastinators.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
@@ -17,22 +19,22 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    UserAuthentication userAuthentication;
+
     @GetMapping
-    public String viewProfile(@RequestParam(name = "username", required = false) String username,Model model) {
-        if (username == null) {
-            return "redirect: /error";
+    public String viewProfile(HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
+        User user = userAuthentication.getUserFromSession(session);
+
+        if (user == null) {
+            return "login";
         }
-
-
-        Optional<User> optionalUser;
-        optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            model.addAttribute("user", user);
-        } else {
-            model.addAttribute("errorMessage", "User not found");
-        }
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("name", user.getName());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("passwordHash", user.getPasswordHash());
 //       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }
