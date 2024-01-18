@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+//This is my model for the location information, it is set up similar to how the JSON will be sent when we request to get it from the API
+//It includes JSON Property Annotations to map the JSON value to the variable, it also includes an ignore properties annotation to ignore the variables that were unnecessary
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationInformation {
     private List<LocationInformation> locationList;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//gets the user with the HttpServlet Request, checks for auth, and displays the profile template with the following fields.
 @Controller
 public class ProfileController {
     @Autowired
@@ -32,7 +33,6 @@ public class ProfileController {
         model.addAttribute("name", user.getName());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("passwordHash", user.getPasswordHash());
-//        model.addAttribute("user", user);
         return "profile";
     }
 }
@@ -40,4 +40,4 @@ public class ProfileController {
 
 //TODO: Add VacationsLiked and update html, Index?
 //TODO: Add Top number of likes for the vacations the user created
-//TODO: find by Usernameignorecase crud
+//If I had more time I would like to create a followers MVC and repository, and display followers here, I would also like to disply top liked vacation and update the styling of the view.

@@ -2,14 +2,14 @@ package org.launchcode.professionalprocrastinators.models;
 
 import jakarta.persistence.*;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
-
+//This is my model for the Like Button, it has variables I need along with getters and setters and relationships.
 @Entity
 @Table(name ="likes")
 public class Likes {
     @Id
     @GeneratedValue
     private int id;
-
+//    Cascade keeps updates consistent between all tables
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;

@@ -13,4 +13,6 @@ public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     List<Activity> findByTitle(String title);
     List<Activity> findByNotes(String notes);
     List<Activity> findAll();
+
+    List<Activity> findByID(int id);
 }

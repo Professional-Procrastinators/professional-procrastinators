@@ -1,12 +1,8 @@
 package org.launchcode.professionalprocrastinators.models.data;
 
 
-import jakarta.servlet.http.*;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
@@ -16,4 +12,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     User findByUsername(String username);
 
     User findByEmail(String email);
+
 }

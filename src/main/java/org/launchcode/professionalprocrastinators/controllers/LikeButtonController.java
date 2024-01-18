@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+//This is the controller for the Like Button, it has a method to show a form it displays with a get request, it has a post request to process that form, and a method to process the get request from the next page that shows results.
+
 @Controller
 public class LikeButtonController {
 
@@ -34,7 +36,7 @@ public class LikeButtonController {
     private VacationRepository vacationRepository;
     @Autowired
     UserAuthentication userAuthentication;
-
+//Display form, gets user from auth, returns likes template with vacations that are visible to the public.
     @GetMapping("/likes")
     public String displayLikesForm(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
@@ -48,29 +50,39 @@ public class LikeButtonController {
     }
 
 
-
+//processes the form from above, checks for likes in repository so we can update the likes instead of having repeats, redirects you to view your likes
     @PostMapping("/likes")
-    public String processLikesForm(@ModelAttribute Likes likes, @RequestParam("userId") int userId, @RequestParam("vacationID") int vacationId, Model model)
-    { User user = userRepository.findById(userId);
+    public String processLikesForm(@ModelAttribute Likes likes, @RequestParam("userId") int userId, @RequestParam("vacationID") int vacationId, Model model) {
+        User user = userRepository.findById(userId);
         System.out.println("Received userId: " + user.getId());
         System.out.println("Received vacationId: " + vacationId);
         Vacation vacation = vacationRepository.findById(vacationId).orElseThrow(() -> new IllegalArgumentException("Invalid vacation ID"));
-        likes.setUser(user);
-        likes.setVacation(vacation);
-        likes.setLikes(likes.getLikes()+ 1);
-
-        likesRepository.save(likes);
-        model.addAttribute("successMessage", "Liked Successful!");
-        return "redirect:/view-likes";
+        Likes existingLikes = likesRepository.findByUserAndVacation(user, vacation);
+        if (existingLikes != null) {
+            existingLikes.setLikes(existingLikes.getLikes() + 1);
+            likesRepository.save(existingLikes);
+            return "redirect:/view-likes";
+        } else {
+            likes.setUser(user);
+            likes.setVacation(vacation);
+            likes.setLikes(1);
+            likesRepository.save(likes);
+            model.addAttribute("successMessage", "Liked Successful!");
+            return "redirect:/view-likes";
+        }
     }
 
-    @GetMapping("/view-likes")
-    public String viewLikedVacations(@ModelAttribute("user") User user, Model model){
+//    This is the handler for the view of your likes, it gets the user using the httpServlet request and then finds the likes in the repository using the user id.
+        @GetMapping("/view-likes")
+        public String viewLikedVacations (HttpServletRequest request, Model model) {
+            HttpSession session = request.getSession();
+            User user = userAuthentication.getUserFromSession(session);
+            int userId = user.getId();
+            System.out.println(userId);
+            List<Likes> likedVacations = likesRepository.findByUserId(userId);
 
-        List<Likes> likedVacations =likesRepository.findByUserId(user.getId());
-
-        model.addAttribute("likedVacations", likedVacations);
-        return "view-likes";
-    }
+            model.addAttribute("likedVacations", likedVacations);
+            return "view-likes";
+        }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//This serves as a model for profile, but also for other Controllers especially for auth.
 
 @Entity
 public class User extends AbstractEntity{
