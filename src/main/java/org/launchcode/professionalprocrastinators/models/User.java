@@ -52,6 +52,14 @@ public class User extends AbstractEntity{
         this.passwordHash = encoder.encode(password);
     }
 
+    public List<PackingList> getPackingLists() {
+        return packingLists;
+    }
+
+    public void setPackingLists(List<PackingList> packingLists) {
+        this.packingLists = packingLists;
+    }
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Boolean isMatchingPassword(String password){

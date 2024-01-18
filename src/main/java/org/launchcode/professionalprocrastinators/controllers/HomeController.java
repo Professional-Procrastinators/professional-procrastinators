@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.professionalprocrastinators.models.Activity;
+import org.launchcode.professionalprocrastinators.models.PackingList;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
+import org.launchcode.professionalprocrastinators.models.data.PackingListRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class HomeController {
     @Autowired
     UserAuthentication userAuthentication;
 
+    @Autowired
+    PackingListRepository packingListRepository;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -78,9 +82,13 @@ public class HomeController {
     }
 
     @GetMapping("edit-vacation")
-    public String displayEditVacationForm(Model model) {
+    public String displayEditVacationForm(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = userAuthentication.getUserFromSession(session);
+        PackingList packingList = packingListRepository.findByUserId(user.getId());
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("packingList", packingList);
         return "/edit-vacation";
     }
 
