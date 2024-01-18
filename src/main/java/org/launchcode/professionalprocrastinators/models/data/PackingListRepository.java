@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PackingListRepository extends CrudRepository<PackingList, Integer> {
 //    PackingList findPackingListKey(String key);
-
+    PackingList findByUserId(int userId);
 }
