@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 
-<head>
+<head th:replace="~{fragments :: head}">
     <meta charset="UTF-8">
     <title>Nomad Nirvana</title>
+
 </head>
 <body>
 <nav th:replace="~{fragments :: header}"></nav>
@@ -12,7 +13,6 @@
             <pre th:text="${jsonString}">
             </pre>
 
-    </div>
 
 </body>
 </html>

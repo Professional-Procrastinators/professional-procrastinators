@@ -1,11 +1,11 @@
 package org.launchcode.professionalprocrastinators.controllers.api;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.launchcode.professionalprocrastinators.controllers.parser.LocationInfoParser;
 import org.launchcode.professionalprocrastinators.controllers.parser.WeatherParser;
-import org.launchcode.professionalprocrastinators.models.LocationInformation;
-import org.launchcode.professionalprocrastinators.models.Vacation;
-import org.launchcode.professionalprocrastinators.models.WeatherInformation;
+import org.launchcode.professionalprocrastinators.models.*;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.launchcode.professionalprocrastinators.service.LocationKeyServiceImpl;
 import org.launchcode.professionalprocrastinators.service.WeatherServiceImpl;
@@ -71,10 +71,37 @@ public class WeatherController {
             if (locationInformation != null) {
                 System.out.println(locationInformation);
                 String jsonString = weatherService.getWeatherInfo(locationInfo);
+                System.out.println(jsonString);
+                model.addAttribute("jsonString", jsonString);
+
+
+                return "redirect:/view-weather";
+
+            } else {
+                model.addAttribute("error", "Location Information not available");
+                System.out.println("problem 1");
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Error getting Weather Information");
+            System.out.println("problem 2");
+        }
+
+        return "redirect:/view-weather";
+    }
+    @GetMapping("/view-weather")
+    public String viewWeather(Model model) {
+        return "view-weather";
+    }
+
+
+
+}
+
+
+//Code I've changed, keeping it in case I need it later
 //                ObjectMapper mapper1 = new ObjectMapper();
 //                Map<String, Object> map1 = mapper1.convertValue(weatherInformation.get(0), Map.class);
 //                String jsonString = mapper1.writeValueAsString(map1);
-                model.addAttribute("jsonString", jsonString);
 //                Object temperature = map1.get("Temperature");
 //                ObjectMapper mapper2 = new ObjectMapper();
 //                Map<String, Object> tempMap = mapper2.convertValue(temperature, Map.class);
@@ -106,24 +133,3 @@ public class WeatherController {
 //                WeatherInformation.Day.setHasPrecipitation(hasPrecipitation);
 //                System.out.println("Correctly retrieved weatherJSON");
 //                model.addAttribute("weatherInfo", weatherInformation);
-                System.out.println(jsonString);
-                return "redirect:/view-weather";
-
-            } else {
-                model.addAttribute("error", "Location Information not available");
-                System.out.println("problem 1");
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Error getting Weather Information");
-            System.out.println("problem 2");
-        }
-
-        return "redirect:/view-weather";
-    }
-
-
-
-
-}
-
-
