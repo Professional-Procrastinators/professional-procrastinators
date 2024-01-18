@@ -10,24 +10,30 @@
 <div class="container mt-5">
   <h1 class="mb-4">My Rewards</h1>
 
-  <!-- Display the username -->
+  <!-- display the username -->
   <h2 th:text="${user.username}"></h2>
 
   <table class="table table-bordered">
     <thead class="thead-dark">
     <tr>
-      <th>Reward Name</th>
-      <th>Points Required</th>
+      <th>Member Name</th>
+      <th>Points Earned</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Iterate over rewardsList and display data -->
+
     <tr th:each="reward : ${rewardsList}">
       <td th:text="${reward.name}"></td>
       <td th:text="${reward.points}"></td>
     </tr>
     </tbody>
   </table>
+
+  <!-- Add a button for awarding 4 points for proof of concept, does not redirect properly once pressed-->
+  <form th:action="@{/rewards/awardPoints}" method="post">
+    <button type="submit" class="btn btn-primary">Free Points (temporary)</button>
+  </form>
+
 </div>
 
 </body>

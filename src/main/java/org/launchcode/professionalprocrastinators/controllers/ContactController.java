@@ -20,7 +20,8 @@ public class ContactController {
         // Process the contact form submission
 
 
-        return "redirect:/contact?success"; // Redirect to the contact form with a success message
+// redirect to the contact form with a success message
+        return "redirect:/contact?success";
     }
 
     /* information for where email is to be sent

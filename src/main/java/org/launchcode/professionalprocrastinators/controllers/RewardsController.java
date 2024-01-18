@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rewards")
 public class RewardsController {
 
+    // not currently functional, My Rewards link is hidden from the nav bar
     @Autowired
     private UserRepository userRepository;
 
@@ -19,7 +20,7 @@ public class RewardsController {
     private RewardsRepository rewardsRepository;
 
     @Autowired
-    private UserAuthentication userAuthentication; // Inject UserAuthentication
+    private UserAuthentication userAuthentication;
 
     @GetMapping
     public String showRewardsPage(HttpSession session, Model model) {
@@ -39,19 +40,19 @@ public class RewardsController {
         return "rewards";
     }
 
-    // Additional methods for updating rewards as proof of concept
+    // Additional methods for updating rewards as proof of concept, not functioning properly
     @PostMapping("/awardPoints")
     public String awardPoints(HttpSession session) {
         User user = userAuthentication.getUserFromSession(session);
 
         if (user == null) {
-            // Redirect to login if the user is not in the session
+            // Redirect to login if the user is not logged in
             return "redirect:/login";
         }
 
         Rewards rewards = rewardsRepository.findById(user.getId()).orElse(new Rewards());
 
-        // Award 4 points (modify this logic based on your requirements)
+        // Award 4 points for testing purposes
         rewards.setPoints(rewards.getPoints() + 4);
         rewardsRepository.save(rewards);
 

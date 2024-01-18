@@ -1,6 +1,5 @@
 package org.launchcode.professionalprocrastinators.models;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -11,17 +10,16 @@ public class Rewards {
 
     private Integer points;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
-    public Rewards(Integer id, Integer points, User user) {
-        this.id = id;
-        this.points = points;
-        this.user = user;
+    public Rewards() {
+
     }
 
-    public Rewards() {
-        
+    public Rewards(Integer points, User user) {
+        this.points = points;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -47,4 +45,5 @@ public class Rewards {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

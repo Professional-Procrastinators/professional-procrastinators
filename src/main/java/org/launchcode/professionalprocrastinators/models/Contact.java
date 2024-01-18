@@ -14,7 +14,7 @@ public class Contact {
     @NotEmpty(message = "Message is required")
     private String message;
 
-    // Getters and setters
+    // getters and setters for contact form
 
     public String getName() {
         return name;
