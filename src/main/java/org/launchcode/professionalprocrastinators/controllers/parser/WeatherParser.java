@@ -8,7 +8,8 @@ import java.io.IOException;
 public class WeatherParser {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     public static WeatherInformation parseWeatherJson(String weatherJsonString) throws IOException{
-     try{   return objectMapper.readValue(weatherJsonString, WeatherInformation.class);
+     try{
+         return objectMapper.readValue(weatherJsonString, WeatherInformation.class);
      } catch (IOException e) {
          String exceptionDetails = e.toString();
          System.out.println("Exception Details: " + exceptionDetails);

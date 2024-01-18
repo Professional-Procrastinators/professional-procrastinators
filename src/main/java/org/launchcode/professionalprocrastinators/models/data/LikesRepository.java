@@ -16,6 +16,10 @@ public interface LikesRepository extends CrudRepository<Likes, Integer> {
 
     List<Likes> findAll();
 
+    List<Likes> findByUser(User user);
+
+    List<Likes> findByUserId(int userId);
+
     Likes findByUserAndVacation(User currentUser, Vacation vacation);
 
     boolean existsByUserAndVacation(User user, Vacation vacation);

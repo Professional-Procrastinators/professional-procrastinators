@@ -1,12 +1,18 @@
 package org.launchcode.professionalprocrastinators.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationInformation {
+    private List<LocationInformation> locationList;
     private String key;
     private String localizedName;
     private Region region;
     private TimeZone timeZone;
+
     @JsonProperty("Key")
     public String getKey() {
         return key;
@@ -16,6 +22,14 @@ public class LocationInformation {
         this.key = key;
     }
 
+    @JsonProperty("LocalizedName")
+    public String getLocalizedName() {
+        return localizedName;
+    }
+
+    public void setLocalizedName(String localizedName) {
+        this.localizedName = localizedName;
+    }
 
     public Region getRegion() {
         return region;
@@ -33,29 +47,23 @@ public class LocationInformation {
         this.timeZone = timeZone;
     }
 
-    @JsonProperty("LocalizedName")
-    public String getLocalizedName() {
-        return localizedName;
-    }
-
-    public void setLocalizedName(String localizedName) {
-        this.localizedName = localizedName;
-    }
-
-    public static class Region{
+    public static class Region {
         private String englishName;
+
         @JsonProperty("EnglishName")
-        public  String getEnglishName() {
+        public String getEnglishName() {
             return englishName;
         }
 
         public void setEnglishName(String englishName) {
-            englishName = englishName;
+            this.englishName = englishName;
         }
     }
-    public static class TimeZone{
+
+    public static class TimeZone {
         private String code;
         private String name;
+
         @JsonProperty("Code")
         public String getCode() {
             return code;
@@ -64,6 +72,7 @@ public class LocationInformation {
         public void setCode(String code) {
             this.code = code;
         }
+
         @JsonProperty("Name")
         public String getName() {
             return name;
@@ -73,4 +82,13 @@ public class LocationInformation {
             this.name = name;
         }
     }
+
+    public List<LocationInformation> getLocationList() {
+        return locationList;
+    }
+
+    public void setLocationList(List<LocationInformation> locationList) {
+        this.locationList = locationList;
+    }
 }
+

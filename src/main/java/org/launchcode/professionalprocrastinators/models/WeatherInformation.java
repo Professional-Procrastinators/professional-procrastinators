@@ -1,7 +1,8 @@
 package org.launchcode.professionalprocrastinators.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherInformation {
 
     public static class DailyForecast {

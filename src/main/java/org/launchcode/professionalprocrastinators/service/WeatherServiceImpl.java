@@ -15,17 +15,23 @@ import java.io.IOException;
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
-    @Value("${weather.api.key}")
-    private String apikey;
+
+    private final String apikey;
+    private final RestTemplate restTemplate;
+    private String locationKey;
 
     @Autowired
-    private RestTemplate restTemplate;
-
-
+    public WeatherServiceImpl(@Value("${weather.api.key}") String apiKey, RestTemplate restTemplate) {
+        this.apikey = apiKey;
+        this.restTemplate = restTemplate;
+    }
     private String buildWeatherUrl(LocationInformation locationInformation){
         String accuWeatherForecastUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/";
         String endApi = "?apikey=" + apikey;
-        String locationKey = locationInformation.getKey();
+        System.out.println(locationInformation);
+        locationKey = (String) locationInformation.getKey();
+//        locationKey = locationInformation[0].Key;
+        System.out.println(locationKey);
         return accuWeatherForecastUrl + locationKey + endApi;
     }
 
@@ -33,6 +39,7 @@ public class WeatherServiceImpl implements WeatherService {
         try {
 
                 String apiUrl = buildWeatherUrl(locationInformation);
+            System.out.println(apiUrl);
                 ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
                 if (responseEntity.getStatusCode() == HttpStatus.OK) {
                     String weatherJsonString = responseEntity.getBody();
@@ -42,7 +49,7 @@ public class WeatherServiceImpl implements WeatherService {
                 }
 
         } catch (IOException e) {
-            // Log or handle the exception more gracefully
+
             throw new RuntimeException(e);
         }
         return null;

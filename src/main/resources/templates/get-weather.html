@@ -14,8 +14,8 @@
         <p> Get the current weather for your destination!</p>
 
         <form action="/get-weather"  method="post" style="max-width: 600 px">
-            <label for="vacationName">Enter Vacation City, State(if USA), and Country:</label>
-            <input id="vacationName" name="vacationName" required type="text">
+            <label for="vacationName">Enter Vacation City, State(if USA), and Country (uses commas, and no spaces):</label>
+            <input id="vacationName" name="vacationName" th:value="${#strings.replace(vacationName, ' ', '%20')}" required type="text">
             <button type="submit">Get Weather</button>
         </form>
     </div>

@@ -14,32 +14,39 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class LocationKeyServiceImpl implements LocationKeyService{
     // Logic to make API request, parse response, and return Weather object
-    @Value("${weather.api.key}")
-    private static String apikey;
-    private static RestTemplate restTemplate;
+
+    private final String apiKey;
+    private final RestTemplate restTemplate;
     public static String location;
     @Autowired
     static VacationRepository vacationRepository;
+    public LocationKeyServiceImpl(RestTemplate restTemplate, @Value("${weather.api.key}") String apiKey) {
+        this.restTemplate = restTemplate;
+        this.apiKey = apiKey;
+    }
 
     private String buildLocUrl(String location) {
         String accuWeatherLocationUrl = "http://dataservice.accuweather.com/locations/v1/cities/search";
-        return accuWeatherLocationUrl + "?q=" + location + "&apikey=" + apikey;
+        return accuWeatherLocationUrl + "?q=" + location + "&apikey=" + apiKey;
     }
 
 
-    public LocationInformation getLocationInfo(String vacationName) {
+    public List<Object> getLocationInfo(String vacationName) {
 
         try {
             String apiUrl = buildLocUrl(vacationName);
+            System.out.println(apiUrl);
             ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
 
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String locationJsonString = responseEntity.getBody();
+                System.out.println(locationJsonString);
                 return LocationInfoParser.parseLocationJson(locationJsonString);
             } else {
                 System.out.println("Error calling the location API. Status code: " + responseEntity.getStatusCode());
@@ -47,7 +54,8 @@ public class LocationKeyServiceImpl implements LocationKeyService{
             }
         } catch (RestClientException | IOException e) {
             e.printStackTrace();
-            return null;
+            System.out.println("Hi");
+            return  null;
         }
     }
 

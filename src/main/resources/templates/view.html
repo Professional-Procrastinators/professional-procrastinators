@@ -68,19 +68,7 @@
     </section>
 
     <!-- TO-DO: Add weather API-->
-    <div class="container">
-        <h1> Like your favorite vacations!</h1>
-        <form id="likeForm" method="post" style="max-width: 600 px" th:action="@{/likes}">
-            <label for="vacationID">Select a Vacation:</label>
-            <select name="vacationID" id="vacationID">
-                <option th:each="vacation : ${vacations}" th:value="${vacation.id}" th:text="${vacation.city}"></option>
-            </select>
-            <button type="submit">Like</button>
-        </form>
-    </div>
-    <div th:if="${successMessage}">
-        <p th:text="${successMessage}" class="success-message"></p>
-    </div>
+
 
     <!-- TO-DO: Add local time API-->
 

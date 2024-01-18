@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Likes</title>
+</head>
+<body>
+<div class="container">
+    <h1> Like your favorite vacations!</h1>
+    <form id="likeForm" method="post" style="max-width: 600px" th:action="@{/likes}">
+        <label for="vacationID">Select a Vacation:</label>
+        <input type="hidden" name="userId" th:value="${userId}" />
+        <select name="vacationID" id="vacationID">
+            <option th:each="vacation : ${vacations}" th:value="${vacation.id}" th:text="${vacation.city}"></option>
+        </select>
+        <button type="submit">Like</button>
+    </form>
+</div>
+<div th:if="${successMessage}">
+    <p th:text="${successMessage}" class="success-message"></p>
+</div>
+</body>
+</html>

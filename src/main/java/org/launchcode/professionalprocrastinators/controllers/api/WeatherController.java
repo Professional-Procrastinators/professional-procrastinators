@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -50,18 +51,30 @@ public class WeatherController {
     public String getWeather(@RequestParam("vacationName") String vacationName, Model model) {
         try {
 
-            LocationInformation locationInformation = locationKeyService.getLocationInfo(vacationName);
+           List<Object> locationInformation = locationKeyService.getLocationInfo(vacationName);
+            System.out.println(locationInformation.get(0));
+            Object keyObject = locationInformation.get(0);
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> map = mapper.convertValue(keyObject, Map.class);
+            System.out.println(map.get("Key"));
+            String key = (String) map.get("Key");
+            LocationInformation locationInfo = new LocationInformation();
+            locationInfo.setKey(key);
 
             if (locationInformation != null) {
-                WeatherInformation weatherInformation = weatherService.getWeatherInfo(locationInformation);
+                System.out.println(locationInformation);
+                WeatherInformation weatherInformation = weatherService.getWeatherInfo(locationInfo);
+                System.out.println("Correctly retrieved weatherJSON");
                 model.addAttribute("weatherInfo", weatherInformation);
                 return "redirect:/view-weather";
 
             } else {
                 model.addAttribute("error", "Location Information not available");
+                System.out.println("problem 1");
             }
         } catch (Exception e) {
             model.addAttribute("error", "Error getting Weather Information");
+            System.out.println("problem 2");
         }
 
         return "redirect:/view-weather";

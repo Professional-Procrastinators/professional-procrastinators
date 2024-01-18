@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Your Liked Vacations</title>
+</head>
+<body>
+<div class="container">
+    <h1>Vacations Liked by You:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Vacation Id</th>
+            <th>City</th>
+            <th>Likes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="likedVacation : ${likedVacations}">
+            <td th:text="${likedVacations.vacation.id != null ? likedVacations.vacation.id : ''}"></td>
+            <td th:text="${likedVacations.vacation.city != null ? likedVacations.vacation.city : ''}"></td>
+            <td th:text="${likedVacations.vacation.likes != null ? likedVacations.vacation.likes : ''}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
