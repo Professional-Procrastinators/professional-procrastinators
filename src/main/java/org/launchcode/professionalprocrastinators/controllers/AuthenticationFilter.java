@@ -18,7 +18,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     UserAuthentication userAuthentication;
 
 //the acceptable pages that can be viewed even if not logged in
-    private static final List<String> whitelist = Arrays.asList("/login", "/packing-list", "/register", "/contact");
+    private static final List<String> whitelist = Arrays.asList("/login", "/account_deleted", "/register", "/contact");
 
     @Override
     public boolean preHandle(HttpServletRequest request,
