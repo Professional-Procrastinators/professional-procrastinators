@@ -11,10 +11,12 @@ import org.springframework.security.crypto.bcrypt.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//This serves as a model for profile, but also for other Controllers especially for auth.
 
 @Entity
 public class User extends AbstractEntity{
+
+    private static User user;
 
 
     @OneToMany(mappedBy = "user")
@@ -39,7 +41,7 @@ public class User extends AbstractEntity{
     private int numOfVacations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // CascadeType.ALL makes it so that if the user is deleted, it will delete the packing lists as well. Update, create and everytihng is updated as well
-    private List<PackingList> packingLists = new ArrayList<>();
+    private List<PackingList> packingLists;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rewards> rewardsList;
@@ -53,6 +55,14 @@ public class User extends AbstractEntity{
         this.name = name;
         this.email = email;
         this.passwordHash = encoder.encode(password);
+    }
+
+    public List<PackingList> getPackingLists() {
+        return packingLists;
+    }
+
+    public void setPackingLists(List<PackingList> packingLists) {
+        this.packingLists = packingLists;
     }
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

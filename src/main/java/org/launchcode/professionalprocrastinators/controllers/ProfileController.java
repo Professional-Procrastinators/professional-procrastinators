@@ -14,32 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/profile")
+//gets the user with the HttpServlet Request, checks for auth, and displays the profile template with the following fields.
+@Controller
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-
+    // TODO: Delete button, when clicked takes to a confirm page, yes gives back true, no gives false and then if true = delete, no goes back to profile page
     @Autowired
     UserAuthentication userAuthentication;
 
-    @GetMapping
+    @GetMapping("/profile")
     public String viewProfile(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
 
-        if (user == null) {
-            return "login";
-        }
         model.addAttribute("username", user.getUsername());
         model.addAttribute("name", user.getName());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("passwordHash", user.getPasswordHash());
-//       Need to connect to UserAuthentication, but can't until it's connected to UserRepository
         return "profile";
     }
 }
-// TODO: Create a way to fetch user data to use in viewProfile Method
-// TODO: Update Controller
-// TODO: Create a handler for errors
-//TODO: Create Conditionals
+
+
+//TODO: Add VacationsLiked and update html, Index?
+//TODO: Add Top number of likes for the vacations the user created
+//If I had more time I would like to create a followers MVC and repository, and display followers here, I would also like to disply top liked vacation and update the styling of the view.

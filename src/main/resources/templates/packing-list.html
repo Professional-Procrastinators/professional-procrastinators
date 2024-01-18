@@ -23,39 +23,114 @@
     text-align: center;
     float: right;
     }
+    .textInput{
+    width:25%;
+    }
 </style>
 
 
 
 <body>
 
-<script th:inline="javascript">
 
+<div>
+    <form id="packingListForm" method="post" class="textInput">
+        <input type="text" id="itemInput" class="form-text text-muted form-control" placeholder="Enter a new item" />
+        <input type="number" id="itemQuantity" class="form-text text-muted form-control" placeholder="Enter item Amount" />
+
+        <input type="hidden" name="jsonData" id="jsonData"/>
+
+        <button type="button" class="btn btn-primary" onclick="addItem()">Add Item</button>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+            </tr>
+            </thead>
+            <tbody id="newItemsTableBody">
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Save Changes</button>
+    </form>
+
+</div>
+
+
+
+<!--<textarea id="itemQuantityTextArea" rows="4" cols="30" class="form-control" readonly></textarea>-->
+<!--<textarea id="packingItemsTextArea" rows="4" cols="30" class="form-control" readonly></textarea>-->
+
+
+
+
+
+<script th:inline="javascript">
+    let arrayOfItems = [];
+    let quantityArray = [];
+
+    function addItem() {
+        let itemInput = document.getElementById('itemInput');
+        let newItem = itemInput.value.trim();
+        let itemQuantity = document.getElementById('itemQuantity');
+        let newNumber = itemQuantity.value.trim();
+
+        if (newItem !== '' && newNumber !== '') {
+            arrayOfItems.push(newItem);
+            quantityArray.push(newNumber);
+            updateItemTable();
+            itemInput.value = '';
+            itemQuantity.value = '';
+        }
+    }
+
+    function updateItemTable() {
+        let newItemsTableBody = document.getElementById('newItemsTableBody');
+        newItemsTableBody.innerHTML = '';
+
+        for (let i = 0; i < arrayOfItems.length; i++) { //loops through the items and inputs a table for each string and number
+            let tableRow = document.createElement('tr');
+            let itemNameCell = document.createElement('td');
+            let quantityCell = document.createElement('td');
+
+            itemNameCell.textContent = arrayOfItems[i];
+            quantityCell.textContent = quantityArray[i];
+
+            tableRow.appendChild(itemNameCell);
+            tableRow.appendChild(quantityCell);
+
+            newItemsTableBody.appendChild(tableRow);
+        }
+    }
+
+    function submitForm() {
+        let data = {
+            arrayOfItems: arrayOfItems,
+            quantityArray: quantityArray
+        };
+
+        let jsonData = JSON.stringify(data);
+
+        let hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'jsonData';
+        hiddenInput.value = jsonData;
+
+        let form = document.getElementById('packingListForm');
+        form.appendChild(hiddenInput);
+
+        if (form.firstChild) {
+            form.insertBefore(hiddenInput, form.firstChild);
+        } else {
+            form.appendChild(hiddenInput);
+        }
+
+        form.submit();
+    }
 
 </script>
-<!-- Display existing packingList elements -->
-<ul id="packingList" th:if="${packingList != null}">
-    <li th:each="item : ${packingList}" th:text="${item}"></li>
-</ul>
 
-<!-- Form for users to submit new strings -->
-<form id="packingListForm">
-    <input type="text" id="newItem" class="form-text text-muted form-control" placeholder="Enter a new item" />
-    <button type="button" class="btn btn-primary" onclick="addItem()">Add Item</button>
-</form>
-
-<!-- Button to save changes -->
-<button type="button" class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
-
-
-<ul class="list-group">
-    <li class="list-group-item"><strong>Items</strong></li>
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-</ul>
 </body>
 
 </html>

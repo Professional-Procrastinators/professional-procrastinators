@@ -25,6 +25,10 @@ public class Vacation {
 //    @JoinColumn(name = "playlist_id")
     private String spotifyLink;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String city;
 
     private String country;
@@ -36,6 +40,10 @@ public class Vacation {
 
 //    Visibility will be used for a future feature, to display or hide vacations based on user privacy preferences.
     private String visibility;
+
+    @ManyToOne
+    @JoinColumn(name = "packing_list_id")
+    private PackingList packingList;
 
     public String getVisibility() {
         return visibility;
@@ -77,6 +85,14 @@ public class Vacation {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public PackingList getPackingList() {
+        return packingList;
+    }
+
+    public void setPackingList(PackingList packingList) {
+        this.packingList = packingList;
     }
 
     public String getCountry() {
