@@ -73,6 +73,11 @@ public class PackingListController {
         packingList.setItemQuantity(quantityArray);
         packingList.setPackingItems(arrayOfItems);
         packingListRepository.save(packingList);
+        List<PackingList> list = user.getPackingLists();
+        list.add(packingList);
+        user.setPackingLists(list);
+        System.out.println(user);
+        userRepository.save(user);
         return "redirect:/packing_list";
         //TODO: make it redirect to index/packing_list/${list id} // might be hard to do since you need to find a way so that only users that created it can view it.
     }

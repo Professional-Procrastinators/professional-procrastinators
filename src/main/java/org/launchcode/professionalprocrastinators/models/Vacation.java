@@ -37,7 +37,7 @@ public class Vacation {
 
     @ManyToOne
     @JoinColumn(name = "packing_list_id")
-    private int packingList;
+    private PackingList packingList;
 
     public String getVisibility() {
         return visibility;
