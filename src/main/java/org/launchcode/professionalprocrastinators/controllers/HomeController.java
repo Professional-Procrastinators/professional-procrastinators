@@ -86,8 +86,7 @@ public class HomeController {
     public String displayEditVacationForm(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
-        List<PackingList> packingList = new ArrayList<>();
-        packingList.add(packingListRepository.findByUserId(user.getId()));
+        List<PackingList> packingList = (List<PackingList>) packingListRepository.findByUserId(user.getId());
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
         model.addAttribute("packingLists", packingList);
@@ -105,6 +104,9 @@ public class HomeController {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
         PackingList packingList = packingListRepository.findById(selectedPackingList).orElse(new PackingList());
+        if (packingList != null) {
+            boolean isList = true;
+        }
 
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);

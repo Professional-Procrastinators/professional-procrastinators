@@ -42,7 +42,7 @@
 
         <div>
             <select name="selectedPackingList">
-                <option th:each="list : ${packingLists}" th:value="${list.id}" th:text="${list.itemQuantity + ' - ' + list.packingItems}"></option>
+                <option th:each="list : ${packingLists}" th:if="isList" th:value="${list.id}" th:text="${list.itemQuantity + ' - ' + list.packingItems}"></option>
             </select>
         </div>
 
