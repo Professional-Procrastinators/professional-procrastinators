@@ -24,6 +24,9 @@ public class PackingList {
 
     private String packingItems;
 
+//    @OneToMany(mappedBy = "PackingList", cascade = CascadeType.ALL)
+//    private Vacation vacation;
+
     //splits the string that was made to avoid using BLOB's in the database for small strings
     //returns back the initial List Array
     private List<String> convertStringToArray(String inputString) {
@@ -75,7 +78,6 @@ public class PackingList {
     }
 
     public void setPackingItems(List<String> packingItems) {
-        System.out.println(String.join(", ", packingItems));
         this.packingItems = String.join(", ", packingItems);
     }
 
@@ -84,6 +86,8 @@ public class PackingList {
         numberArray.forEach(num -> intArrayToStringArr.add(Integer.toString(num)));
         return intArrayToStringArr.toString();
     }
+
+
 }
 //    @NotEmpty
 //    @NotBlank

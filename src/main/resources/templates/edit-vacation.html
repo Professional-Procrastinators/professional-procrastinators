@@ -40,6 +40,12 @@
             <input type="datetime-local" id="dateInput" name="vacationDate">
         </div>
 
+        <div>
+            <select name="selectedPackingList">
+                <option th:each="list : ${packingLists}" th:value="${list.id}" th:text="${list.itemQuantity + ' - ' + list.packingItems}"></option>
+            </select>
+        </div>
+
         <div class="form-group">
             <p>Will this vacation be public or private?</p>
             <input type="radio" id="public" name="visibility" value="public">

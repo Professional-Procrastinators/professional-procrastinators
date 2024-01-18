@@ -17,6 +17,7 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -85,10 +86,11 @@ public class HomeController {
     public String displayEditVacationForm(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
-        PackingList packingList = packingListRepository.findByUserId(user.getId());
+        List<PackingList> packingList = new ArrayList<>();
+        packingList.add(packingListRepository.findByUserId(user.getId()));
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
-        model.addAttribute("packingList", packingList);
+        model.addAttribute("packingLists", packingList);
         return "/edit-vacation";
     }
 
@@ -98,15 +100,18 @@ public class HomeController {
                                           @RequestParam String vacationCountry,
                                           @RequestParam (required =false) String vacationState,
                                           @RequestParam LocalDateTime vacationDate,
-                                          @RequestParam String visibility) {
+                                          @RequestParam String visibility,
+                                          @RequestParam int selectedPackingList) {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
+        PackingList packingList = packingListRepository.findById(selectedPackingList).orElse(new PackingList());
 
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);
             editedVacation.setState(vacationState);
             editedVacation.setVacationDate(vacationDate);
             editedVacation.setVisibility(visibility);
+            editedVacation.setPackingList(packingList);
             vacationRepository.save(editedVacation);
 
         return "redirect:/";

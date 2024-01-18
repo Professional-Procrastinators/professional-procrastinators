@@ -69,6 +69,7 @@ public class PackingListController {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
         //saves user id to the list, along with a string of items, and each items quantity.
+        System.out.println(quantityArray);
         packingList.setUser(user);
         packingList.setItemQuantity(quantityArray);
         packingList.setPackingItems(arrayOfItems);

@@ -16,6 +16,8 @@ import java.util.List;
 @Entity
 public class User extends AbstractEntity{
 
+    private static User user;
+
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
@@ -39,7 +41,7 @@ public class User extends AbstractEntity{
     private int numOfVacations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // CascadeType.ALL makes it so that if the user is deleted, it will delete the packing lists as well. Update, create and everytihng is updated as well
-    private List<PackingList> packingLists = new ArrayList<>();
+    private List<PackingList> packingLists;
 
     //No Args constructor for validation
     public User(){

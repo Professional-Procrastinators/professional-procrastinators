@@ -81,6 +81,14 @@ public class Vacation {
         this.state = state;
     }
 
+    public PackingList getPackingList() {
+        return packingList;
+    }
+
+    public void setPackingList(PackingList packingList) {
+        this.packingList = packingList;
+    }
+
     public String getCountry() {
         return country;
     }
