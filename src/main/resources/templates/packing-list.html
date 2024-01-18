@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: head}">
+    <li th:each="item : ${packingList}" th:text="${item}"></li>
+</head>
+
+<nav th:replace="~{fragments :: header}"></nav>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--<body>-->
+<!--&lt;!&ndash;the "?" in user?.email&ndash;&gt;-->
+<!--<p th:text="${user?.email}"></p>-->
+
+<!--</body>-->
+<!--</html>-->
+<style>
+    .list-group{
+    width:50%;
+    text-align: center;
+    float: right;
+    }
+</style>
+
+
+
+<body>
+
+<script th:inline="javascript">
+
+
+</script>
+<!-- Display existing packingList elements -->
+<ul id="packingList" th:if="${packingList != null}">
+    <li th:each="item : ${packingList}" th:text="${item}"></li>
+</ul>
+
+<!-- Form for users to submit new strings -->
+<form id="packingListForm">
+    <input type="text" id="newItem" class="form-text text-muted form-control" placeholder="Enter a new item" />
+    <button type="button" class="btn btn-primary" onclick="addItem()">Add Item</button>
+</form>
+
+<!-- Button to save changes -->
+<button type="button" class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
+
+
+<ul class="list-group">
+    <li class="list-group-item"><strong>Items</strong></li>
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+</body>
+
+</html>

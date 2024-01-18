@@ -20,13 +20,14 @@ public class ContactController {
         // Process the contact form submission
 
 
-        return "redirect:/contact?success"; // Redirect to the contact form with a success message
+// redirect to the contact form with a success message
+        return "redirect:/contact?success";
     }
 
     /* information for where email is to be sent
     private void sendEmail(Contact contact) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("your-email@example.com");
+        message.setTo("nomadnirvana@gmail.com");
         message.setSubject("New Contact Form Submission");
         message.setText("Name: " + contact.getName() + "\nEmail: " + contact.getEmail() + "\nMessage: " + contact.getMessage());
 

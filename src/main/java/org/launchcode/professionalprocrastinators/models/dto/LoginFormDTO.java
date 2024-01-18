@@ -1,11 +1,7 @@
 package org.launchcode.professionalprocrastinators.models.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.*;
-import org.jetbrains.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginFormDTO {
@@ -13,7 +9,7 @@ public class LoginFormDTO {
     @NotNull
     @NotBlank
     @Size(min = 3, max = 20, message = "Invalid username. Must be between 3 and 20 characters.")
-    private String username;
+    private String usernameOrEmail;
 
 
     @NotNull
@@ -21,12 +17,12 @@ public class LoginFormDTO {
     @Size(min = 5, max = 30, message = "Invalid password. Must be between 5 and 30 characters.")
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getUsernameOrEmail() {
+        return usernameOrEmail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsernameOrEmail(String usernameOrEmail) {
+        this.usernameOrEmail = usernameOrEmail;
     }
 
     public String getPassword() {
