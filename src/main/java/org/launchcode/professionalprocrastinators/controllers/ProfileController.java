@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ProfileController {
     @Autowired
     private UserRepository userRepository;
-
+    // TODO: Delete button, when clicked takes to a confirm page, yes gives back true, no gives false and then if true = delete, no goes back to profile page
     @Autowired
     UserAuthentication userAuthentication;
 
