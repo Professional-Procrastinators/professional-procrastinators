@@ -46,7 +46,7 @@ public class WeatherController {
 
 
 
-
+//Creates the form for inputting weather
     @RequestMapping("/get-weather")
     public String weatherForm(Model model){
         List<Vacation> vacations = vacationRepository.findAll();
@@ -59,24 +59,32 @@ public class WeatherController {
     @PostMapping("/get-weather")
     public String getWeather(@RequestParam("vacationName") String vacationName, Model model, RedirectAttributes redirectAttributes) {
         try {
-
+//   calls the location service to get the location info using vacationName as a parameter
            List<Object> locationInformation = locationKeyService.getLocationInfo(vacationName);
             System.out.println(locationInformation.get(0));
+//            sets the JSON as an object
             Object keyObject = locationInformation.get(0);
             ObjectMapper mapper = new ObjectMapper();
+//          uses the object mapper to convert the value of key object into string
             Map<String, Object> map = mapper.convertValue(keyObject, Map.class);
             System.out.println(map.get("Key"));
+//          Sets the variable key to the JSON value of "Key"
             String key = (String) map.get("Key");
             LocationInformation locationInfo = new LocationInformation();
+//          Sets the key string to the key variable in locationInfo class
             locationInfo.setKey(key);
+//            checks to make sure locationInformation is not null, I should eventually change it to check if empty
             if (locationInformation != null) {
                 System.out.println(locationInformation);
+//              Instantiates the jsonString to call weather service and make the request for info, uses location info as a parameter
                 String jsonString = weatherService.getWeatherInfo(locationInfo);
                 System.out.println(jsonString);
+//              adds jsonString to model
                 model.addAttribute("jsonString", jsonString);
+//                uses redirectAttribute to be able to access jsonString in the viewWeather method, this adjusts the scope
                 redirectAttributes.addFlashAttribute("jsonString", jsonString);
 
-
+//returns to view-weather
                 return "redirect:/view-weather";
 
             } else {
@@ -90,8 +98,10 @@ public class WeatherController {
 
         return "redirect:/view-weather";
     }
+//    gets the jsonString from above
     @GetMapping("/view-weather")
     public String viewWeather(@ModelAttribute("jsonString") String jsonString, Model model) {
+//        not sure that I need to add to model, but currently trying it. After trying, it still doesn't work.
         model.addAttribute(jsonString);
         return "view-weather";
     }
