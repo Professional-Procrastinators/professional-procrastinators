@@ -16,28 +16,30 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
     @Autowired
     UserAuthentication userAuthentication;
-    private static final List<String> whitelist = Arrays.asList("/login", "/packing_list", "/register", "/contact");
+
+//the acceptable pages that can be viewed even if not logged in
+    private static final List<String> whitelist = Arrays.asList("/login", "/packing-list", "/register", "/contact");
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
 
-        // Don't require sign-in for whitelisted pages
+// Don't require sign-in for whitelisted pages
         if (isWhitelisted(request.getRequestURI())) {
-            // returning true indicates that the request may proceed
+// returning true indicates that the request may proceed
             return true;
         }
 
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
 
-        // The user is logged in
+// The user is logged in
         if (user != null) {
             return true;
         }
 
-        // The user is NOT logged in
+// The user is NOT logged in
         response.sendRedirect("/login");
         return false;
     }

@@ -41,6 +41,9 @@ public class User extends AbstractEntity{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // CascadeType.ALL makes it so that if the user is deleted, it will delete the packing lists as well. Update, create and everytihng is updated as well
     private List<PackingList> packingLists = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Rewards> rewardsList;
+
     //No Args constructor for validation
     public User(){
     }
@@ -109,6 +112,9 @@ public class User extends AbstractEntity{
     @Override
     public String toString() {
         return "Username: '" + username + "', Name: '" + name + "', Location: '" + location + "', Vacations Taken: " + numOfVacations;
+    }
+
+    public void setId(int i) {
     }
 }
 

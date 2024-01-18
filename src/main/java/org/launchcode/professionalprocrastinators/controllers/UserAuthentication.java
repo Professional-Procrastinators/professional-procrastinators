@@ -17,15 +17,16 @@ import java.util.*;
 public class UserAuthentication {
     @Autowired
     private UserRepository userRepository;
-
+    //session key to store the user information
     private static final String userSessionKey = "user";
 
+    // uses the session key to get verify the user
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
             return null;
         }
-
+        // retrieve user from the database using user id stored in the session key
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
@@ -35,10 +36,12 @@ public class UserAuthentication {
         return user.get();
     }
 
+    // once verified this sets the user in the session
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
 
+    // handler to display the registration form
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
@@ -46,24 +49,23 @@ public class UserAuthentication {
         return "register";
     }
 
+    // post mapping processes the registration form for validation and for submission
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request,
-                                          Model model) {
+    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO, Errors errors, HttpServletRequest request, Model model) {
         System.out.println(errors);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "register";
         }
-
+// provides a check to see if the user already exists
         User existingUser = userRepository.findByUsername(registerFormDTO.getUsernameOrEmail());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
+            errors.rejectValue("username", "username.already exists", "A user with that username already exists");
             model.addAttribute("title", "Register");
             return "register";
         }
-
+// validates if that the password matches in both fields on the registration form
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
@@ -71,13 +73,15 @@ public class UserAuthentication {
             model.addAttribute("title", "Register");
             return "register";
         }
-
+// this creates a new user from the confirmed valid registration form and enters their information to the database then redirects to the home page
         User newUser = new User(registerFormDTO.getUsernameOrEmail(), registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
         return "redirect:/";
     }
+
+    //handler to display login form
     @GetMapping("/login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
@@ -86,10 +90,10 @@ public class UserAuthentication {
         model.addAttribute("notLoggedIn", notLoggedIn);
         return "login";
     }
+
+    //  handler to validate the login information
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
-                                   Errors errors, HttpServletRequest request,
-                                   Model model) {
+    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
@@ -97,137 +101,44 @@ public class UserAuthentication {
         }
 
         User theUser;
-
+//checks for '@' in the field to determine if it is an email or username
         if (loginFormDTO.getUsernameOrEmail().contains("@")) {
-
+// retrieves information based on successful email search
             theUser = userRepository.findByEmail(loginFormDTO.getUsernameOrEmail());
-
+// validates if the email exists in the database
             if (!loginFormDTO.getUsernameOrEmail().equals(theUser.getEmail())) {
                 errors.rejectValue("email", "email.invalid", "The given email does not exist");
                 model.addAttribute("title", "Log In");
                 return "login";
             }
-        } else { theUser = userRepository.findByUsername(loginFormDTO.getUsernameOrEmail()); }
+//  retrieves user by username after failed email search
+        } else {
+            theUser = userRepository.findByUsername(loginFormDTO.getUsernameOrEmail());
+        }
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Log In");
             return "login";
         }
-
+//verifies correct password
         String password = loginFormDTO.getPassword();
-
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
             return "login";
         }
-
+// call to set the user in session after successful login validation from above
         setUserInSession(request.getSession(), theUser);
 
         return "redirect:";
     }
+//handler for log out to end user session and invalidate current session
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login";
     }
 }
 
-    // new code above
-    /*
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String processRegistration(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "redirect:/login";
-    }
-
-    @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String processLogin(User user) {
-        Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
-        // Add login logic using optionalUser
-        return "redirect:/dashboard";
-    }
-}
-
-public class UserAuthentication {
-    @Autowired
-    private UserRepository userRepository;
-    private static Map<String, String> userDatabase = new HashMap<>();
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("1. Register\n2. Login\n3. Exit");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice) {
-                case 1:
-                    registerUser(scanner);
-                    break;
-                case 2:
-                    loginUser(scanner);
-                    break;
-                case 3:
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-    private static void registerUser(Scanner scanner) {
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine().toLowerCase();
-
-        if (userDatabase.containsKey(username)) {
-            System.out.println("Username already exists. Choose another one.");
-        } else {
-            System.out.print("Enter password: ");
-            String password = scanner.nextLine();
-
-            if (password.matches(".*\\d.*")) {
-                System.out.println("Password cannot contain numbers. Please choose another password.");
-            } else {
-                userDatabase.put(username, password);
-                System.out.println("User registered successfully!");
-            }
-        }
-    }
-
-    private static void loginUser(Scanner scanner) {
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine().toLowerCase();
-
-        if (userDatabase.containsKey(username)) {
-            System.out.print("Enter password: ");
-            String enteredPassword = scanner.nextLine();
-
-            if (enteredPassword.equals(userDatabase.get(username))) {
-                System.out.println("Login successful!");
-            } else {
-                System.out.println("Incorrect password. Login failed.");
-            }
-        } else {
-            System.out.println("Username not found. Please register first.");
-        }
-    }
-}
-
- */
+// new code above
