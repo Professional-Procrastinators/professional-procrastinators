@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class WeatherController {
 
 
     @PostMapping("/get-weather")
-    public String getWeather(@RequestParam("vacationName") String vacationName, Model model) {
+    public String getWeather(@RequestParam("vacationName") String vacationName, Model model, RedirectAttributes redirectAttributes) {
         try {
 
            List<Object> locationInformation = locationKeyService.getLocationInfo(vacationName);
@@ -73,6 +74,7 @@ public class WeatherController {
                 String jsonString = weatherService.getWeatherInfo(locationInfo);
                 System.out.println(jsonString);
                 model.addAttribute("jsonString", jsonString);
+                redirectAttributes.addFlashAttribute("jsonString", jsonString);
 
 
                 return "redirect:/view-weather";
@@ -89,7 +91,8 @@ public class WeatherController {
         return "redirect:/view-weather";
     }
     @GetMapping("/view-weather")
-    public String viewWeather(Model model) {
+    public String viewWeather(@ModelAttribute("jsonString") String jsonString, Model model) {
+        model.addAttribute(jsonString);
         return "view-weather";
     }
 
