@@ -2,6 +2,7 @@ package org.launchcode.professionalprocrastinators.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.UserRepository;
@@ -34,6 +35,31 @@ public class ProfileController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("passwordHash", user.getPasswordHash());
         return "profile";
+    }
+
+    @GetMapping("/delete_profile")
+    public String viewDeleteConfirmation() {
+        return "delete-confirmation";
+    }
+
+    @PostMapping("/delete_profile")
+    public String processDeleteConfirmation(@RequestParam String isDeleted, HttpServletRequest request, Model model) {
+        System.out.println(isDeleted);
+        boolean isDeletedValue = Boolean.valueOf(isDeleted);
+        System.out.println(isDeletedValue);
+        if (isDeletedValue) {
+            HttpSession session = request.getSession();
+            User user = userAuthentication.getUserFromSession(session);
+            userRepository.deleteById(user.getId());
+            return "redirect:/account_deleted";
+        } else return "redirect:/profile";
+    }
+
+    @GetMapping("/account_deleted")
+    public String accountDeletedSuccessfully(Model model) {
+        Boolean notLoggedIn = true;
+        model.addAttribute("notLoggedIn", notLoggedIn);
+        return "account-deleted";
     }
 }
 

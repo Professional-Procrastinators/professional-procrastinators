@@ -69,17 +69,20 @@ public class PackingListController {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
         //saves user id to the list, along with a string of items, and each items quantity.
-        System.out.println(quantityArray);
-        packingList.setUser(user);
-        packingList.setItemQuantity(quantityArray);
-        packingList.setPackingItems(arrayOfItems);
-        packingListRepository.save(packingList);
-        List<PackingList> list = user.getPackingLists();
-        list.add(packingList);
-        user.setPackingLists(list);
-        System.out.println(user);
-        userRepository.save(user);
-        return "redirect:/packing_list";
+        if (!arrayOfItems.isEmpty() || !quantityArray.isEmpty()) {
+            packingList.setUser(user);
+            packingList.setItemQuantity(quantityArray);
+            packingList.setPackingItems(arrayOfItems);
+            packingListRepository.save(packingList);
+            List<PackingList> list = user.getPackingLists();
+            list.add(packingList);
+            user.setPackingLists(list);
+            userRepository.save(user);
+            System.out.println("List added");
+            return "redirect:/packing_list";
+        }
+
+        return "packing-list";
         //TODO: make it redirect to index/packing_list/${list id} // might be hard to do since you need to find a way so that only users that created it can view it.
     }
 
