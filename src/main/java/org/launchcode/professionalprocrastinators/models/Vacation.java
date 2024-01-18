@@ -25,6 +25,10 @@ public class Vacation {
 //    @JoinColumn(name = "playlist_id")
     private String spotifyLink;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String city;
 
     private String country;
