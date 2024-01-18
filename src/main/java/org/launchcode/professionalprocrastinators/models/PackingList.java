@@ -24,7 +24,7 @@ public class PackingList {
 
     private String packingItems;
 
-//    @OneToMany(mappedBy = "PackingList", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "PackingList")
 //    private Vacation vacation;
 
     //splits the string that was made to avoid using BLOB's in the database for small strings
