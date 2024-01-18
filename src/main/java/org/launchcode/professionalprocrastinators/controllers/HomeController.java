@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.professionalprocrastinators.models.Activity;
+import org.launchcode.professionalprocrastinators.models.PackingList;
 import org.launchcode.professionalprocrastinators.models.User;
 import org.launchcode.professionalprocrastinators.models.data.ActivityRepository;
+import org.launchcode.professionalprocrastinators.models.data.PackingListRepository;
 import org.launchcode.professionalprocrastinators.models.data.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.launchcode.professionalprocrastinators.models.Vacation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +33,8 @@ public class HomeController {
     @Autowired
     UserAuthentication userAuthentication;
 
+    @Autowired
+    PackingListRepository packingListRepository;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -78,9 +83,13 @@ public class HomeController {
     }
 
     @GetMapping("edit-vacation")
-    public String displayEditVacationForm(Model model) {
+    public String displayEditVacationForm(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = userAuthentication.getUserFromSession(session);
+        List<PackingList> packingList = (List<PackingList>) packingListRepository.findByUserId(user.getId());
         model.addAttribute("title", "Edit Vacation");
         model.addAttribute("vacations", vacationRepository.findAll());
+        model.addAttribute("packingLists", packingList);
         return "/edit-vacation";
     }
 
@@ -90,15 +99,21 @@ public class HomeController {
                                           @RequestParam String vacationCountry,
                                           @RequestParam (required =false) String vacationState,
                                           @RequestParam LocalDateTime vacationDate,
-                                          @RequestParam String visibility) {
+                                          @RequestParam String visibility,
+                                          @RequestParam int selectedPackingList) {
 
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
+        PackingList packingList = packingListRepository.findById(selectedPackingList).orElse(new PackingList());
+        if (packingList != null) {
+            boolean isList = true;
+        }
 
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);
             editedVacation.setState(vacationState);
             editedVacation.setVacationDate(vacationDate);
             editedVacation.setVisibility(visibility);
+            editedVacation.setPackingList(packingList);
             vacationRepository.save(editedVacation);
 
         return "redirect:/";

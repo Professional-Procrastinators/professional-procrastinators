@@ -39,6 +39,10 @@ public class Vacation {
 
     private String visibility;
 
+    @ManyToOne
+    @JoinColumn(name = "packing_list_id")
+    private PackingList packingList;
+
     public String getVisibility() {
         return visibility;
     }
@@ -79,6 +83,14 @@ public class Vacation {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public PackingList getPackingList() {
+        return packingList;
+    }
+
+    public void setPackingList(PackingList packingList) {
+        this.packingList = packingList;
     }
 
     public String getCountry() {
