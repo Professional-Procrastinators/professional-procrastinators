@@ -2,13 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Wanderlust Rewards</title>
+  <title>My Rewards</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
 
 <div class="container mt-5">
-  <h1 class="mb-4">Wanderlust Rewards</h1>
+  <h1 class="mb-4">My Rewards</h1>
+
+  <!-- Display the username -->
+  <h2 th:text="${user.username}"></h2>
 
   <table class="table table-bordered">
     <thead class="thead-dark">
@@ -25,27 +28,7 @@
     </tr>
     </tbody>
   </table>
-
-  <!-- Button for Free Points -->
-  <button class="btn btn-primary" onclick="awardFreePoints()">Free Points (temporary)</button>
 </div>
-
-<!-- JavaScript for additional interactions (optional) -->
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  // You can add JavaScript code here for any interactions
-
-  function awardFreePoints() {
-      // Simulate awarding 4 points to the user (you may replace this with actual logic)
-      alert('Nomad Nirvana has awarded you 4 free points!');
-      // You can also update the UI or make an AJAX call to the server to update points
-  }
-
-  // Example: Alert when the page is loaded
-  alert('Welcome to Nomad Nirvana Rewards!');
-
-  /*]]>*/
-</script>
 
 </body>
 </html>
