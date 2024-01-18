@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -38,29 +39,32 @@ public class WeatherServiceImpl implements WeatherService {
         return accuWeatherForecastUrl + locationKey + endApi;
     }
 
-    public List<Object> getWeatherInfo(LocationInformation locationInformation) {
+    public String getWeatherInfo(LocationInformation locationInformation) {
         //tries to execute code and has a handler in case it catches it
         try {
 //            builds the url and checks it in console
-                String apiUrl = buildWeatherUrl(locationInformation);
+            String apiUrl = buildWeatherUrl(locationInformation);
             System.out.println(apiUrl);
             //            response entity is for the response from api, rest template is used to HTTP get the response
-                ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
             //This makes sure that the status on the HTTP request is ok, and if not the else prints what the code is
-                if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
 //                    gets body of HTTP response and sets it as String
-                    String weatherJsonString = responseEntity.getBody();
-                    System.out.println(weatherJsonString);
+                String weatherJsonString = responseEntity.getBody();
+                System.out.println(weatherJsonString);
 //                    calls the weatherParser to parse through the JSON string
-                    return WeatherParser.parseWeatherJson(weatherJsonString);
-                } else {
-                    System.out.println("Error calling the weather API. Status code: " + responseEntity.getStatusCode());
-                }
+                return weatherJsonString;
+            } else {
+                System.out.println("Error calling the weather API. Status code: " + responseEntity.getStatusCode());
+            }
 
-        } catch (IOException e) {
-//takes the exception and makes it a runtime exception so it doesn't require more
+//        } catch (IOException e) {
+////takes the exception and makes it a runtime exception so it doesn't require more
+//            throw new RuntimeException(e);
+//        }
+            return null;
+        } catch (RestClientException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 }
