@@ -92,8 +92,11 @@ public class HomeController {
                                           @RequestParam LocalDateTime vacationDate,
                                           @RequestParam String visibility) {
 
+//        This code first identifies the vacation based on the vacation the user selected on the form. The form captures the vacation's id and we use findById to pass it into the logic below.
+
         Vacation editedVacation = vacationRepository.findById(selectedVacation).orElse(new Vacation());
 
+//        For now, the user must re-enter all of their desired vacation information to update the record. In the future, we will have the site auto-fill this information and they will only need to update what is incorrect.
             editedVacation.setCity(vacationName);
             editedVacation.setCountry(vacationCountry);
             editedVacation.setState(vacationState);
@@ -116,6 +119,8 @@ public class HomeController {
                                          @RequestParam String url,
                                          @RequestParam int vacationId,
                                          @RequestParam(required = false) String notes) {
+
+//       First, find the vacation we want to link the activity to, then create the activity, then create and set the embedURL, and finally save it in the activity repository and on the linked vacation object.
 
         Vacation linkedVacation = vacationRepository.findById(vacationId).orElse(new Vacation());
 
@@ -147,6 +152,11 @@ public class HomeController {
 
     @GetMapping("/view/{vacationId}")
     public String displayViewVacation(Model model, @PathVariable int vacationId) {
+
+//       This logic is how the vacation select feature works on the homepage, which takes you to the vacation page.
+//       First, the id is passed in using the path variable. Then, the code iterates through the activity repository and checks for any activities with a linkedVacation id that matches the currently selected vacation. Any activities that are linked to the vacation are added to a list.
+//        This handler also passes the list of activities matching the selected vacation to the view page, so only activities related to that vacation are visible to the user.
+
 
         Optional<Vacation> optVacation = vacationRepository.findById(vacationId);
         ArrayList<Activity> filteredActivities = new ArrayList<>();
