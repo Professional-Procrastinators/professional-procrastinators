@@ -37,6 +37,8 @@ public class Vacation {
 
     private LocalDateTime vacationDate;
 
+
+//    Visibility will be used for a future feature, to display or hide vacations based on user privacy preferences.
     private String visibility;
 
     @ManyToOne

@@ -27,6 +27,9 @@
                 </table>
 
         <div class="indexNav">
+
+<!--            If there are no vacations entered, the page will display the "Oops, no vacations here" message.-->
+
             <p th:unless="${vacations} and ${vacations.size()}">Oops! No vacations here.</p>
             <a th:href="@{'/add-vacation'}" class="btn btn-info" role="button">Add Vacation</a>&nbsp;
             <a th:href="@{'/edit-vacation'}" class="btn btn-info" role="button">Edit Vacation</a>
@@ -47,8 +50,6 @@
     <div th:each="activity: ${activities}">
 
         <iframe width="560" height="315" th:src="${activity.embedUrl}" allowfullscreen></iframe>
-
-        <p value="${activity.notes}"></p>
 
     </div>
 
