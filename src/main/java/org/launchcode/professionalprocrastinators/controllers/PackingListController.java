@@ -36,7 +36,7 @@ public class PackingListController {
     PackingListRepository packingListRepository;
 
 
-    @GetMapping("/packing_list")
+    @GetMapping("/packing-list")
     public String displayPackingListForm(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = userAuthentication.getUserFromSession(session);
@@ -48,7 +48,7 @@ public class PackingListController {
     //    TODO:create an ArrayList in the Post for packinglist, then think of a way to have the javascript add strings to that array (you might have to make the array in JS) when the button to add the item is clicked.
 //    you might have to figure out a way that on click it wipes the input and so that on the save click it pushes it to the post controller.
 
-    @PostMapping(value = "/packing_list")
+    @PostMapping(value = "/packing-list")
     public String processPackingListForm(@RequestParam("jsonData") String jsonData, Model model, HttpServletRequest request) {
         PackingList packingList = new PackingList();
         //initalizing emptpy arrays to put data from the json object in the "try" field

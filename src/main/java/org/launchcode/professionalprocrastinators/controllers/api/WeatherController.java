@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Map;
 
+//The API key in application properties will not work and is not the real API key, go to https://developer.accuweather.com/ and create an account to get your own API key
+//The current code requests and receives the API responses it needs, however, it does not deserialize the information (it won't put them into the variables in the models)
 
 //Controls the get weather form, and also controls the view weather, uses the service classes to make get requests to the apis
 //Has 2 calls to the api, one for location information and one for weather information. Before it does weather information it also checks to make sure locationinformation != null
